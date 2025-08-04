@@ -37,8 +37,8 @@ import clsx from 'clsx';
                 })}
                 {...handlers}> 
                 <div className={c.content}>
-                    <img className={c.icon} src={icon} alt='' />
                     <span>{children}</span>
+                    <img className={c.icon} src={icon} alt='' />
                 </div>  
             </button>
             );
