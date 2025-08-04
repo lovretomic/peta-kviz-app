@@ -7,7 +7,7 @@ function App() {
     <>
       <div style={{ display: "flex", gap: "10px" }}>
         <Button variant="primary">Button with text</Button>
-        <Button variant="secondary" icon={trashIcon}>
+        <Button variant="outlined" icon={trashIcon}>
           Button with icon + text
         </Button>
         <Button variant="secondary" icon={trashIcon} />

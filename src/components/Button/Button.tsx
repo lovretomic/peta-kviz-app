@@ -20,6 +20,7 @@ const Button: React.FC<ButtonProps> = ({
         className={clsx(c.button, c.iconOnly, {
           [c.primary]: variant === "primary",
           [c.secondary]: variant === "secondary",
+          [c.outlined]: variant === "outlined",
         })}
         {...handlers}
       >
@@ -36,6 +37,7 @@ const Button: React.FC<ButtonProps> = ({
         className={clsx(c.button, className, {
           [c.primary]: variant === "primary",
           [c.secondary]: variant === "secondary",
+          [c.outlined]: variant === "outlined",
         })}
         {...handlers}
       >
@@ -52,6 +54,7 @@ const Button: React.FC<ButtonProps> = ({
       className={clsx(c.button, className, {
         [c.primary]: variant === "primary",
         [c.secondary]: variant === "secondary",
+        [c.outlined]: variant === "outlined",
       })}
       {...handlers}
     >
