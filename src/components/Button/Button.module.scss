@@ -5,6 +5,7 @@
   border-radius: 5px;
   border: none;
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.2);
   color: hsl(0, 0%, 100%);
   font-style: normal;
   font-size: 16px;
@@ -13,8 +14,15 @@
   //@include label-medium;
   transition: all 0.2s ease;
   display: block;
-  opacity: 0.2;
+  //opacity: 0.2;
 
+  &:hover:enabled {
+    background-color: rgba(255, 255, 255, 0.3); // slightly more visible on hover
+  }
+
+  &:active:enabled {
+    background-color: rgba(255, 255, 255, 0.4); // stronger highlight on click
+  }
   &:disabled {
     opacity: 0.5;
     cursor: default;
