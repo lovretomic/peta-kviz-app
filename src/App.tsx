@@ -1,5 +1,6 @@
 import "./App.css";
 import Button from "./components/Button";
+import Input from "./components/Input";
 import trashIcon from "./assets/icons/trash.svg";
 
 function App() {
@@ -11,6 +12,9 @@ function App() {
           Button with icon + text
         </Button>
         <Button variant="secondary" icon={trashIcon} />
+      </div>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Input />
       </div>
     </>
   );
