@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 
 import Button from "./components/Button";
 import trashIcon from "./assets/icons/trash.svg";
