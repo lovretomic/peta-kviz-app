@@ -8,6 +8,10 @@
 
   background-image: linear-gradient(to top, rgba(black, 0.25), rgba(black, 0));
 
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
   .item {
     display: flex;
     align-items: center;
