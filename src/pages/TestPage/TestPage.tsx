@@ -1,5 +1,7 @@
+import Navigation from "../../components/Navigation";
+
 const TestPage = () => {
-  return <h1>Test Page</h1>;
+  return <Navigation />;
 };
 
 export default TestPage;

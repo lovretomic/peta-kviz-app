@@ -4,10 +4,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import QuizzesPage from "./pages/QuizzesPage";
-import LeaderboardPage from "./pages/LeaderboardPage";
-import ApplicationPage from "./pages/ApplicationPage";
-import TestPage from "./pages/TestPage";
+import QuizzesPage from "../pages/QuizzesPage";
+import LeaderboardPage from "../pages/LeaderboardPage";
+import ApplicationPage from "../pages/ApplicationPage";
+import TestPage from "../pages/TestPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
