@@ -1,15 +1,23 @@
+import { useNavigate } from "react-router-dom";
 import { navigationItems } from "../../router/navigationItems";
 
+import c from "./Navigation.module.scss";
+
 const Navigation = () => {
+  const navigate = useNavigate();
+
   return (
-    <nav>
-      <ul>
-        {navigationItems.map((item) => (
-          <li key={item.path}>
-            <a href={item.path}>{item.name}</a>
-          </li>
-        ))}
-      </ul>
+    <nav className={c.navigation}>
+      {navigationItems.map((item) => (
+        <button
+          className={c.item}
+          onClick={() => navigate(item.path)}
+          key={item.name}
+        >
+          <img src={item.icon} alt={`${item.name} icon`} />
+          {item.name}
+        </button>
+      ))}
     </nav>
   );
 };
