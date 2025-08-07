@@ -1,7 +1,5 @@
-import Navigation from "../../components/MobileNavigation";
-
 const TestPage = () => {
-  return <Navigation />;
+  return <h1>Test page</h1>;
 };
 
 export default TestPage;
