@@ -1,0 +1,14 @@
+.mobileNavigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  gap: 24px;
+  padding: 24px;
+
+  background-image: linear-gradient(to top, rgba(black, 0.25), rgba(black, 0));
+
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
