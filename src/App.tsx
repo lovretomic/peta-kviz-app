@@ -1,6 +1,7 @@
 import "./App.css";
 import Button from "./components/Button";
 import Input from "./components/Input";
+import Progress from "./components/Progress";
 import trashIcon from "./assets/icons/trash.svg";
 
 function App() {
@@ -15,6 +16,9 @@ function App() {
       </div>
       <div style={{ display: "flex", gap: "10px" }}>
         <Input placeholderText="upiši" />
+      </div>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Progress value={70} />
       </div>
     </>
   );
