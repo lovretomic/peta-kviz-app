@@ -18,6 +18,10 @@
     gap: 8px;
   }
   &::placeholder {
-    color: rgba(255, 255, 255, 0.5); // color of placeholder text
+    color: rgba(255, 255, 255, 0.5);
+  }
+  &:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.8);
   }
 }
