@@ -14,34 +14,19 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   ...handlers
 }) => {
-  if (icon && !children) {
-    return (
-      <button
-        className={clsx(c.button, c.iconOnly, {
-          [c.primary]: variant === "primary",
-          [c.secondary]: variant === "secondary",
-          [c.outlined]: variant === "outlined",
-        })}
-        {...handlers}
-      >
-        <div className={c.content}>
-          <img className={c.icon} src={icon} alt="" />
-        </div>
-      </button>
-    );
-  }
-
+  const isIconOnly = !!icon && !children;
   return (
     <button
       className={clsx(c.button, className, {
         [c.primary]: variant === "primary",
         [c.secondary]: variant === "secondary",
         [c.outlined]: variant === "outlined",
+        [c.iconOnly]: isIconOnly,
       })}
       {...handlers}
     >
       <div className={c.content}>
-        <span>{children}</span>
+        {children ? <span>{children}</span> : null}
         {icon ? <img className={c.icon} src={icon} alt="" /> : null}
       </div>
     </button>
