@@ -1,11 +1,10 @@
 import { navigationItems } from "../../router/navigationItems";
-
-import c from "./MobileNavigation.module.scss";
 import NavigationButton from "../NavigationButton/NavigationButton";
+import c from "./DesktopNavigation.module.scss";
 
-const MobileNavigation = () => {
+const DesktopNavigation = () => {
   return (
-    <nav className={c.mobileNavigation}>
+    <nav className={c.desktopNavigation}>
       {navigationItems.map((item) => (
         <NavigationButton key={item.name} item={item} />
       ))}
@@ -13,4 +12,4 @@ const MobileNavigation = () => {
   );
 };
 
-export default MobileNavigation;
+export default DesktopNavigation;

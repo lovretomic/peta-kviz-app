@@ -1,13 +1,15 @@
 import { Outlet } from "react-router-dom";
-import Navigation from "../../components/MobileNavigation";
+import MobileNavigation from "../../components/MobileNavigation";
+import DesktopNavigation from "../../components/DesktopNavigation";
 
 const Layout = () => {
   return (
     <div style={{ maxHeight: "100dvh" }}>
+      <DesktopNavigation />
       <main>
         <Outlet />
       </main>
-      <Navigation />
+      <MobileNavigation />
     </div>
   );
 };
