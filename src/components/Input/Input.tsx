@@ -2,20 +2,11 @@ import c from "./Input.module.scss";
 import clsx from "clsx";
 
 type InputProps = {
-  placeholderText?: string;
+  placeholder?: string;
   className?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
-const Input: React.FC<InputProps> = ({
-  className,
-  placeholderText,
-  ...handlers
-}) => {
-  return (
-    <input
-      placeholder={placeholderText}
-      className={clsx(c.input, className)}
-      {...handlers}
-    ></input>
-  );
+
+const Input: React.FC<InputProps> = ({ className, ...handlers }) => {
+  return <input className={clsx(c.input, className)} {...handlers} />;
 };
 export default Input;

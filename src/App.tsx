@@ -14,7 +14,7 @@ function App() {
         <Button variant="secondary" icon={trashIcon} />
       </div>
       <div style={{ display: "flex", gap: "10px" }}>
-        <Input placeholderText="upiši" />
+        <Input placeholder="upiši" />
       </div>
     </>
   );
