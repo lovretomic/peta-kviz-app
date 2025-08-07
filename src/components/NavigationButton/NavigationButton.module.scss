@@ -25,6 +25,10 @@
     background-color: rgba(white, 0.05);
   }
 
+  &.desktop {
+    width: 150px;
+  }
+
   &:hover {
     background-color: rgba(white, 0.1);
   }

@@ -6,7 +6,7 @@ const DesktopNavigation = () => {
   return (
     <nav className={c.desktopNavigation}>
       {navigationItems.map((item) => (
-        <NavigationButton key={item.name} item={item} />
+        <NavigationButton key={item.name} item={item} isDesktop />
       ))}
     </nav>
   );

@@ -1,3 +1,3 @@
-import NavigationItem from "./NavigationItem";
+import NavigationItem from "./NavigationButton";
 
 export default NavigationItem;
