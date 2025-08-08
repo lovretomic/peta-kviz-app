@@ -5,6 +5,14 @@ import { navigationItems } from "../../router/navigationItems";
 
 const Header = () => {
   const location = useLocation();
+
+  if (
+    location.pathname ===
+    navigationItems.find((item) => item.name === "Test")?.path
+  ) {
+    return null;
+  }
+
   const title = navigationItems.find(
     (item) => item.path === location.pathname
   )?.name;
