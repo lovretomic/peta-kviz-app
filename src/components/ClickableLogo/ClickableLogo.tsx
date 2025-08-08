@@ -1,7 +1,6 @@
 import { clsx } from "clsx";
 import Logo from "../../assets/logo.svg";
 import c from "./ClickableLogo.module.scss";
-import { useNavigate } from "react-router-dom";
 
 const ClickableLogo = (props: React.HTMLAttributes<HTMLImageElement>) => {
   return (
