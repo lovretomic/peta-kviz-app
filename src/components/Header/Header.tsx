@@ -1,8 +1,8 @@
 import { useLocation } from "react-router-dom";
-import Logo from "../../assets/logo.svg";
 import c from "./Header.module.scss";
 import { navigationItems } from "../../router/navigationItems";
 import { useIsDesktop } from "../../hooks/useIsDesktop";
+import ClickableLogo from "../ClickableLogo";
 
 const Header = () => {
   const location = useLocation();
@@ -23,7 +23,7 @@ const Header = () => {
     <header className={c.header}>
       {!isDesktop && (
         <>
-          <img className={c.logo} src={Logo} alt="Logo" />
+          <ClickableLogo className={c.logo} />
           <div className={c.separator} />
         </>
       )}

@@ -2,12 +2,12 @@ import {} from "../../hooks/useIsDesktop";
 import { navigationItems } from "../../router/navigationItems";
 import NavigationButton from "../NavigationButton/NavigationButton";
 import c from "./DesktopNavigation.module.scss";
-import Logo from "../../assets/logo.svg";
+import ClickableLogo from "../ClickableLogo";
 
 const DesktopNavigation = () => {
   return (
     <nav className={c.desktopNavigation}>
-      <img className={c.logo} src={Logo} />
+      <ClickableLogo className={c.logo} />
       {navigationItems.map((item) => (
         <NavigationButton key={item.name} item={item} isDesktop />
       ))}
