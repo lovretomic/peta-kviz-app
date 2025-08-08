@@ -11,11 +11,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   ...handlers
 }) => {
   return (
-    <div className={clsx(c.progressBarContainer, className)} {...handlers}>
-      <div
-        className={clsx(c.progress, className)}
-        style={{ width: `${percentage}%` }}
-      ></div>
+    <div className={c.progressBarContainer}>
+      <div className={clsx(c.progressBar, className)} {...handlers}>
+        <div
+          className={clsx(c.progress, className)}
+          style={{ width: `${percentage}%` }}
+        ></div>
+      </div>
     </div>
   );
 };
