@@ -1,5 +1,6 @@
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 
 const TestPage = () => {
@@ -14,6 +15,9 @@ const TestPage = () => {
       </div>
       <div style={{ display: "flex", gap: "10px" }}>
         <Input placeholder="upiši" />
+      </div>
+      <div>
+        <ProgressBar value={50} />
       </div>
     </>
   );
