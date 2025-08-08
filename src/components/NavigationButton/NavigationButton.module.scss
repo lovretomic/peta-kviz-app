@@ -16,9 +16,14 @@
   height: 64px;
   border-radius: 10px;
 
+  user-select: none;
+
   img {
     height: 24px;
     width: 24px;
+    user-select: none;
+    pointer-events: none;
+    -webkit-user-drag: none;
   }
 
   &.active {
