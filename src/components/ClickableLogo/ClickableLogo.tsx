@@ -9,7 +9,13 @@ const ClickableLogo = (props: React.HTMLAttributes<HTMLImageElement>) => {
       className={clsx(c.clickableLogo, props.className)}
       src={Logo}
       alt="Logo"
-      onClick={() => window.open("https://www.instagram.com/peta_kviz/")}
+      onClick={() =>
+        window.open(
+          "https://www.instagram.com/peta_kviz/",
+          "_blank",
+          "noopener,noreferrer"
+        )
+      }
     />
   );
 };

@@ -1,4 +1,3 @@
-import {} from "../../hooks/useIsDesktop";
 import { navigationItems } from "../../router/navigationItems";
 import NavigationButton from "../NavigationButton/NavigationButton";
 import c from "./DesktopNavigation.module.scss";

@@ -8,10 +8,7 @@ const Header = () => {
   const location = useLocation();
   const isDesktop = useIsDesktop();
 
-  if (
-    location.pathname ===
-    navigationItems.find((item) => item.name === "Test")?.path
-  ) {
+  if (location.pathname === "/test") {
     return null;
   }
 
