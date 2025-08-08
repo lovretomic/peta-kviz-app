@@ -2,7 +2,6 @@ import c from "./Input.module.scss";
 import clsx from "clsx";
 
 type InputProps = {
-  placeholder?: string;
   className?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
