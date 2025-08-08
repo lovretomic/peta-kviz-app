@@ -1,0 +1,11 @@
+.clickableLogo {
+  cursor: pointer;
+  transition: 200ms ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+  }
+  &:active {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+}
