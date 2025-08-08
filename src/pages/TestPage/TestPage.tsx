@@ -17,7 +17,7 @@ const TestPage = () => {
         <Input placeholder="upiši" />
       </div>
       <div>
-        <ProgressBar value={50} />
+        <ProgressBar percentage={40} />
       </div>
     </>
   );

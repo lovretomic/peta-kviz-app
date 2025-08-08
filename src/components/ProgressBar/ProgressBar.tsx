@@ -2,19 +2,19 @@ import c from "./ProgressBar.module.scss";
 import clsx from "clsx";
 
 type ProgressBarProps = {
-  value: number;
+  percentage: number;
   className?: string;
 } & React.HTMLAttributes<HTMLDivElement>;
 const ProgressBar: React.FC<ProgressBarProps> = ({
-  value,
+  percentage,
   className,
   ...handlers
 }) => {
   return (
-    <div className={clsx(c.progress, className)} {...handlers}>
+    <div className={clsx(c.progressBarContainer, className)} {...handlers}>
       <div
-        className={clsx(c.bar, className)}
-        style={{ width: `${value}%` }}
+        className={clsx(c.progress, className)}
+        style={{ width: `${percentage}%` }}
       ></div>
     </div>
   );
