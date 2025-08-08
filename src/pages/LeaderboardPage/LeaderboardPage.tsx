@@ -1,5 +1,5 @@
 const LeaderboardPage = () => {
-  return <h1>Leaderboard</h1>;
+  return <></>;
 };
 
 export default LeaderboardPage;
