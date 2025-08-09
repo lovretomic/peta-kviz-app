@@ -1,5 +1,6 @@
 import c from "./ProgressBar.module.scss";
 import clsx from "clsx";
+import carIcon from "../../assets/icons/full-cars.svg";
 
 type ProgressBarProps = {
   percentage: number;
@@ -31,9 +32,12 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           ? `Popunjeno ${percentage} % mjesta`
           : "Sva su mjesta popunjena!"}
       </div>
-
       {percentage === 100 && (
-        <div className={c.fullPopup}>Kviz je popunjen do kraja!</div>
+        <div className={c.fullPopup}>
+          <img src={carIcon} alt="Kviz popunjen do kraja" />
+          Vašu ćemo prijavu prihvatiti ako se oslobodi mjesto. Prati obavijesti
+          putem e-pošte i Instagrama.
+        </div>
       )}
     </div>
   );

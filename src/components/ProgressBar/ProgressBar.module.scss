@@ -22,6 +22,7 @@
   gap: 16px;
   background-color: rgba(white, 0.1);
   font-size: 16px;
+  border-radius: 8px;
   .info {
     display: flex;
     flex-direction: row;
@@ -38,10 +39,16 @@
   color: rgba(white, 0.5);
 }
 .fullPopup {
+  gap: 6px;
+  display: flex;
+  justify-content: row;
+  flex-direction: row;
   background-color: rgba(white, 0.15);
   border: 1px solid rgba(white, 0.5);
   margin-left: -16px;
   margin-right: -16px;
   margin-bottom: -16px;
   padding: 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
