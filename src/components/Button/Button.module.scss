@@ -29,6 +29,10 @@
 .primary {
   background-color: white;
   color: #1d2f31;
+
+  span {
+    color: #1d2f31;
+  }
 }
 
 .primary:hover:enabled {

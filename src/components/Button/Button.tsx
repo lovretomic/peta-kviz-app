@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   const isIconOnly = !!icon && !children;
   return (
     <button
-      className={clsx(c.button, className, {
+      className={clsx(c.button, {
         [c.primary]: variant === "primary",
         [c.secondary]: variant === "secondary",
         [c.outlined]: variant === "outlined",
