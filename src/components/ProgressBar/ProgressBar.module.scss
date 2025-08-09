@@ -17,7 +17,22 @@
 .progressBarContainer {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   padding: 16px;
+  gap: 16px;
   background-color: rgba(white, 0.1);
+  font-size: 16px;
+  .info {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    .date {
+      color: rgba(white, 0.5);
+    }
+  }
+}
+.percentage {
+  font-size: 12px;
+  color: rgba(white, 0.5);
 }

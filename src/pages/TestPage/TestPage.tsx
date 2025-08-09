@@ -17,7 +17,11 @@ const TestPage = () => {
         <Input placeholder="upiši" />
       </div>
       <div>
-        <ProgressBar percentage={40} />
+        <ProgressBar
+          label="Kviz općeg znanja"
+          date="petak, 4.9.2025."
+          percentage={70}
+        />
       </div>
     </>
   );
