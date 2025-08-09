@@ -31,6 +31,10 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           ? `Popunjeno ${percentage} % mjesta`
           : "Sva su mjesta popunjena!"}
       </div>
+
+      {percentage === 100 && (
+        <div className={c.fullPopup}>Kviz je popunjen do kraja!</div>
+      )}
     </div>
   );
 };
