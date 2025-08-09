@@ -1,18 +1,21 @@
 import c from "./ProgressBar.module.scss";
 import clsx from "clsx";
 import carIcon from "../../assets/icons/full-cars.svg";
+import Button from "../Button/Button";
 
 type ProgressBarProps = {
   percentage: number;
   label: string;
   date: string;
   className?: string;
+  variant?: "default" | "withButtons";
 } & React.HTMLAttributes<HTMLDivElement>;
 const ProgressBar: React.FC<ProgressBarProps> = ({
   percentage,
   label,
   date,
   className,
+  variant = "default",
   ...handlers
 }) => {
   return (
@@ -37,6 +40,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           <img src={carIcon} alt="Kviz popunjen do kraja" />
           Vašu ćemo prijavu prihvatiti ako se oslobodi mjesto. Prati obavijesti
           putem e-pošte i Instagrama.
+        </div>
+      )}
+
+      {variant === "withButtons" && percentage !== 100 && (
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button variant="secondary">Prijavi se</Button>
+          <Button variant="primary">Odustani</Button>
         </div>
       )}
     </div>
