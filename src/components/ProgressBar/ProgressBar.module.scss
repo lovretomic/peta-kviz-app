@@ -3,7 +3,6 @@
   flex-direction: column;
   gap: 4px;
   width: 100%;
-  max-width: 313px;
   height: 4px;
   background-color: rgba(white, 0.2);
   border-radius: 2px;
@@ -15,10 +14,10 @@
   transition: width 0.3s ease;
 }
 .progressBarContainer {
+  box-sizing: border-box;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   padding: 16px;
   gap: 16px;
   background-color: rgba(white, 0.1);
@@ -26,6 +25,7 @@
   .info {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     gap: 4px;
     .date {
       color: rgba(white, 0.5);
