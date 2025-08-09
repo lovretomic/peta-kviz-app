@@ -8,11 +8,13 @@
   border-radius: 2px;
   overflow: hidden;
 }
+
 .progress {
   height: 100%;
   background-color: white;
   transition: width 0.3s ease;
 }
+
 .progressBarContainer {
   box-sizing: border-box;
   width: 100%;
@@ -23,28 +25,34 @@
   background-color: rgba(white, 0.1);
   font-size: 16px;
   border-radius: 8px;
+
   .info {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     gap: 4px;
+
     .date {
       color: rgba(white, 0.5);
       margin-left: auto;
     }
   }
 }
+
 .percentage {
   font-size: 12px;
   color: rgba(white, 0.5);
 }
+
 .fullPopup {
   gap: 6px;
   display: flex;
   justify-content: row;
   flex-direction: row;
+
   background-color: rgba(white, 0.15);
   border: 1px solid rgba(white, 0.5);
+
   margin-left: -16px;
   margin-right: -16px;
   margin-bottom: -16px;

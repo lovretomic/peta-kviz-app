@@ -10,6 +10,7 @@ type ProgressBarProps = {
   className?: string;
   variant?: "default" | "withButtons";
 } & React.HTMLAttributes<HTMLDivElement>;
+
 const ProgressBar: React.FC<ProgressBarProps> = ({
   percentage,
   label,
@@ -24,17 +25,20 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         <span>{label}</span>
         <span className={c.date}>{date}</span>
       </div>
+
       <div className={clsx(c.progressBar, className)} {...handlers}>
         <div
           className={clsx(c.progress, className)}
           style={{ width: `${percentage}%` }}
         ></div>
       </div>
+
       <div className={c.percentage}>
         {percentage < 100
           ? `Popunjeno ${percentage} % mjesta`
           : "Sva su mjesta popunjena!"}
       </div>
+
       {percentage === 100 && (
         <div className={c.fullPopup}>
           <img src={carIcon} alt="Kviz popunjen do kraja" />
