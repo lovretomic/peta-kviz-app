@@ -1,4 +1,16 @@
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: seperate;
+  border: rgba(white, 0.2) solid 1px;
+  border-radius: 8px;
+}
+
+.th {
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+}
+.th:first-child {
+  color: rgba(white, 0.5);
+  width: 50%;
 }

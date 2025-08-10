@@ -18,7 +18,7 @@ const Table: React.FC<TableProps> = ({
       <thead>
         <tr>
           {headers.map((header, index) => (
-            <th key={index} className={c.header}>
+            <th key={index} className={c.th}>
               {header}
             </th>
           ))}
