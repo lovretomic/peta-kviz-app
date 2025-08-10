@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+
+  padding-top: 40px;
+  box-shadow: 0 0 50px 20px $green-dark;
+
+  .separator {
+    width: 150px;
+    height: 1px;
+    background-color: rgba(white, 0.05);
+  }
+}
