@@ -29,6 +29,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
               ? date
               : "Neispravan datum"
             : date.toLocaleDateString("hr-HR", {
+                weekday: "long",
                 year: "numeric",
                 month: "numeric",
                 day: "numeric",

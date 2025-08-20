@@ -19,7 +19,7 @@ const TestPage = () => {
       <div>
         <ProgressBar
           label="Kviz općeg znanja"
-          date="petak, 4.9.2025."
+          date="petak, 4. 9. 2025."
           percentage={100}
         />
         <ProgressBar
