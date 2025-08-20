@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 type ProgressBarProps = {
   percentage: number;
   label: string;
-  date: string;
+  date: Date | string;
   className?: string;
   variant?: "default" | "withButtons";
 } & React.HTMLAttributes<HTMLDivElement>;
@@ -23,7 +23,17 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className={c.progressBarContainer}>
       <div className={c.info}>
         <span>{label}</span>
-        <span className={c.date}>{date}</span>
+        <span className={c.date}>
+          {typeof date === "string"
+            ? Date.parse(date)
+              ? date
+              : "Neispravan datum"
+            : date.toLocaleDateString("hr-HR", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+              })}
+        </span>
       </div>
 
       <div className={clsx(c.progressBar, className)} {...handlers}>
