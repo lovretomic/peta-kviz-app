@@ -24,7 +24,7 @@ const TestPage = () => {
         />
         <ProgressBar
           label="Kviz općeg znanja"
-          date="petak, 4.9.2025."
+          date={new Date()}
           percentage={70}
           variant="withButtons"
         />
