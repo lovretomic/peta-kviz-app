@@ -9,6 +9,7 @@ type ProgressBarProps = {
   date: Date | string;
   className?: string;
   variant?: "default" | "withButtons";
+  showMessage?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
@@ -17,6 +18,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   date,
   className,
   variant = "default",
+  showMessage = true,
   ...handlers
 }) => {
   return (
@@ -50,7 +52,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
           : "Sva su mjesta popunjena!"}
       </div>
 
-      {percentage === 100 && (
+      {percentage === 100 && showMessage && (
         <div className={c.fullPopup}>
           <img src={carIcon} alt="Kviz popunjen do kraja" />
           Vašu ćemo prijavu prihvatiti ako se oslobodi mjesto. Prati obavijesti
