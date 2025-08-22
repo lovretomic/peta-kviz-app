@@ -9,6 +9,8 @@ import LeaderboardPage from "../pages/LeaderboardPage";
 import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
+import AdminLayout from "./AdminLayout";
+import AdminApplicationsPage from "../pages/AdminApplicationsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +20,9 @@ const router = createBrowserRouter(
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/apply" element={<ApplicationPage />} />
         <Route path="/test" element={<TestPage />} />
+      </Route>
+      <Route path="/admin" element={<AdminLayout />}>
+        <Route path="applications" element={<AdminApplicationsPage />} />
       </Route>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </>
