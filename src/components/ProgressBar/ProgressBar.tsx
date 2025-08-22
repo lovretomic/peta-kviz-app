@@ -18,7 +18,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
   date,
   className,
   variant = "default",
-  showMessage = true,
+  showMessage = false,
   ...handlers
 }) => {
   return (
