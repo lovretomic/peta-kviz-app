@@ -12,6 +12,18 @@ type ProgressBarProps = {
   showMessage?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
+function formatDate(date: Date | string): string {
+  if (typeof date === "string") {
+    return Date.parse(date) ? date : "Neispravan datum";
+  }
+  return date.toLocaleDateString("hr-HR", {
+    weekday: "long",
+    year: "numeric",
+    month: "narrow",
+    day: "numeric",
+  });
+}
+
 const ProgressBar: React.FC<ProgressBarProps> = ({
   percentage,
   label,
@@ -25,18 +37,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
     <div className={c.progressBarContainer}>
       <div className={c.info}>
         <span>{label}</span>
-        <span className={c.date}>
-          {typeof date === "string"
-            ? Date.parse(date)
-              ? date
-              : "Neispravan datum"
-            : date.toLocaleDateString("hr-HR", {
-                weekday: "long",
-                year: "numeric",
-                month: "numeric",
-                day: "numeric",
-              })}
-        </span>
+        <span className={c.date}>{formatDate(date)}</span>
       </div>
 
       <div className={clsx(c.progressBar, className)} {...handlers}>
