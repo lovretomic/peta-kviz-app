@@ -1,0 +1,20 @@
+.adminApplicationsPage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  .main {
+    background-color: yellow;
+  }
+
+  .hSeparator {
+    height: 100%;
+    width: 10px;
+    background-color: purple;
+    cursor: ew-resize;
+  }
+
+  .aside {
+    background-color: blue;
+  }
+}

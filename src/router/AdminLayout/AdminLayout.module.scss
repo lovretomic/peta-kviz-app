@@ -21,6 +21,11 @@
 
     .left {
       gap: 8px;
+
+      .debugInfo {
+        color: rgba(white, 0.2);
+        user-select: none;
+      }
     }
 
     .right {
@@ -33,5 +38,6 @@
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    overflow: hidden;
   }
 }
