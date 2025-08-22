@@ -3,6 +3,16 @@
   height: 100%;
   display: flex;
 
+  .main {
+    .header {
+      font-size: 36px;
+      box-sizing: border-box;
+      padding: 40px 40px;
+      width: calc(100% + 10px);
+      border-bottom: 1px solid rgba(black, 0.1);
+    }
+  }
+
   .hSeparator {
     height: 100%;
     width: 20px;
@@ -10,11 +20,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 100ms ease-in-out;
 
     &:hover {
+      background-color: rgba(black, 0.05);
       .resizeHandle {
         width: 2px;
-        background-color: rgba(black, 0.4);
+        background-color: rgba(black, 0.3);
       }
     }
 

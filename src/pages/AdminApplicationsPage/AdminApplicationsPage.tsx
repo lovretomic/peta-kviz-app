@@ -33,11 +33,9 @@ const AdminApplicationsPage = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <main
-        className={c.main}
-        ref={leftRef}
-        style={{ width, color: "black" }}
-      ></main>
+      <main className={c.main} ref={leftRef} style={{ width, color: "black" }}>
+        <header className={c.header}>Prijave</header>
+      </main>
       <div
         className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
         onMouseDown={handleMouseDown}
