@@ -1,10 +1,11 @@
 import Button from "../../components/Button";
 import Input from "../../components/Input";
+import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 
 const TestPage = () => {
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ display: "flex", gap: "10px" }}>
         <Button variant="primary">Button with text</Button>
         <Button variant="outlined" icon={trashIcon}>
@@ -15,7 +16,20 @@ const TestPage = () => {
       <div style={{ display: "flex", gap: "10px" }}>
         <Input placeholder="upiši" />
       </div>
-    </>
+      <div>
+        <ProgressBar
+          label="Kviz općeg znanja"
+          date="petak, 4. 9. 2025."
+          percentage={100}
+        />
+        <ProgressBar
+          label="Kviz općeg znanja"
+          date={new Date()}
+          percentage={70}
+          variant="withButtons"
+        />
+      </div>
+    </div>
   );
 };
 
