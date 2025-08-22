@@ -43,7 +43,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
         <div
           className={clsx(c.progress, className)}
           style={{ width: `${percentage}%` }}
-        ></div>
+        />
       </div>
 
       <div className={c.percentage}>
@@ -61,7 +61,7 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       )}
 
       {variant === "withButtons" && percentage !== 100 && (
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "16px" }}>
           <Button variant="secondary">Prijavi se</Button>
           <Button variant="primary">Odustani</Button>
         </div>
