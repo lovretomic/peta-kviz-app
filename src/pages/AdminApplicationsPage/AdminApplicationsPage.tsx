@@ -1,16 +1,15 @@
 import { useRef, useState } from "react";
 import c from "./AdminApplicationsPage.module.scss";
+import clsx from "clsx";
 
 const AdminApplicationsPage = () => {
   const leftRef = useRef<HTMLDivElement>(null);
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [startWidth, setStartWidth] = useState<number>(0);
-  const [width, setWidth] = useState<number>(300);
+  const [width, setWidth] = useState<number>(0.8 * window.innerWidth);
 
   const handleMouseDown = () => {
     setIsDragging(true);
-    setStartWidth(leftRef.current?.getBoundingClientRect().width || 0);
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -34,12 +33,17 @@ const AdminApplicationsPage = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <main className={c.main} ref={leftRef} style={{ width, color: "black" }}>
-        {`startWidth: ${startWidth}
-            width: ${width}
-        `}
-      </main>
-      <div className={c.hSeparator} onMouseDown={handleMouseDown} />
+      <main
+        className={c.main}
+        ref={leftRef}
+        style={{ width, color: "black" }}
+      ></main>
+      <div
+        className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
+        onMouseDown={handleMouseDown}
+      >
+        <div className={c.resizeHandle} />
+      </div>
       <aside
         className={c.aside}
         style={{ width: `calc(100% - ${width}px)` }}
