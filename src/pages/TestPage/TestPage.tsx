@@ -2,6 +2,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
+import PillButton from "../../components/PillButton";
 
 const TestPage = () => {
   return (
@@ -28,6 +29,9 @@ const TestPage = () => {
           percentage={70}
           variant="withButtons"
         />
+      </div>
+      <div>
+        <PillButton variant="primary" icon={trashIcon} />
       </div>
     </div>
   );
