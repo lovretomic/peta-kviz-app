@@ -3,6 +3,7 @@ import c from "./AdminApplicationsPage.module.scss";
 import clsx from "clsx";
 import AdminButton from "../../components/AdminButton";
 import DownloadIcon from "../../assets/icons/download.svg?react";
+import { teams } from "./teams";
 
 const AdminApplicationsPage = () => {
   const leftRef = useRef<HTMLDivElement>(null);
@@ -39,10 +40,31 @@ const AdminApplicationsPage = () => {
         <header className={c.header}>
           <h2 className={c.title}>Prijave</h2>
           <AdminButton Icon={DownloadIcon}>Izvezi (.xlsx)</AdminButton>
-          <AdminButton Icon={DownloadIcon} variant="secondary">
-            Izvezi (.xlsx)
-          </AdminButton>
         </header>
+        <section className={c.tableSection}>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Naziv ekipe</th>
+                <th>Kapetan</th>
+                <th>Kontakt</th>
+                <th>Članovi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {teams.map((team) => (
+                <tr key={team.id}>
+                  <td>{team.id}</td>
+                  <td>{team.name}</td>
+                  <td>{team.captainName}</td>
+                  <td>{team.captainEmail}</td>
+                  <td>{team.members.join(", ")}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       </main>
       <div
         className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
