@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import c from "./AdminApplicationsPage.module.scss";
 import clsx from "clsx";
+import AdminButton from "../../components/AdminButton";
+import DownloadIcon from "../../assets/icons/download.svg?react";
 
 const AdminApplicationsPage = () => {
   const leftRef = useRef<HTMLDivElement>(null);
@@ -34,7 +36,13 @@ const AdminApplicationsPage = () => {
       onMouseLeave={handleMouseUp}
     >
       <main className={c.main} ref={leftRef} style={{ width, color: "black" }}>
-        <header className={c.header}>Prijave</header>
+        <header className={c.header}>
+          <h2 className={c.title}>Prijave</h2>
+          <AdminButton Icon={DownloadIcon}>Izvezi (.xlsx)</AdminButton>
+          <AdminButton Icon={DownloadIcon} variant="secondary">
+            Izvezi (.xlsx)
+          </AdminButton>
+        </header>
       </main>
       <div
         className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}

@@ -5,11 +5,19 @@
 
   .main {
     .header {
-      font-size: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
       box-sizing: border-box;
-      padding: 40px 40px;
+      padding: 30px 40px;
       width: calc(100% + 10px);
       border-bottom: 1px solid rgba(black, 0.1);
+
+      .title {
+        font-size: 36px;
+        font-weight: normal;
+      }
     }
   }
 
