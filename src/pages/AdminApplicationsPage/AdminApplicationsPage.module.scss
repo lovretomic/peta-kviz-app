@@ -171,4 +171,24 @@
       background-color: rgba(black, 0.1);
     }
   }
+
+  .aside {
+    .closeButtonContainer {
+      display: flex;
+      justify-content: flex-end;
+      box-sizing: border-box;
+      padding: 20px;
+
+      .closeButton {
+        padding: 8px;
+        fill: $grey-dark;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(black, 0.05);
+          border-radius: 8px;
+        }
+      }
+    }
+  }
 }

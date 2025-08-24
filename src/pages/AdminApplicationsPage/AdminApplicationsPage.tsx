@@ -3,6 +3,7 @@ import c from "./AdminApplicationsPage.module.scss";
 import clsx from "clsx";
 import AdminButton from "../../components/AdminButton";
 import DownloadIcon from "../../assets/icons/download.svg?react";
+import CloseIcon from "../../assets/icons/close.svg?react";
 import { teams } from "./teams";
 
 const AdminApplicationsPage = () => {
@@ -10,6 +11,8 @@ const AdminApplicationsPage = () => {
 
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0.8 * window.innerWidth);
+
+  const [sidePanelOpen, setSidePanelOpen] = useState<boolean>(false);
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -36,7 +39,11 @@ const AdminApplicationsPage = () => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-      <main className={c.main} ref={leftRef} style={{ width, color: "black" }}>
+      <main
+        className={c.main}
+        ref={leftRef}
+        style={{ width: sidePanelOpen ? width : "100%", color: "black" }}
+      >
         <header className={c.header}>
           <h2 className={c.title}>Prijave</h2>
           <AdminButton Icon={DownloadIcon}>Izvezi (.xlsx)</AdminButton>
@@ -54,7 +61,7 @@ const AdminApplicationsPage = () => {
             </thead>
             <tbody>
               {teams.map((team) => (
-                <tr key={team.id}>
+                <tr key={team.id} onClick={() => setSidePanelOpen(true)}>
                   <td>{team.id}</td>
                   <td>{team.name}</td>
                   <td>{team.captainName}</td>
@@ -66,16 +73,27 @@ const AdminApplicationsPage = () => {
           </table>
         </section>
       </main>
-      <div
-        className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
-        onMouseDown={handleMouseDown}
-      >
-        <div className={c.resizeHandle} />
-      </div>
-      <aside
-        className={c.aside}
-        style={{ width: `calc(100% - ${width}px)` }}
-      ></aside>
+      {sidePanelOpen && (
+        <>
+          <div
+            className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
+            onMouseDown={handleMouseDown}
+          >
+            <div className={c.resizeHandle} />
+          </div>
+          <aside
+            className={c.aside}
+            style={{ width: `calc(100% - ${width}px)` }}
+          >
+            <header className={c.closeButtonContainer}>
+              <CloseIcon
+                className={c.closeButton}
+                onClick={() => setSidePanelOpen(false)}
+              />
+            </header>
+          </aside>
+        </>
+      )}
     </div>
   );
 };
