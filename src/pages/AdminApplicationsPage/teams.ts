@@ -92,4 +92,18 @@ export const teams: Team[] = [
     captainEmail: "hannah@example.com",
     members: ["Jack", "Liam", "Olivia"],
   },
+  {
+    id: 14,
+    name: "Team N",
+    captainName: "Ian McKellen",
+    captainEmail: "ian@example.com",
+    members: ["Jack", "Liam", "Olivia"],
+  },
+  {
+    id: 15,
+    name: "Team O",
+    captainName: "J.K. Rowling",
+    captainEmail: "jk@example.com",
+    members: ["Harry", "Hermione", "Ron"],
+  },
 ];

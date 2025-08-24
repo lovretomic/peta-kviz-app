@@ -42,7 +42,7 @@ const AdminApplicationsPage = () => {
           <AdminButton Icon={DownloadIcon}>Izvezi (.xlsx)</AdminButton>
         </header>
         <section className={c.tableSection}>
-          <table>
+          <table className={c.table}>
             <thead>
               <tr>
                 <th>ID</th>
