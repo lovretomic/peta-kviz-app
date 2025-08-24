@@ -35,9 +35,22 @@
 
       .table {
         $scrollbar-width: 10px;
+        $cell-padding-horizontal: 20px;
+        $cell-padding-vertical: 12px;
+        $cell-padding: $cell-padding-vertical $cell-padding-horizontal;
+
+        th,
+        td {
+          &:nth-of-type(1) {
+            width: 50px;
+          }
+        }
 
         height: 100%;
-        width: 100%;
+        width: calc(100% + $cell-padding-horizontal);
+        position: relative;
+        left: -$cell-padding-horizontal;
+        box-sizing: border-box;
         display: flex;
         flex-direction: column;
 
@@ -82,7 +95,7 @@
             th {
               text-align: left;
 
-              padding: 12px 20px;
+              padding: $cell-padding;
               color: rgba(black, 0.2);
               font-weight: normal;
             }
@@ -98,12 +111,14 @@
             cursor: pointer;
             border-radius: 8px;
 
+            /*
             &:nth-of-type(odd) {
               background-color: rgba(black, 0.02);
             }
+              */
 
             td {
-              padding: 12px 20px;
+              padding: $cell-padding;
 
               &:first-child {
                 border-radius: 8px 0 0 8px;
