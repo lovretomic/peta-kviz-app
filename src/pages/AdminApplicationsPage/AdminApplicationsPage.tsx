@@ -5,6 +5,7 @@ import AdminButton from "../../components/AdminButton";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import CloseIcon from "../../assets/icons/close.svg?react";
 import { teams } from "./teams";
+import type { Team } from "../../types";
 
 const AdminApplicationsPage = () => {
   const leftRef = useRef<HTMLDivElement>(null);
@@ -12,7 +13,7 @@ const AdminApplicationsPage = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0.8 * window.innerWidth);
 
-  const [sidePanelOpen, setSidePanelOpen] = useState<boolean>(false);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -42,7 +43,7 @@ const AdminApplicationsPage = () => {
       <main
         className={c.main}
         ref={leftRef}
-        style={{ width: sidePanelOpen ? width : "100%", color: "black" }}
+        style={{ width: selectedTeam ? width : "100%", color: "black" }}
       >
         <header className={c.header}>
           <h2 className={c.title}>Prijave</h2>
@@ -61,7 +62,7 @@ const AdminApplicationsPage = () => {
             </thead>
             <tbody>
               {teams.map((team) => (
-                <tr key={team.id} onClick={() => setSidePanelOpen(true)}>
+                <tr key={team.id} onClick={() => setSelectedTeam(team)}>
                   <td>{team.id}</td>
                   <td>{team.name}</td>
                   <td>{team.captainName}</td>
@@ -73,7 +74,7 @@ const AdminApplicationsPage = () => {
           </table>
         </section>
       </main>
-      {sidePanelOpen && (
+      {selectedTeam && (
         <>
           <div
             className={clsx(c.hSeparator, { [c.isDragging]: isDragging })}
@@ -88,7 +89,7 @@ const AdminApplicationsPage = () => {
             <header className={c.closeButtonContainer}>
               <CloseIcon
                 className={c.closeButton}
-                onClick={() => setSidePanelOpen(false)}
+                onClick={() => setSelectedTeam(null)}
               />
             </header>
           </aside>
