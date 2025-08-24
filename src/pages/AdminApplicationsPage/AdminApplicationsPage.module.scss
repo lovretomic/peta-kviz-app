@@ -142,6 +142,20 @@
               outline: 1px solid rgba(black, 0.12);
               background-color: rgba(black, 0.06);
             }
+
+            &.selected {
+              outline: 1px solid rgba(green, 0.1);
+              background-color: rgba(green, 0.1);
+              outline-offset: -4px;
+
+              &:hover {
+                background-color: rgba(green, 0.15);
+              }
+
+              &:active {
+                background-color: rgba(green, 0.2);
+              }
+            }
           }
         }
       }
@@ -175,22 +189,50 @@
 
   .aside {
     min-width: 400px;
-    .closeButtonContainer {
-      display: flex;
-      justify-content: flex-end;
-      box-sizing: border-box;
-      padding: 20px;
+    position: relative;
+    box-sizing: border-box;
+    padding: 40px 20px;
 
-      .closeButton {
-        padding: 8px;
-        fill: $grey-dark;
-        cursor: pointer;
+    .closeButton {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px;
+      fill: $grey-dark;
+      cursor: pointer;
 
-        &:hover {
-          background-color: rgba(black, 0.05);
-          border-radius: 8px;
-        }
+      &:hover {
+        background-color: rgba(black, 0.05);
+        border-radius: 8px;
       }
+    }
+
+    .teamName {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .label {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 2px;
+      color: rgba(black, 0.3);
+      user-select: none;
+
+      margin-bottom: 4px;
+      margin-top: 20px;
+    }
+
+    .data {
+      font-size: 20px;
+    }
+
+    .email {
+      font-size: 16px;
+      color: rgba(black, 0.5);
+      margin-top: 4px;
     }
   }
 }

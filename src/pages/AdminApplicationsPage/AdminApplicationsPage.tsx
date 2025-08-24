@@ -62,7 +62,13 @@ const AdminApplicationsPage = () => {
             </thead>
             <tbody>
               {teams.map((team) => (
-                <tr key={team.id} onClick={() => setSelectedTeam(team)}>
+                <tr
+                  className={clsx({
+                    [c.selected]: selectedTeam?.id === team.id,
+                  })}
+                  key={team.id}
+                  onClick={() => setSelectedTeam(team)}
+                >
                   <td>{team.id}</td>
                   <td>{team.name}</td>
                   <td>{team.captainName}</td>
@@ -86,12 +92,22 @@ const AdminApplicationsPage = () => {
             className={c.aside}
             style={{ width: `calc(100% - ${width}px)` }}
           >
-            <header className={c.closeButtonContainer}>
-              <CloseIcon
-                className={c.closeButton}
-                onClick={() => setSelectedTeam(null)}
-              />
-            </header>
+            <CloseIcon
+              className={c.closeButton}
+              onClick={() => setSelectedTeam(null)}
+            />
+
+            <h3 className={c.teamName}>{selectedTeam.name}</h3>
+            <div className={c.teamDetails}>
+              <p className={c.label}>Kapetan</p>
+              <p className={c.data}>{selectedTeam.captainName}</p>
+              <p className={clsx(c.data, c.email)}>
+                {selectedTeam.captainEmail}
+              </p>
+
+              <p className={c.label}>Članovi</p>
+              <p className={c.data}>{selectedTeam.members.join(", ")}</p>
+            </div>
           </aside>
         </>
       )}
