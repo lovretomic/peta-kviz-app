@@ -94,20 +94,26 @@
           width: calc(100% - $scrollbar-width);
           tr {
             th {
+              $th-color: rgba(black, 0.2);
               text-align: left;
 
               padding: $cell-padding;
-              color: rgba(black, 0.2);
+              color: $th-color;
               font-weight: normal;
               cursor: pointer;
               border-radius: 8px;
+              position: relative;
 
               &:hover {
                 background-color: rgba(black, 0.04);
               }
 
-              &.sorted {
-                font-weight: bold;
+              .sortIcon {
+                fill: $th-color;
+                position: absolute;
+                margin-left: 4px;
+                transform: translateY(-50%);
+                top: 50%;
               }
             }
           }

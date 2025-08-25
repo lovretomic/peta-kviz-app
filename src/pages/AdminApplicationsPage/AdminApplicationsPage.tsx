@@ -4,6 +4,7 @@ import clsx from "clsx";
 import AdminButton from "../../components/AdminButton";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import CloseIcon from "../../assets/icons/close.svg?react";
+import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
 import { teams } from "./teams";
 import type { Team } from "../../types";
 
@@ -112,6 +113,9 @@ const AdminApplicationsPage = () => {
                     onClick={() => setSortKey(column.key)}
                   >
                     {column.header}
+                    {sortKey === column.key && (
+                      <KeyboardArrowDownIcon className={c.sortIcon} />
+                    )}
                   </th>
                 ))}
               </tr>
