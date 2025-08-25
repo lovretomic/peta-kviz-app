@@ -7,6 +7,40 @@ import CloseIcon from "../../assets/icons/close.svg?react";
 import { teams } from "./teams";
 import type { Team } from "../../types";
 
+type ColumnDefinition = {
+  key: string;
+  header: string;
+  accessor: (team: Team) => unknown;
+};
+
+const columns: ColumnDefinition[] = [
+  {
+    key: "id",
+    header: "ID",
+    accessor: (team: Team) => team.id,
+  },
+  {
+    key: "name",
+    header: "Naziv ekipe",
+    accessor: (team: Team) => team.name,
+  },
+  {
+    key: "captainName",
+    header: "Kapetan",
+    accessor: (team: Team) => team.captainName,
+  },
+  {
+    key: "captainEmail",
+    header: "Kontakt",
+    accessor: (team: Team) => team.captainEmail,
+  },
+  {
+    key: "members",
+    header: "Članovi",
+    accessor: (team: Team) => team.members.join(", "),
+  },
+];
+
 const AdminApplicationsPage = () => {
   const leftRef = useRef<HTMLDivElement>(null);
 
@@ -53,11 +87,9 @@ const AdminApplicationsPage = () => {
           <table className={c.table}>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Naziv ekipe</th>
-                <th>Kapetan</th>
-                <th>Kontakt</th>
-                <th>Članovi</th>
+                {columns.map((column) => (
+                  <th key={column.key}>{column.header}</th>
+                ))}
               </tr>
             </thead>
             <tbody>
@@ -69,11 +101,9 @@ const AdminApplicationsPage = () => {
                   key={team.id}
                   onClick={() => setSelectedTeam(team)}
                 >
-                  <td>{team.id}</td>
-                  <td>{team.name}</td>
-                  <td>{team.captainName}</td>
-                  <td>{team.captainEmail}</td>
-                  <td>{team.members.join(", ")}</td>
+                  {columns.map((column) => (
+                    <td key={column.key}>{String(column.accessor(team))}</td>
+                  ))}
                 </tr>
               ))}
             </tbody>
