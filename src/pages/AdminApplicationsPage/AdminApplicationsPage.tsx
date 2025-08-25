@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import c from "./AdminApplicationsPage.module.scss";
 import clsx from "clsx";
 import AdminButton from "../../components/AdminButton";
@@ -11,6 +11,7 @@ type ColumnDefinition = {
   key: string;
   header: string;
   accessor: (team: Team) => unknown;
+  sortFn?: (a: Team, b: Team) => number;
 };
 
 const columns: ColumnDefinition[] = [
@@ -18,26 +19,31 @@ const columns: ColumnDefinition[] = [
     key: "id",
     header: "ID",
     accessor: (team: Team) => team.id,
+    sortFn: (a: Team, b: Team) => a.id - b.id,
   },
   {
     key: "name",
     header: "Naziv ekipe",
     accessor: (team: Team) => team.name,
+    sortFn: (a: Team, b: Team) => a.name.localeCompare(b.name),
   },
   {
     key: "captainName",
     header: "Kapetan",
     accessor: (team: Team) => team.captainName,
+    sortFn: (a: Team, b: Team) => a.captainName.localeCompare(b.captainName),
   },
   {
     key: "captainEmail",
     header: "Kontakt",
     accessor: (team: Team) => team.captainEmail,
+    sortFn: (a: Team, b: Team) => a.captainEmail.localeCompare(b.captainEmail),
   },
   {
     key: "members",
     header: "Članovi",
-    accessor: (team: Team) => team.members.join(", "),
+    accessor: (team: Team) => team.members.length,
+    sortFn: (a: Team, b: Team) => a.members.length - b.members.length,
   },
 ];
 
@@ -48,6 +54,8 @@ const AdminApplicationsPage = () => {
   const [width, setWidth] = useState<number>(0.8 * window.innerWidth);
 
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
+
+  const [sortKey, setSortKey] = useState<string | null>(null);
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -66,6 +74,16 @@ const AdminApplicationsPage = () => {
   const handleMouseUp = () => {
     setIsDragging(false);
   };
+
+  const sortedTeams = useMemo(() => {
+    if (!sortKey) return teams;
+
+    return [...teams].sort((a, b) => {
+      const aValue = columns.find((col) => col.key === sortKey)?.sortFn?.(a, b);
+      const bValue = columns.find((col) => col.key === sortKey)?.sortFn?.(b, a);
+      return (aValue ?? 0) - (bValue ?? 0);
+    });
+  }, [sortKey]);
 
   return (
     <div
@@ -88,12 +106,18 @@ const AdminApplicationsPage = () => {
             <thead>
               <tr>
                 {columns.map((column) => (
-                  <th key={column.key}>{column.header}</th>
+                  <th
+                    key={column.key}
+                    className={clsx({ [c.sorted]: sortKey === column.key })}
+                    onClick={() => setSortKey(column.key)}
+                  >
+                    {column.header}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {teams.map((team) => (
+              {sortedTeams.map((team) => (
                 <tr
                   className={clsx({
                     [c.selected]: selectedTeam?.id === team.id,

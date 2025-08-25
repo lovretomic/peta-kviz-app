@@ -99,6 +99,16 @@
               padding: $cell-padding;
               color: rgba(black, 0.2);
               font-weight: normal;
+              cursor: pointer;
+              border-radius: 8px;
+
+              &:hover {
+                background-color: rgba(black, 0.04);
+              }
+
+              &.sorted {
+                font-weight: bold;
+              }
             }
           }
         }

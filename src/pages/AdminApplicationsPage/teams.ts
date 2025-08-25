@@ -6,7 +6,7 @@ export const teams: Team[] = [
     name: "Team A",
     captainName: "John Doe",
     captainEmail: "john@example.com",
-    members: ["Alice", "Bob", "Charlie"],
+    members: ["Alice", "Bob", "Charlie", "Ivan"],
   },
   {
     id: 2,
