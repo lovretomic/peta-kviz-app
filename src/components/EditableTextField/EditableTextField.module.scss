@@ -1,0 +1,34 @@
+.editableTextField {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  .text {
+    border-radius: 8px;
+    transition: 100ms ease-in-out;
+    background-color: rgba(black, 0);
+    padding: 0;
+
+    &.isEditing {
+      background-color: rgba(black, 0.05);
+      padding: 0 10px;
+    }
+  }
+
+  .editIcon {
+    padding: 4px;
+    background-color: rgba(black, 0.05);
+    cursor: pointer;
+    fill: $grey-dark;
+    border-radius: 8px;
+    height: 16px;
+    width: 16px;
+    transition: 100ms ease-in-out;
+    opacity: 20%;
+
+    &:hover {
+      background-color: rgba(black, 0.1);
+      opacity: 100%;
+    }
+  }
+}

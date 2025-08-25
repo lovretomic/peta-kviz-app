@@ -7,6 +7,7 @@ import CloseIcon from "../../assets/icons/close.svg?react";
 import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
 import { teams } from "./teams";
 import type { Team } from "../../types";
+import EditableTextField from "../../components/EditableTextField";
 
 type ColumnDefinition = {
   key: string;
@@ -187,13 +188,20 @@ const AdminApplicationsPage = () => {
               onClick={() => setSelectedTeam(null)}
             />
 
-            <h3 className={c.teamName}>{selectedTeam.name}</h3>
+            <EditableTextField
+              defaultValue={selectedTeam.name}
+              className={c.teamName}
+            />
             <div className={c.teamDetails}>
               <p className={c.label}>Kapetan</p>
-              <p className={c.data}>{selectedTeam.captainName}</p>
-              <p className={clsx(c.data, c.email)}>
-                {selectedTeam.captainEmail}
-              </p>
+              <EditableTextField
+                defaultValue={selectedTeam.captainName}
+                className={c.data}
+              />
+              <EditableTextField
+                defaultValue={selectedTeam.captainEmail}
+                className={clsx(c.data, c.email)}
+              />
 
               <p className={c.label}>Članovi</p>
               <p className={c.data}>{selectedTeam.members.join(", ")}</p>
