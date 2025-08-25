@@ -119,6 +119,10 @@
                 margin-left: 4px;
                 transform: translateY(-50%);
                 top: 50%;
+
+                &.desc {
+                  transform: translateY(-50%) rotate(180deg);
+                }
               }
             }
           }

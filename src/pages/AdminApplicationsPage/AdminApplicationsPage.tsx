@@ -59,6 +59,7 @@ const AdminApplicationsPage = () => {
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   const [sortKey, setSortKey] = useState<string | null>(null);
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
   const handleMouseDown = () => {
     setIsDragging(true);
@@ -78,15 +79,37 @@ const AdminApplicationsPage = () => {
     setIsDragging(false);
   };
 
+  const handleColumnHeaderClick = (column: ColumnDefinition) => {
+    if (column.isSortable === false) return;
+
+    if (sortKey === column.key) {
+      if (sortDir === "asc") {
+        setSortDir("desc");
+      } else {
+        setSortKey(null);
+        setSortDir("asc");
+      }
+    } else {
+      setSortKey(column.key);
+      setSortDir("asc");
+    }
+  };
+
   const sortedTeams = useMemo(() => {
     if (!sortKey) return teams;
 
-    return [...teams].sort((a, b) => {
+    const result = [...teams].sort((a, b) => {
       const aValue = columns.find((col) => col.key === sortKey)?.sortFn?.(a, b);
       const bValue = columns.find((col) => col.key === sortKey)?.sortFn?.(b, a);
       return (aValue ?? 0) - (bValue ?? 0);
     });
-  }, [sortKey]);
+
+    if (sortDir === "desc") {
+      result.reverse();
+    }
+
+    return result;
+  }, [sortKey, sortDir]);
 
   return (
     <div
@@ -115,13 +138,15 @@ const AdminApplicationsPage = () => {
                       [c.isSortable]: column.isSortable !== false,
                       [c.sorted]: sortKey === column.key,
                     })}
-                    onClick={() => {
-                      if (column.isSortable !== false) setSortKey(column.key);
-                    }}
+                    onClick={() => handleColumnHeaderClick(column)}
                   >
                     {column.header}
                     {sortKey === column.key && (
-                      <KeyboardArrowDownIcon className={c.sortIcon} />
+                      <KeyboardArrowDownIcon
+                        className={clsx(c.sortIcon, {
+                          [c.desc]: sortDir === "desc",
+                        })}
+                      />
                     )}
                   </th>
                 ))}
