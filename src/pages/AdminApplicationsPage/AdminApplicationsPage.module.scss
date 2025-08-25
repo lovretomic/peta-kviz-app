@@ -94,22 +94,27 @@
           width: calc(100% - $scrollbar-width);
           tr {
             th {
-              $th-color: rgba(black, 0.2);
+              --th-color: rgba(0, 0, 0, 0.2);
               text-align: left;
 
               padding: $cell-padding;
-              color: $th-color;
               font-weight: normal;
-              cursor: pointer;
               border-radius: 8px;
               position: relative;
 
-              &:hover {
-                background-color: rgba(black, 0.04);
+              &.isSortable {
+                cursor: pointer;
+
+                &:hover {
+                  background-color: rgba(black, 0.04);
+                  --th-color: rgba(0, 0, 0, 0.4);
+                }
               }
 
+              color: var(--th-color);
+
               .sortIcon {
-                fill: $th-color;
+                fill: var(--th-color);
                 position: absolute;
                 margin-left: 4px;
                 transform: translateY(-50%);

@@ -13,6 +13,7 @@ type ColumnDefinition = {
   header: string;
   accessor: (team: Team) => unknown;
   sortFn?: (a: Team, b: Team) => number;
+  isSortable?: boolean;
 };
 
 const columns: ColumnDefinition[] = [
@@ -21,6 +22,7 @@ const columns: ColumnDefinition[] = [
     header: "ID",
     accessor: (team: Team) => team.id,
     sortFn: (a: Team, b: Team) => a.id - b.id,
+    isSortable: false,
   },
   {
     key: "name",
@@ -109,8 +111,13 @@ const AdminApplicationsPage = () => {
                 {columns.map((column) => (
                   <th
                     key={column.key}
-                    className={clsx({ [c.sorted]: sortKey === column.key })}
-                    onClick={() => setSortKey(column.key)}
+                    className={clsx({
+                      [c.isSortable]: column.isSortable !== false,
+                      [c.sorted]: sortKey === column.key,
+                    })}
+                    onClick={() => {
+                      if (column.isSortable !== false) setSortKey(column.key);
+                    }}
                   >
                     {column.header}
                     {sortKey === column.key && (
