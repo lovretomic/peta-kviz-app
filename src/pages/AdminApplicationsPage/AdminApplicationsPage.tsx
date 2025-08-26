@@ -198,6 +198,7 @@ const AdminApplicationsPage = () => {
                 defaultValue={selectedTeam.captainName}
                 className={c.data}
               />
+              <br />
               <EditableTextField
                 defaultValue={selectedTeam.captainEmail}
                 className={clsx(c.data, c.email)}

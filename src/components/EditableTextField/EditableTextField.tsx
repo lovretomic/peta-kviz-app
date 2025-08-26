@@ -1,6 +1,7 @@
 import { useState } from "react";
 import c from "./EditableTextField.module.scss";
 import EditIcon from "../../assets/icons/edit.svg?react";
+import CheckIcon from "../../assets/icons/check.svg?react";
 import clsx from "clsx";
 
 type EditableTextFieldProps = {
@@ -28,10 +29,20 @@ const EditableTextField = ({
       >
         {defaultValue}
       </p>
-      <EditIcon
-        className={c.editIcon}
-        onClick={() => setIsEditing((prev) => !prev)}
-      />
+      {isEditing && (
+        <CheckIcon
+          className={c.checkIcon}
+          onClick={() => {
+            setIsEditing(false);
+          }}
+        />
+      )}
+      {!isEditing && (
+        <EditIcon
+          className={c.editIcon}
+          onClick={() => setIsEditing((prev) => !prev)}
+        />
+      )}
     </div>
   );
 };
