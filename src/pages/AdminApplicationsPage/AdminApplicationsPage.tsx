@@ -5,6 +5,7 @@ import AdminButton from "../../components/AdminButton";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import CloseIcon from "../../assets/icons/close.svg?react";
 import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
+import PersonIcon from "../../assets/icons/person.svg?react";
 import { teams } from "./teams";
 import type { Team } from "../../types";
 import EditableTextField from "../../components/EditableTextField";
@@ -205,7 +206,18 @@ const AdminApplicationsPage = () => {
               />
 
               <p className={c.label}>Članovi</p>
-              <p className={c.data}>{selectedTeam.members.join(", ")}</p>
+              <div className={c.members}>
+                {selectedTeam.members.map((member) => (
+                  <div className={c.member}>
+                    <PersonIcon className={c.memberIcon} />
+                    <EditableTextField
+                      key={member}
+                      defaultValue={member}
+                      className={c.data}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </aside>
         </>

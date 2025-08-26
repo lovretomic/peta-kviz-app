@@ -28,7 +28,7 @@ const EditableTextField = ({
         {...props}
         className={clsx(props.className, c.text, {
           [c.isEditing]: isEditing,
-          [c.isDifferent]: value !== defaultValue,
+          [c.isDifferent]: !isEditing && value !== defaultValue,
         })}
       >
         {defaultValue}

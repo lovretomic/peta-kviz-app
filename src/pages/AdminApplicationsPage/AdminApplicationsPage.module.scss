@@ -258,5 +258,22 @@
       color: rgba(black, 0.5);
       margin-top: 4px;
     }
+
+    .members {
+      margin-top: 4px;
+      margin-left: -4px;
+      .member {
+        display: flex;
+        gap: 4px;
+        .memberIcon {
+          fill: $grey-dark;
+          opacity: 0.5;
+        }
+      }
+
+      display: flex;
+      gap: 4px;
+      flex-direction: column;
+    }
   }
 }
