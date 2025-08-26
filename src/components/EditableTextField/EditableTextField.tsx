@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import c from "./EditableTextField.module.scss";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import CheckIcon from "../../assets/icons/check.svg?react";
@@ -14,6 +14,10 @@ const EditableTextField = ({
 }: EditableTextFieldProps) => {
   const [value, setValue] = useState<string>(defaultValue);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
   return (
     <div className={c.editableTextField}>
