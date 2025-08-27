@@ -53,7 +53,32 @@
       cursor: pointer;
       user-select: none;
       -webkit-user-drag: none;
-      transition: 200ms ease-in-out;
+      transition: 100ms ease-in-out;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .icon {
+        width: 24px;
+        height: 24px;
+        padding: 8px;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        background-color: rgba($green-default, 0.1);
+
+        * {
+          fill: rgba($grey-dark, 0.7);
+        }
+      }
+
+      .title {
+        margin-bottom: 4px;
+      }
+
+      .message {
+        color: rgba($grey-dark, 0.5);
+      }
 
       * {
         fill: $grey-dark;

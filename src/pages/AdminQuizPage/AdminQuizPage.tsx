@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import c from "./AdminQuizPage.module.scss";
 import HandWithCheckIcon from "../../assets/icons/hand-with-check.svg?react";
+import SettingsIcon from "../../assets/icons/settings.svg?react";
 import { useParams } from "react-router-dom";
 
 type CardDefinition = {
   title: string;
   Icon: ReactNode;
   message: string;
-  color: string;
   href: string;
 };
 
@@ -17,16 +17,14 @@ const AdminQuizPage = () => {
   const cards: CardDefinition[] = [
     {
       title: "Postavke",
-      Icon: <HandWithCheckIcon />,
-      message: "Pregledajte i odobrite postavke.",
-      color: "blue",
+      Icon: <SettingsIcon />,
+      message: "Uređivanje naslova, datuma. Ostale postavke.",
       href: `/admin/quiz/${id}/settings`,
     },
     {
       title: "Prijave",
       Icon: <HandWithCheckIcon />,
-      message: "Pregledajte i odobrite prijave.",
-      color: "red",
+      message: "Pregled i upravljanje prijavama.",
       href: `/admin/quiz/${id}/applications`,
     },
   ];
