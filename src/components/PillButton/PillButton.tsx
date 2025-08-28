@@ -1,5 +1,7 @@
 import c from "./PillButton.module.scss";
 import clsx from "clsx";
+import personIcon from "../../assets/icons/person.svg";
+import shieldIcon from "../../assets/icons/person-with-shield.svg";
 
 type PillButtonProps = {
   children?: React.ReactNode;
