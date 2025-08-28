@@ -35,6 +35,10 @@ const AdminQuizPage = () => {
         <p className={c.leagueTitle}>Liga 2025./2026.</p>
         <h1 className={c.title}>Kviz općeg znanja</h1>
         <p className={c.date}>15. 9. u 19:00</p>
+        <div className={c.progressBar}>
+          <div className={c.progress} style={{ width: "50%" }} />
+        </div>
+        <p className={c.progressText}>Popunjeno 50% mjesta (10/20)</p>
       </div>
       <div className={c.cards}>
         {cards.map((card) => (

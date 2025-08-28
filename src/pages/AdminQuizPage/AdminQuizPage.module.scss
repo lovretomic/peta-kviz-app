@@ -48,10 +48,44 @@
     .date {
       color: rgba(black, 0.7);
       font-size: 24px;
+      margin-bottom: 32px;
 
       @media screen and (max-width: 420px) {
         font-size: 16px;
       }
+    }
+
+    .progressBar {
+      height: 4px;
+      width: 100%;
+      background-color: rgba(black, 0.1);
+      border-radius: 100px;
+      margin-bottom: 8px;
+
+      .progress {
+        height: 100%;
+        background-color: $green-dark;
+        border-radius: 100px;
+
+        @keyframes progress-color-change {
+          30% {
+            background-color: rgba($green-dark, 1);
+          }
+          50% {
+            background-color: rgba($green-dark, 0.5);
+          }
+
+          70% {
+            background-color: rgba($green-dark, 0.8);
+          }
+        }
+
+        animation: progress-color-change 3s infinite;
+      }
+    }
+
+    .progressText {
+      color: rgba(black, 0.5);
     }
   }
 
