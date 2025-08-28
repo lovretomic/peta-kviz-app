@@ -35,10 +35,10 @@ const TestPage = () => {
       </div>
       <div>
         <PillButton variant="primary" icon={personIcon}>
-          Pill Button
+          Bartholomew Jackson the Fourth
         </PillButton>
         <PillButton variant="captain" icon={shieldIcon}>
-          Pill Button
+          uh
         </PillButton>
       </div>
     </div>
