@@ -31,7 +31,12 @@ const TestPage = () => {
         />
       </div>
       <div>
-        <PillButton variant="primary" icon={trashIcon} />
+        <PillButton variant="primary" icon={trashIcon}>
+          Pill Button
+        </PillButton>
+        <PillButton variant="captain" icon={trashIcon}>
+          Pill Button
+        </PillButton>
       </div>
     </div>
   );

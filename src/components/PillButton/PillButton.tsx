@@ -3,7 +3,7 @@ import clsx from "clsx";
 
 type PillButtonProps = {
   children?: React.ReactNode;
-  variant?: "primary" | "captian";
+  variant?: "primary" | "captain";
   icon?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -18,13 +18,13 @@ const PillButton: React.FC<PillButtonProps> = ({
     <button
       className={clsx(c.pillButton, className, {
         [c.primary]: variant === "primary",
-        [c.captian]: variant === "captian",
+        [c.captain]: variant === "captain",
       })}
       {...handlers}
     >
       <div className={c.content}>
-        {children ? <span>{children}</span> : null}
         {icon ? <img className={c.icon} src={icon} alt="" /> : null}
+        {children ? <span>{children}</span> : null}
       </div>
     </button>
   );
