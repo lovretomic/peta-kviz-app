@@ -34,14 +34,23 @@
   border: 2px solid rgba(white, 0.2);
   background-color: rgba(#52c42b54, 0.33);
   color: #52c42b;
+  cursor: default;
 
   span {
     color: #52c42b;
   }
 }
-.captain:hover:enabled {
-  background-color: rgba(#52c42b54, 0.5);
+.close {
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
 }
-.captain:active:enabled {
-  background-color: rgba(#52c42b54, 0.7);
+
+.icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
 }
