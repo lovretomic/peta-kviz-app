@@ -13,6 +13,7 @@ import AdminLayout from "./AdminLayout";
 import AdminApplicationsPage from "../pages/AdminApplicationsPage";
 import AdminLoginPage from "../pages/AdminLoginPage";
 import AdminQuizPage from "../pages/AdminQuizPage";
+import AdminHomePage from "../pages/AdminHomePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,12 +25,12 @@ const router = createBrowserRouter(
         <Route path="/test" element={<TestPage />} />
       </Route>
       <Route path="/admin">
-        <Route path="" element={<AdminLoginPage />} />
         <Route path="login" element={<AdminLoginPage />} />
         <Route path="quiz">
           <Route path=":id" element={<AdminQuizPage />} />
         </Route>
         <Route element={<AdminLayout />}>
+          <Route path="" element={<AdminHomePage />} />
           <Route path="applications" element={<AdminApplicationsPage />} />
         </Route>
       </Route>
