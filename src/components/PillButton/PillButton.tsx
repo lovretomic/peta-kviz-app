@@ -7,7 +7,6 @@ type PillButtonProps = {
   children?: React.ReactNode;
   variant?: "primary" | "captain";
   icon?: string;
-  onRemove?: () => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PillButton: React.FC<PillButtonProps> = ({
@@ -15,10 +14,14 @@ const PillButton: React.FC<PillButtonProps> = ({
   variant = "primary",
   className,
   icon,
-  onRemove = () => {},
   ...handlers
 }) => {
   const [showClose, setShowClose] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  if (!isVisible) {
+    return null;
+  }
   return (
     <button
       onClick={() => setShowClose(!showClose)}
@@ -35,9 +38,8 @@ const PillButton: React.FC<PillButtonProps> = ({
         {showClose && variant != "captain" ? (
           <button
             className={c.close}
-            onClick={(e) => {
-              e.stopPropagation();
-              onRemove();
+            onClick={() => {
+              setIsVisible(false);
             }}
           >
             <img src={closeIcon} alt="" className={c.icon} />
