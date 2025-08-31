@@ -11,6 +11,7 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "predeploy": ["yarn install --frozen-lockfile", "yarn build"]
   }
 }
