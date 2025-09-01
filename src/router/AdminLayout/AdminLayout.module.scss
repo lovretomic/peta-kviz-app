@@ -27,7 +27,9 @@
     border-radius: 12px;
     overflow: hidden;
 
-    display: flex;
-    flex-direction: column;
+    --header-height: 70px;
+
+    display: grid;
+    grid-template-rows: var(--header-height) calc(100% - var(--header-height));
   }
 }

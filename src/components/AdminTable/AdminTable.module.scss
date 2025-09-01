@@ -5,11 +5,15 @@
   }
 
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .options {
     display: flex;
     justify-content: flex-end;
     gap: 12px;
+    margin-bottom: 12px;
 
     .optionButton {
       .icon {
@@ -32,6 +36,31 @@
         .icon {
           fill: $grey-dark;
         }
+      }
+    }
+  }
+
+  .tableWrapper {
+    max-height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    position: relative;
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: grey;
+      }
+
+      th,
+      td {
+        padding: 24px;
+        text-align: left;
       }
     }
   }
