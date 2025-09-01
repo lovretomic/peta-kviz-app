@@ -11,10 +11,16 @@ import UploadIcon from "../../assets/icons/upload.svg?react";
 export type AdminTableColumn<T> = {
   id: keyof T;
   label: string;
+  type: "string";
   render: (item: T) => React.ReactNode;
 };
 
-const AdminTable = () => {
+type AdminTableProps<T> = {
+  columns: AdminTableColumn<T>[];
+  data: T[];
+};
+
+const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   return (
     <div className={c.adminTable}>
       <div className={c.options}>
@@ -32,6 +38,24 @@ const AdminTable = () => {
         </AdminButton>
         <AdminButton Icon={UploadIcon}>Dodaj</AdminButton>
       </div>
+      <table className={c.table}>
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column.id as string}>{column.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              {columns.map((column) => (
+                <td key={column.id as string}>{column.render(item)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
