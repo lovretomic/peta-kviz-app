@@ -11,6 +11,16 @@
   transition: 100ms;
 
   display: flex;
+  gap: 8px;
+  align-items: center;
+
+  .icon {
+    opacity: 0.5;
+  }
+
+  &.selected {
+    background-color: rgba(white, 0.1);
+  }
 
   &:hover {
     background: rgba(white, 0.1);
