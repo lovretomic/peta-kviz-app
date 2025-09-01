@@ -11,9 +11,9 @@ export type NewNavigationItem = {
 };
 
 export const adminNavigationItems: NewNavigationItem[] = [
-  { name: "Kvizovi", path: "/admin", Icon: HomeIcon },
-  { name: "Lige", path: "/admin/leagues", Icon: CardsStarIcon },
-  { name: "Kvizevi", path: "/admin/all-quizzes", Icon: BuildingBlocksIcon },
-  { name: "Statistike", path: "/admin/all-stats", Icon: BarChart4BarsIcon },
+  { name: "Početna", path: "/admin", Icon: HomeIcon },
+  { name: "Sve Lige", path: "/admin/all-leagues", Icon: CardsStarIcon },
+  { name: "Svi Kvizevi", path: "/admin/all-quizzes", Icon: BuildingBlocksIcon },
+  { name: "Sve Statistike", path: "/admin/all-stats", Icon: BarChart4BarsIcon },
   { name: "Obavijesti", path: "/admin/notifications", Icon: NotificationsIcon },
 ];
