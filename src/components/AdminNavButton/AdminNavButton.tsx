@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 type AdminNavButtonProps = {
   path: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
 const AdminNavButton = ({

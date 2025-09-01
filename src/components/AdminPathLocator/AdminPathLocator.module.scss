@@ -24,5 +24,13 @@
     &:hover {
       background-color: rgba($grey-dark, 0.05);
     }
+
+    &:disabled {
+      cursor: default;
+
+      &:hover {
+        background: none;
+      }
+    }
   }
 }

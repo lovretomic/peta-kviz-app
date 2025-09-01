@@ -7,7 +7,7 @@ import NotificationsIcon from "../assets/icons/notifications.svg?react";
 export type NewNavigationItem = {
   name: string;
   path: string;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 };
 
 export const adminNavigationItems: NewNavigationItem[] = [
