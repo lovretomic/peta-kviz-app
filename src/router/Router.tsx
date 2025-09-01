@@ -10,11 +10,10 @@ import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
 import AdminLayout from "./AdminLayout";
-import AdminApplicationsPage from "../pages/AdminApplicationsPage";
 import AdminLoginPage from "../pages/AdminLoginPage";
-import AdminQuizPage from "../pages/AdminQuizPage";
 import AdminHomePage from "../pages/AdminHomePage";
 import AdminAllQuizzesPage from "../pages/AdminAllQuizzesPage";
+import AdminNotFoundPage from "../pages/AdminNotFoundPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,13 +26,10 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/admin">
         <Route path="login" element={<AdminLoginPage />} />
-        <Route path="quiz">
-          <Route path=":id" element={<AdminQuizPage />} />
-        </Route>
         <Route element={<AdminLayout />}>
           <Route path="" element={<AdminHomePage />} />
           <Route path="all-quizzes" element={<AdminAllQuizzesPage />} />
-          <Route path="applications" element={<AdminApplicationsPage />} />
+          <Route path="*" element={<AdminNotFoundPage />} />
         </Route>
       </Route>
       <Route path="*" element={<h1>404 Not Found</h1>} />
