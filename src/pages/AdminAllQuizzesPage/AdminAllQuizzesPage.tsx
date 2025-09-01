@@ -1,11 +1,5 @@
-import AdminPathLocator from "../../components/AdminPathLocator";
-
 const AdminAllQuizzesPage = () => {
-  return (
-    <div>
-      <AdminPathLocator />
-    </div>
-  );
+  return <></>;
 };
 
 export default AdminAllQuizzesPage;

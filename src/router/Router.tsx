@@ -27,12 +27,12 @@ const router = createBrowserRouter(
       </Route>
       <Route path="/admin">
         <Route path="login" element={<AdminLoginPage />} />
-        <Route path="all-quizzes" element={<AdminAllQuizzesPage />} />
         <Route path="quiz">
           <Route path=":id" element={<AdminQuizPage />} />
         </Route>
         <Route element={<AdminLayout />}>
           <Route path="" element={<AdminHomePage />} />
+          <Route path="all-quizzes" element={<AdminAllQuizzesPage />} />
           <Route path="applications" element={<AdminApplicationsPage />} />
         </Route>
       </Route>

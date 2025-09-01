@@ -13,6 +13,11 @@
     flex-direction: column;
     gap: 4px;
     padding: 8px;
+
+    * {
+      white-space: nowrap;
+      overflow: hidden;
+    }
   }
 
   .main {
@@ -20,5 +25,6 @@
     height: 100%;
     background-color: white;
     border-radius: 12px;
+    overflow: hidden;
   }
 }
