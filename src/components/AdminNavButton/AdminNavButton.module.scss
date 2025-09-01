@@ -13,6 +13,7 @@
   display: flex;
   gap: 8px;
   align-items: center;
+  border: 1px solid rgba(white, 0);
 
   .icon {
     opacity: 0.5;
@@ -20,10 +21,15 @@
 
   &.selected {
     background-color: rgba(white, 0.1);
+    border: 1px solid rgba(white, 0.2);
+
+    .icon {
+      opacity: 1;
+    }
   }
 
   &:hover {
-    background: rgba(white, 0.1);
+    background: rgba(white, 0.2);
   }
 
   &:active {
