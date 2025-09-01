@@ -32,6 +32,11 @@ const leagues: League[] = [
   { id: 7, name: "Primeira Liga" },
   { id: 8, name: "Scottish Premiership" },
   { id: 9, name: "MLS" },
+  { id: 10, name: "Brasileirão" },
+  { id: 11, name: "J1 League" },
+  { id: 12, name: "A-League" },
+  { id: 13, name: "MLS Next Pro" },
+  { id: 14, name: "USL Championship" },
 ];
 
 const AdminLeaguesPage = () => {

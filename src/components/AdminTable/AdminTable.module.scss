@@ -54,13 +54,33 @@
         position: sticky;
         top: 0;
         z-index: 1;
-        background-color: grey;
+        background-color: #f7f7f7;
       }
 
-      th,
-      td {
-        padding: 24px;
+      th {
+        padding: 8px 24px;
         text-align: left;
+        font-weight: normal;
+        user-select: none;
+
+        &:first-child {
+          border-radius: 12px 0 0 12px;
+        }
+
+        &:last-child {
+          border-radius: 0 12px 12px 0;
+        }
+      }
+
+      tr {
+        &:not(:last-child) {
+          border-bottom: 1px solid #f2f2f2;
+        }
+
+        td {
+          padding: 12px 24px;
+          text-align: left;
+        }
       }
     }
   }
