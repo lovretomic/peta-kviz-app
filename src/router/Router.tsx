@@ -14,6 +14,7 @@ import AdminLoginPage from "../pages/AdminLoginPage";
 import AdminHomePage from "../pages/AdminHomePage";
 import AdminAllQuizzesPage from "../pages/AdminAllQuizzesPage";
 import AdminNotFoundPage from "../pages/AdminNotFoundPage";
+import AdminLeaguesPage from "../pages/AdminLeaguesPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route element={<AdminLayout />}>
           <Route path="" element={<AdminHomePage />} />
           <Route path="all-quizzes" element={<AdminAllQuizzesPage />} />
+          <Route path="leagues" element={<AdminLeaguesPage />} />
           <Route path="*" element={<AdminNotFoundPage />} />
         </Route>
       </Route>
