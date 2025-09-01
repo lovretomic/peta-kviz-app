@@ -1,9 +1,10 @@
 import clsx from "clsx";
 import c from "./AdminButton.module.scss";
+import type { SVGProps } from "react";
 
 type AdminButtonProps = {
   variant?: "primary" | "secondary";
-  Icon?: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  Icon?: React.ComponentType<SVGProps<SVGSVGElement>>;
   iconPosition?: "left" | "right";
 } & React.HTMLAttributes<HTMLButtonElement>;
 
