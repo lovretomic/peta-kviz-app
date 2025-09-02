@@ -1,5 +1,5 @@
 import c from "./MemberList.module.scss";
-import PillButton from "../PillButton/PillButton";
+import PillButton from "./PillButton/PillButton";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import PlusIcon from "../../assets/icons/person-with-plus.svg";

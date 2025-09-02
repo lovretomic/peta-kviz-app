@@ -2,7 +2,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
-import PillButton from "../../components/PillButton";
+import PillButton from "../../components/MemberList/PillButton";
 import MemberList from "../../components/MemberList";
 
 const TestPage = () => {

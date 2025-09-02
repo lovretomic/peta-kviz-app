@@ -1,9 +1,9 @@
 import { useState } from "react";
 import c from "./PillButton.module.scss";
 import clsx from "clsx";
-import closeIcon from "../../assets/icons/close.svg";
-import captainIcon from "../../assets/icons/person-with-shield.svg";
-import personIcon from "../../assets/icons/person.svg";
+import closeIcon from "../../../assets/icons/close.svg";
+import captainIcon from "../../../assets/icons/person-with-shield.svg";
+import personIcon from "../../../assets/icons/person.svg";
 
 type PillButtonProps = {
   children?: React.ReactNode;
