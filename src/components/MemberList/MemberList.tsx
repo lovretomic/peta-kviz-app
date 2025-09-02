@@ -16,6 +16,7 @@ const MemberList: React.FC<MemberListProps> = ({ members }) => {
     <div className={c.memberList}>
       <div className={c.header}>
         <span>Popis članova</span>
+        <div className={c.divider} />
         <FullIndicator
           numberOfIndicators={5}
           filledIndicators={members.length}

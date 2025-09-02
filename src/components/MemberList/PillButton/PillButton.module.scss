@@ -8,6 +8,7 @@
   width: auto;
   display: flex;
   flex-direction: column;
+  align-self: flex-start;
   .content {
     display: flex;
     align-items: center;
