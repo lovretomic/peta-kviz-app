@@ -16,8 +16,9 @@
 .necessary {
   width: 8px;
   height: 8px;
+  border-radius: 2px;
   background: rgba(255, 255, 255, 0.2);
-  border: soild 1px rgba(255, 255, 255, 0.5);
+  border: solid 1px rgba(255, 255, 255, 0.5);
   transition: background 0.2s;
 }
 
