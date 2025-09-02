@@ -11,8 +11,9 @@ const columns: AdminTableColumn<League>[] = [
   {
     id: "id",
     label: "ID",
-    type: "string",
+    type: "number",
     render: (item) => item.id,
+    width: 1,
   },
   {
     id: "name",

@@ -7,18 +7,30 @@ import SearchIcon from "../../assets/icons/search.svg?react";
 
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import UploadIcon from "../../assets/icons/upload.svg?react";
+import clsx from "clsx";
 
 export type AdminTableColumn<T> = {
   id: keyof T;
   label: string;
   render: (item: T) => React.ReactNode;
-  type: "string";
+  type: "string" | "number";
+  width?: number | string;
 };
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
   data: T[];
 };
+
+function getWidthStyle(column: AdminTableColumn<any>) {
+  if (column.width) {
+    if (typeof column.width === "number") {
+      return { width: `${column.width}px` };
+    }
+    return { width: column.width };
+  }
+  return {};
+}
 
 const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   return (
@@ -43,7 +55,9 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column.id as string}>{column.label}</th>
+                <th key={column.id as string} style={getWidthStyle(column)}>
+                  {column.label}
+                </th>
               ))}
             </tr>
           </thead>
@@ -51,7 +65,15 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
             {data.map((item, index) => (
               <tr key={index}>
                 {columns.map((column) => (
-                  <td key={column.id as string}>{column.render(item)}</td>
+                  <td
+                    key={column.id as string}
+                    style={getWidthStyle(column)}
+                    className={clsx({
+                      [c.number]: column.type === "number",
+                    })}
+                  >
+                    {column.render(item)}
+                  </td>
                 ))}
               </tr>
             ))}

@@ -59,9 +59,11 @@
 
       th {
         padding: 8px 24px;
+        box-sizing: border-box;
         text-align: left;
         font-weight: normal;
         user-select: none;
+        color: rgba($grey-dark, 0.7);
 
         &:first-child {
           border-radius: 12px 0 0 12px;
@@ -79,7 +81,13 @@
 
         td {
           padding: 12px 24px;
+          box-sizing: border-box;
           text-align: left;
+
+          &.number {
+            font-family: monospace;
+            color: rgba($grey-dark, 0.7);
+          }
         }
       }
     }
