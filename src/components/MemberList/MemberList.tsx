@@ -8,13 +8,19 @@ import FullIndicator from "../FullIndicator";
 
 type MemberListProps = {
   members: { name: string; isCaptain?: boolean }[];
+  maxMembers?: number;
 };
 
 const MemberList: React.FC<MemberListProps> = ({ members }) => {
   return (
     <div className={c.memberList}>
-      Popis članova
-      <FullIndicator numberOfMembers={members.length} />
+      <div className={c.header}>
+        <span>Popis članova</span>
+        <FullIndicator
+          numberOfIndicators={5}
+          filledIndicators={members.length}
+        />
+      </div>
       <div
         style={{
           display: "flex",

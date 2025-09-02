@@ -1,0 +1,28 @@
+.empty {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.2s;
+}
+.filled {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: white;
+  transition: background 0.2s;
+}
+
+.necessary {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border: soild 1px rgba(255, 255, 255, 0.5);
+  transition: background 0.2s;
+}
+
+.indicatorGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}

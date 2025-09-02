@@ -1,15 +1,31 @@
 import c from "./FullIndicator.module.scss";
 
 type FullIndicatorProps = {
-  numberOfMembers: number;
+  numberOfIndicators?: number;
+  filledIndicators?: number;
+  necessaryIndicators?: number;
 };
 
-const FullIndicator: React.FC<FullIndicatorProps> = ({ numberOfMembers }) => {
-  if (numberOfMembers >= 5) {
-    return <div className={c.fullIndicator}>Popis je pun</div>;
-  }
+const FullIndicator: React.FC<FullIndicatorProps> = ({
+  numberOfIndicators = 5,
+  filledIndicators = 0,
+  necessaryIndicators = 3,
+}) => {
   return (
-    <div className={c.fullIndicator}>Još {5 - numberOfMembers} mjesta</div>
+    <div className={c.indicatorGroup}>
+      {Array.from({ length: numberOfIndicators }).map((_, i) => (
+        <div
+          key={i}
+          className={
+            i < filledIndicators
+              ? c.filled
+              : i < necessaryIndicators
+              ? c.necessary
+              : c.empty
+          }
+        />
+      ))}
+    </div>
   );
 };
 
