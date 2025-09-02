@@ -8,6 +8,8 @@ import SearchIcon from "../../assets/icons/search.svg?react";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
+import AdminTableModal from "./AdminTableModal";
+import { useState } from "react";
 
 export type AdminTableColumn<T> = {
   id: keyof T;
@@ -33,13 +35,33 @@ function getWidthStyle(column: AdminTableColumn<any>) {
 }
 
 const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
   return (
     <div className={c.adminTable}>
+      <AdminTableModal
+        action={modalAction}
+        columns={columns}
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+      />
       <div className={c.options}>
-        <button className={c.optionButton}>
+        <button
+          className={c.optionButton}
+          onClick={() => {
+            setModalAction("filter");
+            setIsModalOpen(true);
+          }}
+        >
           <FilterListIcon className={c.icon} /> Filtriraj
         </button>
-        <button className={c.optionButton}>
+        <button
+          className={c.optionButton}
+          onClick={() => {
+            setModalAction("sort");
+            setIsModalOpen(true);
+          }}
+        >
           <SortIcon className={c.icon} /> Sortiraj
         </button>
         <button className={c.optionButton}>
