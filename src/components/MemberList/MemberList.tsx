@@ -4,6 +4,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import PlusIcon from "../../assets/icons/person-with-plus.svg";
 import type React from "react";
+import FullIndicator from "../FullIndicator";
 
 type MemberListProps = {
   members: { name: string; isCaptain?: boolean }[];
@@ -12,7 +13,8 @@ type MemberListProps = {
 const MemberList: React.FC<MemberListProps> = ({ members }) => {
   return (
     <div className={c.memberList}>
-      Popis članova |
+      Popis članova
+      <FullIndicator numberOfMembers={members.length} />
       <div
         style={{
           display: "flex",
