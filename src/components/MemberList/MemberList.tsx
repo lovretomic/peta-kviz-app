@@ -11,7 +11,7 @@ type MemberListProps = {
   maxMembers?: number;
 };
 
-const MemberList: React.FC<MemberListProps> = ({ members }) => {
+const MemberList: React.FC<MemberListProps> = ({ members, maxMembers = 5 }) => {
   return (
     <div className={c.memberList}>
       <div className={c.header}>
@@ -30,7 +30,13 @@ const MemberList: React.FC<MemberListProps> = ({ members }) => {
           marginTop: "8px",
         }}
       >
-        <Input placeholder="Upiši ime i prezime člana" />
+        <Input
+          placeholder={
+            members.length == maxMembers
+              ? "Upisan maksimalan broj članova"
+              : "Upiši ime i prezime člana"
+          }
+        />
         <Button variant="primary" icon={PlusIcon} />
       </div>
       {members.map((member) => (
