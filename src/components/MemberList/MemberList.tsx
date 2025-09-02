@@ -43,14 +43,19 @@ const MemberList: React.FC<MemberListProps> = ({ members, maxMembers = 5 }) => {
           disabled={members.length === maxMembers}
         />
       </div>
-      {members.map((member) => (
-        <PillButton
-          key={member.name}
-          variant={member.isCaptain ? "captain" : "primary"}
-        >
-          {member.name}
-        </PillButton>
-      ))}
+      {[
+        ...members.filter((m) => m.isCaptain),
+        ...members.filter((m) => !m.isCaptain),
+      ]
+        .sort((a, b) => (b.isCaptain ? 1 : 0) - (a.isCaptain ? 1 : 0))
+        .map((member) => (
+          <PillButton
+            key={member.name}
+            variant={member.isCaptain ? "captain" : "primary"}
+          >
+            {member.name}
+          </PillButton>
+        ))}
     </div>
   );
 };
