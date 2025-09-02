@@ -43,6 +43,9 @@ const TestPage = () => {
           members={[
             { name: "Lovre Thomic", isCaptain: true },
             { name: "Sahu mra" },
+            { name: "Lovre Thomic", isCaptain: true },
+            { name: "Sahu mra" },
+            { name: "Lovre Thomic", isCaptain: true },
           ]}
         />
       </div>

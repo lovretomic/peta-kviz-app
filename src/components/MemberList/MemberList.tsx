@@ -37,7 +37,11 @@ const MemberList: React.FC<MemberListProps> = ({ members, maxMembers = 5 }) => {
               : "Upiši ime i prezime člana"
           }
         />
-        <Button variant="primary" icon={PlusIcon} />
+        <Button
+          variant="primary"
+          icon={PlusIcon}
+          disabled={members.length === maxMembers}
+        />
       </div>
       {members.map((member) => (
         <PillButton
