@@ -5,6 +5,7 @@ import trashIcon from "../../assets/icons/trash.svg";
 import PillButton from "../../components/PillButton";
 import personIcon from "../../assets/icons/person.svg";
 import shieldIcon from "../../assets/icons/person-with-shield.svg";
+import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
   return (
@@ -40,6 +41,14 @@ const TestPage = () => {
         <PillButton variant="captain" icon={shieldIcon}>
           uh
         </PillButton>
+      </div>
+      <div>
+        <MemberList
+          members={[
+            { name: "Lovre Thomic", isCaptain: true },
+            { name: "Sahu mra" },
+          ]}
+        />
       </div>
     </div>
   );
