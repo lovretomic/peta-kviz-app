@@ -3,8 +3,6 @@ import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 import PillButton from "../../components/PillButton";
-import personIcon from "../../assets/icons/person.svg";
-import shieldIcon from "../../assets/icons/person-with-shield.svg";
 import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
@@ -35,12 +33,10 @@ const TestPage = () => {
         />
       </div>
       <div>
-        <PillButton variant="primary" icon={personIcon}>
+        <PillButton variant="primary">
           Bartholomew Jackson the Fourth
         </PillButton>
-        <PillButton variant="captain" icon={shieldIcon}>
-          uh
-        </PillButton>
+        <PillButton variant="captain">uh</PillButton>
       </div>
       <div>
         <MemberList

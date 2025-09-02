@@ -1,5 +1,4 @@
 import c from "./MemberList.module.scss";
-import clsx from "clsx";
 import PillButton from "../PillButton/PillButton";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -29,7 +28,6 @@ const MemberList: React.FC<MemberListProps> = ({ members }) => {
         <PillButton
           key={member.name}
           variant={member.isCaptain ? "captain" : "primary"}
-          icon=""
         >
           {member.name}
         </PillButton>

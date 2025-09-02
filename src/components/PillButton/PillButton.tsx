@@ -2,18 +2,18 @@ import { useState } from "react";
 import c from "./PillButton.module.scss";
 import clsx from "clsx";
 import closeIcon from "../../assets/icons/close.svg";
+import captainIcon from "../../assets/icons/person-with-shield.svg";
+import personIcon from "../../assets/icons/person.svg";
 
 type PillButtonProps = {
   children?: React.ReactNode;
   variant?: "primary" | "captain";
-  icon?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PillButton: React.FC<PillButtonProps> = ({
   children,
   variant = "primary",
   className,
-  icon,
   ...handlers
 }) => {
   const [showClose, setShowClose] = useState(false);
@@ -33,7 +33,7 @@ const PillButton: React.FC<PillButtonProps> = ({
       disabled={variant === "captain"}
     >
       <div className={c.content}>
-        {icon ? <img src={icon} alt="" /> : null}
+        <img src={variant === "captain" ? captainIcon : personIcon} alt="" />
         {children ? <span>{children}</span> : null}
         {showClose && variant != "captain" ? (
           <button
