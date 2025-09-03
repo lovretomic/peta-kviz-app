@@ -10,14 +10,7 @@ import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
 import AdminTableModal from "./AdminTableModal";
 import { useState } from "react";
-
-export type AdminTableColumn<T> = {
-  id: keyof T;
-  label: string;
-  render: (item: T) => React.ReactNode;
-  type: "string" | "number";
-  width?: number | string;
-};
+import type { AdminTableColumn } from "./types";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];

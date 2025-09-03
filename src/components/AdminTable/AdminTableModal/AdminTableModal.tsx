@@ -1,4 +1,4 @@
-import type { AdminTableColumn } from "../AdminTable";
+import type { AdminTableColumn } from "../types";
 import c from "./AdminTableModal.module.scss";
 
 type AdminTableModalProps = {
