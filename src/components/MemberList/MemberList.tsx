@@ -25,10 +25,10 @@ const MemberList: React.FC<MemberListProps> = ({
   addMember,
   removeMember,
 }) => {
+  const [newMember, setNewMember] = useState("");
   if (!formData) {
     return null;
   }
-  const [newMember, setNewMember] = useState("");
   return (
     <div className={c.memberList}>
       <div className={c.header}>
@@ -62,8 +62,10 @@ const MemberList: React.FC<MemberListProps> = ({
           icon={PlusIcon}
           disabled={formData.members.length + 1 === maxMembers}
           onClick={() => {
-            addMember && addMember(newMember);
-            setNewMember("");
+            if (addMember) {
+              addMember(newMember);
+              setNewMember("");
+            }
           }}
         />
       </div>

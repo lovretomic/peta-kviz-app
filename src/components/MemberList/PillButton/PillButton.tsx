@@ -41,8 +41,10 @@ const PillButton: React.FC<PillButtonProps> = ({
           <button
             className={c.close}
             onClick={() => {
-              removeMember && removeMember(children as string);
-              setIsVisible(false);
+              if (removeMember) {
+                removeMember(children as string);
+                setIsVisible(false);
+              }
             }}
           >
             <img src={closeIcon} alt="" className={c.icon} />
