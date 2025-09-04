@@ -1,5 +1,5 @@
 import AdminTable from "../../components/AdminTable";
-import type { AdminTableColumn } from "../../components/AdminTable/AdminTable";
+import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeaguesPage.module.scss";
 
 type League = {

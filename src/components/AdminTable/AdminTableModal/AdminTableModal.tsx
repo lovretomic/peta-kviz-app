@@ -14,17 +14,33 @@ const AdminTableModal = ({
   isOpen,
   setIsOpen,
 }: AdminTableModalProps) => {
+  const SortingContent = () => {
+    return (
+      <div>
+        {columns.map((column) => (
+          <div key={column.id as string} className={c.column}>
+            <label>{column.label}</label>
+            <select>
+              <option value="asc">Asc</option>
+              <option value="desc">Desc</option>
+            </select>
+          </div>
+        ))}
+        <button>Sortiraj</button>
+      </div>
+    );
+  };
+
+  const FilteringContent = () => {
+    return <p>Uskoro</p>;
+  };
+
   return (
     <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
       <div className={c.modal}>
         <header>
           <h2>{action === "sort" ? "Sortiraj" : "Filtriraj"} tablicu</h2>
-          {columns.map((column) => (
-            <div key={column.id as string} className={c.column}>
-              <label>{column.label}</label>
-              <input type="text" />
-            </div>
-          ))}
+          {action === "sort" ? <SortingContent /> : <FilteringContent />}
           <button className={c.closeButton} onClick={() => setIsOpen(false)}>
             X
           </button>
