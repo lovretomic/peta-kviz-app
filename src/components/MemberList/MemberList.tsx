@@ -15,7 +15,7 @@ type MemberListProps = {
 const MemberList: React.FC<MemberListProps> = ({
   members,
   maxMembers = 5,
-  addMember,
+  addMember: _addMember, // eslint zeza
 }) => {
   return (
     <div className={c.memberList}>
@@ -46,7 +46,10 @@ const MemberList: React.FC<MemberListProps> = ({
           variant="primary"
           icon={PlusIcon}
           disabled={members.length === maxMembers}
-          onClick={() => addMember}
+          onClick={() =>
+            //addMember
+            {}
+          }
         />
       </div>
       {[

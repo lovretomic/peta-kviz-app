@@ -15,7 +15,7 @@ const PillButton: React.FC<PillButtonProps> = ({
   children,
   variant = "primary",
   className,
-  removeMember,
+  removeMember: _removeMember, // eslint zeza
   ...handlers
 }) => {
   const [showClose, setShowClose] = useState(false);
@@ -41,7 +41,7 @@ const PillButton: React.FC<PillButtonProps> = ({
           <button
             className={c.close}
             onClick={() => {
-              //removeMember;
+              //removeMember ce biti ovdje
               setIsVisible(false);
             }}
           >
