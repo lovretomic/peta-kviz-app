@@ -8,14 +8,14 @@ import FullIndicator from "../FullIndicator";
 
 type MemberListProps = {
   members: { name: string; isCaptain?: boolean }[];
-  addMember?: (name: string) => void;
+  //addMember?: (name: string) => void;
   maxMembers?: number;
 };
 
 const MemberList: React.FC<MemberListProps> = ({
   members,
   maxMembers = 5,
-  addMember: _addMember, // eslint zeza
+  //addMember, // eslint zeza
 }) => {
   return (
     <div className={c.memberList}>
