@@ -38,17 +38,17 @@ const PillButton: React.FC<PillButtonProps> = ({
         <img src={variant === "captain" ? captainIcon : personIcon} alt="" />
         {children ? <span>{children}</span> : null}
         {showClose && variant != "captain" ? (
-          <button
+          <img
             className={c.close}
+            src={closeIcon}
+            alt=""
             onClick={() => {
               if (removeMember) {
                 removeMember(children as string);
                 setIsVisible(false);
               }
             }}
-          >
-            <img src={closeIcon} alt="" className={c.icon} />
-          </button>
+          />
         ) : null}
       </div>
     </button>
