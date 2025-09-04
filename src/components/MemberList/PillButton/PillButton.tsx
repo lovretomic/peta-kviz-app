@@ -41,7 +41,7 @@ const PillButton: React.FC<PillButtonProps> = ({
           <button
             className={c.close}
             onClick={() => {
-              removeMember;
+              //removeMember;
               setIsVisible(false);
             }}
           >
