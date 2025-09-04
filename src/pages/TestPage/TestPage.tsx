@@ -1,51 +1,35 @@
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import ProgressBar from "../../components/ProgressBar";
-import trashIcon from "../../assets/icons/trash.svg";
-import PillButton from "../../components/MemberList/PillButton";
+import { useState } from "react";
 import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
+  const [formData, setFormData] = useState({
+    teamName: "Moja ekipa",
+    captainName: "Mak Terbovc",
+    captainEmail: "example@example.com",
+    members: ["Sahu mra", "Lovre Thomic"],
+  });
+
+  function addMember(name: string) {
+    setFormData((prevData) => ({
+      ...prevData,
+      members: [...prevData.members, name],
+    }));
+  }
+
+  function removeMember(name: string) {
+    setFormData((prevData) => ({
+      ...prevData,
+      members: prevData.members.filter((member) => member !== name),
+    }));
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-      <div style={{ display: "flex", gap: "10px" }}>
-        <Button variant="primary">Button with text</Button>
-        <Button variant="outlined" icon={trashIcon}>
-          Button with icon + text
-        </Button>
-        <Button variant="secondary" icon={trashIcon} />
-      </div>
-      <div style={{ display: "flex", gap: "10px" }}>
-        <Input placeholder="upiši" />
-      </div>
-      <div>
-        <ProgressBar
-          label="Kviz općeg znanja"
-          date="petak, 4. 9. 2025."
-          percentage={100}
-          showMessage={true}
-        />
-        <ProgressBar
-          label="Kviz općeg znanja"
-          date={new Date()}
-          percentage={70}
-          variant="withButtons"
-        />
-      </div>
-      <div>
-        <PillButton variant="primary">
-          Bartholomew Jackson the Fourth
-        </PillButton>
-        <PillButton variant="captain">uh</PillButton>
-      </div>
-      <div>
-        <MemberList
-          members={[
-            { name: "Sahu mra" },
-            { name: "Lovre Thomic", isCaptain: true },
-          ]}
-        />
-      </div>
+      <MemberList
+        formData={formData}
+        addMember={addMember}
+        removeMember={removeMember}
+      />
     </div>
   );
 };

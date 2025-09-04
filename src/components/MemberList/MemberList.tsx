@@ -5,18 +5,30 @@ import Input from "../Input/Input";
 import PlusIcon from "../../assets/icons/person-with-plus.svg";
 import type React from "react";
 import FullIndicator from "../FullIndicator";
+import { useState } from "react";
 
 type MemberListProps = {
-  members: { name: string; isCaptain?: boolean }[];
-  //addMember?: (name: string) => void;
+  formData: {
+    teamName: string;
+    captainName: string;
+    captainEmail: string;
+    members: string[];
+  };
+  addMember?: (name: string) => void;
+  removeMember?: (name: string) => void;
   maxMembers?: number;
 };
 
 const MemberList: React.FC<MemberListProps> = ({
-  members,
+  formData,
   maxMembers = 5,
-  //addMember, // eslint zeza
+  addMember,
+  removeMember,
 }) => {
+  if (!formData) {
+    return null;
+  }
+  const [newMember, setNewMember] = useState("");
   return (
     <div className={c.memberList}>
       <div className={c.header}>
@@ -24,7 +36,7 @@ const MemberList: React.FC<MemberListProps> = ({
         <div className={c.divider} />
         <FullIndicator
           numberOfIndicators={5}
-          filledIndicators={members.length}
+          filledIndicators={formData.members.length + 1}
         />
       </div>
       <div
@@ -37,34 +49,34 @@ const MemberList: React.FC<MemberListProps> = ({
       >
         <Input
           placeholder={
-            members.length == maxMembers
+            formData.members.length + 1 == maxMembers
               ? "Upisan maksimalan broj članova"
               : "Upiši ime i prezime člana"
           }
+          value={newMember}
+          onChange={(e) => setNewMember(e.target.value)}
+          disabled={formData.members.length + 1 === maxMembers}
         />
         <Button
           variant="primary"
           icon={PlusIcon}
-          disabled={members.length === maxMembers}
-          onClick={() =>
-            //addMember
-            {}
-          }
+          disabled={formData.members.length + 1 === maxMembers}
+          onClick={() => {
+            addMember && addMember(newMember);
+            setNewMember("");
+          }}
         />
       </div>
-      {[
-        ...members.filter((m) => m.isCaptain),
-        ...members.filter((m) => !m.isCaptain),
-      ]
-        .sort((a, b) => (b.isCaptain ? 1 : 0) - (a.isCaptain ? 1 : 0))
-        .map((member) => (
-          <PillButton
-            key={member.name}
-            variant={member.isCaptain ? "captain" : "primary"}
-          >
-            {member.name}
-          </PillButton>
-        ))}
+
+      {formData.captainName && (
+        <PillButton variant="captain">{formData.captainName}</PillButton>
+      )}
+
+      {formData.members.map((m) => (
+        <PillButton key={m} removeMember={removeMember}>
+          {m}
+        </PillButton>
+      ))}
     </div>
   );
 };

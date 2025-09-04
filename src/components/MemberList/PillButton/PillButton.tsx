@@ -8,14 +8,14 @@ import personIcon from "../../../assets/icons/person.svg";
 type PillButtonProps = {
   children?: React.ReactNode;
   variant?: "primary" | "captain";
-  //removeMember?: (name: string) => void;
+  removeMember?: (name: string) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PillButton: React.FC<PillButtonProps> = ({
   children,
   variant = "primary",
   className,
-  //removeMember, // eslint zeza
+  removeMember,
   ...handlers
 }) => {
   const [showClose, setShowClose] = useState(false);
@@ -41,7 +41,7 @@ const PillButton: React.FC<PillButtonProps> = ({
           <button
             className={c.close}
             onClick={() => {
-              //removeMember ce biti ovdje
+              removeMember && removeMember(children as string);
               setIsVisible(false);
             }}
           >
