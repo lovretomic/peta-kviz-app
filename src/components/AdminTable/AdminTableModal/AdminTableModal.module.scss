@@ -12,7 +12,36 @@
 
   .modal {
     background-color: white;
-    height: 200px;
-    width: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .header {
+      background-color: $grey-dark;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 8px 16px;
+
+      button {
+        background-color: rgba(black, 0);
+        padding: 0;
+        border: none;
+        cursor: pointer;
+      }
+
+      * {
+        color: white;
+        font-weight: normal;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      box-sizing: border-box;
+      padding: 16px;
+      gap: 8px;
+    }
   }
 }

@@ -1,3 +1,4 @@
+import AdminButton from "../../AdminButton";
 import type { AdminTableColumn } from "../types";
 import c from "./AdminTableModal.module.scss";
 
@@ -26,7 +27,7 @@ const AdminTableModal = ({
             </select>
           </div>
         ))}
-        <button>Sortiraj</button>
+        <AdminButton>Sortiraj</AdminButton>
       </div>
     );
   };
@@ -38,13 +39,15 @@ const AdminTableModal = ({
   return (
     <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
       <div className={c.modal}>
-        <header>
+        <header className={c.header}>
           <h2>{action === "sort" ? "Sortiraj" : "Filtriraj"} tablicu</h2>
-          {action === "sort" ? <SortingContent /> : <FilteringContent />}
           <button className={c.closeButton} onClick={() => setIsOpen(false)}>
             X
           </button>
         </header>
+        <div className={c.content}>
+          {action === "sort" ? <SortingContent /> : <FilteringContent />}
+        </div>
       </div>
     </div>
   );

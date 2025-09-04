@@ -45,6 +45,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
             setModalAction("filter");
             setIsModalOpen(true);
           }}
+          style={{ display: "none" }}
         >
           <FilterListIcon className={c.icon} /> Filtriraj
         </button>
