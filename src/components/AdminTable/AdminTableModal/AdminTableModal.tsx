@@ -1,5 +1,6 @@
+import { useState } from "react";
 import AdminButton from "../../AdminButton";
-import type { AdminTableColumn } from "../types";
+import type { AdminTableColumn, FilterDesc } from "../types";
 import c from "./AdminTableModal.module.scss";
 
 type AdminTableModalProps = {
@@ -17,18 +18,25 @@ const AdminTableModal = ({
 }: AdminTableModalProps) => {
   const SortingContent = () => {
     return (
-      <div>
-        {columns.map((column) => (
-          <div key={column.id as string} className={c.column}>
-            <label>{column.label}</label>
-            <select>
-              <option value="asc">Asc</option>
-              <option value="desc">Desc</option>
-            </select>
-          </div>
-        ))}
-        <AdminButton>Sortiraj</AdminButton>
-      </div>
+      <>
+        {columns
+          .filter((column) => !column.notSortable)
+          .map((column) => (
+            <div key={column.id as string} className={c.column}>
+              <label>{column.label}</label>
+              <select>
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+              </select>
+            </div>
+          ))}
+        <div className={c.buttons}>
+          <AdminButton variant="secondary" onClick={() => setIsOpen(false)}>
+            Odustani
+          </AdminButton>
+          <AdminButton>Sortiraj</AdminButton>
+        </div>
+      </>
     );
   };
 

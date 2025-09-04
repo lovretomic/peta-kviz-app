@@ -42,6 +42,11 @@
       box-sizing: border-box;
       padding: 16px;
       gap: 8px;
+
+      .buttons {
+        display: flex;
+        gap: 8px;
+      }
     }
   }
 }
