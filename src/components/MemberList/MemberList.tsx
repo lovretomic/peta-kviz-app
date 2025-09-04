@@ -8,10 +8,15 @@ import FullIndicator from "../FullIndicator";
 
 type MemberListProps = {
   members: { name: string; isCaptain?: boolean }[];
+  addMember?: (name: string) => void;
   maxMembers?: number;
 };
 
-const MemberList: React.FC<MemberListProps> = ({ members, maxMembers = 5 }) => {
+const MemberList: React.FC<MemberListProps> = ({
+  members,
+  maxMembers = 5,
+  addMember,
+}) => {
   return (
     <div className={c.memberList}>
       <div className={c.header}>
@@ -41,6 +46,7 @@ const MemberList: React.FC<MemberListProps> = ({ members, maxMembers = 5 }) => {
           variant="primary"
           icon={PlusIcon}
           disabled={members.length === maxMembers}
+          onClick={() => addMember}
         />
       </div>
       {[
