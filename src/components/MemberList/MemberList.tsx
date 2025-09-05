@@ -10,7 +10,6 @@ import { useState } from "react";
 type MemberListProps = {
   captainName: string;
   members: string[];
-
   addMember?: (name: string) => void;
   removeMember?: (name: string) => void;
   maxMembers?: number;
@@ -31,14 +30,7 @@ const MemberList: React.FC<MemberListProps> = ({
         <div className={c.divider} />
         <MemberNumberIndicator max={5} value={members.length + 1} />
       </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "8px",
-          marginTop: "8px",
-        }}
-      >
+      <div className={c.inputGroup}>
         <Input
           placeholder={
             members.length + 1 == maxMembers
