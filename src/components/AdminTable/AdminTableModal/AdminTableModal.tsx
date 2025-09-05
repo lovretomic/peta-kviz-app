@@ -2,6 +2,7 @@ import { useState } from "react";
 import AdminButton from "../../AdminButton";
 import type { AdminTableColumn, SortKey } from "../types";
 import c from "./AdminTableModal.module.scss";
+import CloseIcon from "../../../assets/icons/close.svg?react";
 
 type AdminTableModalProps = {
   action: "sort" | "filter";
@@ -117,9 +118,10 @@ const AdminTableModal = ({
       <div className={c.modal}>
         <header className={c.header}>
           <h2>{action === "sort" ? "Sortiraj" : "Filtriraj"} tablicu</h2>
-          <button className={c.closeButton} onClick={() => setIsOpen(false)}>
-            X
-          </button>
+          <CloseIcon
+            className={c.closeButton}
+            onClick={() => setIsOpen(false)}
+          />
         </header>
         <div className={c.content}>
           {action === "sort" ? <SortingContent /> : <FilteringContent />}
