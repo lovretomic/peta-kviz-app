@@ -56,8 +56,8 @@ const ProgressBar: React.FC<ProgressBarProps> = ({
       {percentage === 100 && showMessage && (
         <div className={c.fullPopup}>
           <img src={carIcon} alt="Kviz popunjen do kraja" />
-          Vašu ćemo prijavu prihvatiti ako se oslobodi mjesto. Prati obavijesti
-          putem e-pošte i Instagrama.
+          Vašu ćemo prijavu prihvatiti ako se oslobodi mjesto. Pratite
+          obavijesti putem e-pošte i Instagrama.
         </div>
       )}
 
