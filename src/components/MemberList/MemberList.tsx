@@ -34,10 +34,7 @@ const MemberList: React.FC<MemberListProps> = ({
       <div className={c.header}>
         <span>Popis članova</span>
         <div className={c.divider} />
-        <MemberNumberIndicator
-          numberOfIndicators={5}
-          filledIndicators={formData.members.length + 1}
-        />
+        <MemberNumberIndicator max={5} value={formData.members.length + 1} />
       </div>
       <div
         style={{
