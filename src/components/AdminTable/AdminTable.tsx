@@ -33,6 +33,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
+  const [sortKeyNumber, setSortKeyNumber] = useState<number>(0);
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
 
@@ -42,6 +43,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
       const sortedData = [...prevData].sort(buildComparator<T>(sortKeys));
       return sortedData;
     });
+    setSortKeyNumber(sortKeys.length);
   };
 
   return (
@@ -74,7 +76,9 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
           }}
         >
           <SortIcon className={c.icon} /> Sortiraj
-          {sortKeys.length > 0 && " (primijenjeno)"}
+          {sortKeyNumber !== 0 && (
+            <div className={c.indicator}>{sortKeyNumber}</div>
+          )}
         </button>
         <button className={c.optionButton}>
           <SearchIcon className={c.icon} /> Pretraži

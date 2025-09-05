@@ -17,11 +17,12 @@
 
     .optionButton {
       .icon {
-        fill: rgba($grey-dark, 0.5);
+        fill: $grey-dark;
       }
       transition: 100ms ease-in-out;
 
-      color: rgba($grey-dark, 0.5);
+      color: $grey-dark;
+      opacity: 0.5;
       font-size: 14px;
       gap: 4px;
       background: none;
@@ -30,12 +31,21 @@
       display: flex;
       align-items: center;
 
-      &:hover {
-        color: $grey-dark;
+      .indicator {
+        width: 20px;
+        height: 20px;
+        background-color: rgba($grey-dark, 0.1);
+        margin-left: 8px;
+        border-radius: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        box-sizing: border-box;
+      }
 
-        .icon {
-          fill: $grey-dark;
-        }
+      &:hover {
+        opacity: 1;
       }
     }
   }
