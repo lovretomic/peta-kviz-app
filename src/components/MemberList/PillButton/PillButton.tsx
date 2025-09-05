@@ -40,7 +40,11 @@ const PillButton: React.FC<PillButtonProps> = ({
             alt=""
             onClick={() => {
               if (removeMember) {
-                removeMember(children as string);
+                if (typeof children === "string") {
+                  removeMember(children as string);
+                } else {
+                  console.error("Member name is not a string");
+                }
               }
             }}
           />
