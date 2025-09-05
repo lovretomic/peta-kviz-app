@@ -19,11 +19,7 @@ const PillButton: React.FC<PillButtonProps> = ({
   ...handlers
 }) => {
   const [showClose, setShowClose] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
 
-  if (!isVisible) {
-    return null;
-  }
   return (
     <button
       onClick={() => setShowClose(!showClose)}
@@ -45,7 +41,6 @@ const PillButton: React.FC<PillButtonProps> = ({
             onClick={() => {
               if (removeMember) {
                 removeMember(children as string);
-                setIsVisible(false);
               }
             }}
           />
