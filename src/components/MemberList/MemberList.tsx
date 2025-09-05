@@ -45,7 +45,7 @@ const MemberList: React.FC<MemberListProps> = ({
         <Button
           variant="primary"
           icon={PlusIcon}
-          disabled={hasMaxMembers}
+          disabled={hasMaxMembers || newMember.trim() === ""}
           onClick={() => {
             if (addMember) {
               addMember(newMember);
