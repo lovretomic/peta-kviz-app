@@ -46,6 +46,10 @@
       .buttons {
         display: flex;
         gap: 8px;
+
+        button {
+          width: 100%;
+        }
       }
     }
   }

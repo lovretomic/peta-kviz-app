@@ -1,40 +1,108 @@
 import { useState } from "react";
 import AdminButton from "../../AdminButton";
-import type { AdminTableColumn, FilterDesc } from "../types";
+import type { AdminTableColumn, SortKey } from "../types";
 import c from "./AdminTableModal.module.scss";
 
 type AdminTableModalProps = {
   action: "sort" | "filter";
+  applySort?: () => void;
   columns: AdminTableColumn<any>[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  sortKeys: SortKey<any>[];
+  setSortKeys: (keys: SortKey<any>[]) => void;
 };
 
 const AdminTableModal = ({
   action,
+  applySort,
   columns,
   isOpen,
   setIsOpen,
+  sortKeys,
+  setSortKeys,
 }: AdminTableModalProps) => {
   const SortingContent = () => {
+    const [newSortKey, setNewSortKey] = useState<SortKey<any> | null>(null);
+
+    const addSortKey = () => {
+      if (newSortKey) {
+        setSortKeys([...sortKeys, newSortKey]);
+        setNewSortKey(null);
+      }
+    };
+
+    const removeSortKey = (id: keyof any) => {
+      setSortKeys(sortKeys.filter((key) => key.id !== id));
+    };
+
     return (
       <>
-        {columns
-          .filter((column) => !column.notSortable)
-          .map((column) => (
-            <div key={column.id as string} className={c.column}>
-              <label>{column.label}</label>
-              <select>
-                <option value="asc">Asc</option>
-                <option value="desc">Desc</option>
-              </select>
+        <div className={c.addSort}>
+          <select
+            name="sortColumn"
+            id="sortColumn"
+            value={(newSortKey?.id as string) || ""}
+            onChange={(e) => {
+              const column = columns.find((c) => c.id === e.target.value);
+              setNewSortKey({
+                id: e.target.value,
+                type: column?.type ?? "string",
+                direction: "asc",
+              });
+            }}
+          >
+            <option value="">Odaberi stupac</option>
+            {columns
+              .filter((c) => !c.notSortable)
+              .filter((c) => !sortKeys.find((key) => key.id === c.id))
+              .map((column) => (
+                <option key={column.id as string} value={column.id as string}>
+                  {column.label}
+                </option>
+              ))}
+          </select>
+          <select
+            name="sortDirection"
+            id="sortDirection"
+            value={newSortKey?.direction}
+            onChange={(e) => {
+              if (newSortKey) {
+                setNewSortKey({
+                  ...newSortKey,
+                  direction: e.target.value as "asc" | "desc",
+                });
+              }
+            }}
+          >
+            <option value="asc">Uzlazno</option>
+            <option value="desc">Silazno</option>
+          </select>
+          <button onClick={addSortKey}>Dodaj</button>
+        </div>
+        <div className={c.sortingList}>
+          {sortKeys.map((sortKey) => (
+            <div key={sortKey.id as string} className={c.column}>
+              <span>
+                {columns.find((c) => c.id === sortKey.id)?.label}:{" "}
+                {sortKey.direction === "asc" ? "Uzlazno" : "Silazno"}
+              </span>
+              <button onClick={() => removeSortKey(sortKey.id)}>Ukloni</button>
             </div>
           ))}
+        </div>
         <div className={c.buttons}>
           <AdminButton variant="secondary" onClick={() => setIsOpen(false)}>
             Odustani
           </AdminButton>
-          <AdminButton>Sortiraj</AdminButton>
+          <AdminButton
+            onClick={() => {
+              if (applySort) applySort();
+              setIsOpen(false);
+            }}
+          >
+            Sortiraj
+          </AdminButton>
         </div>
       </>
     );

@@ -39,8 +39,8 @@ export function buildComparator<T>(keys: SortKey<T>[]): (a: T, b: T) => number {
       const av = a[key];
       const bv = b[key];
 
-      const aNull = av == null || av == undefined || av === "";
-      const bNull = bv == null || bv == undefined || bv === "";
+      const aNull = av == null || av === "";
+      const bNull = bv == null || bv === "";
 
       if (aNull && bNull) return 0;
       if (aNull) return bullBias === "first" ? -1 : 1;
@@ -50,7 +50,7 @@ export function buildComparator<T>(keys: SortKey<T>[]): (a: T, b: T) => number {
 
     return (a: T, b: T) => {
       const nc = nullCmp(a, b);
-      if (nc !== null) return nc;
+      if (nc !== 0) return nc;
 
       const c = base(a, b);
       return dir * c;

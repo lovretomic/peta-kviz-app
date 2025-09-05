@@ -10,7 +10,8 @@ import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
 import AdminTableModal from "./AdminTableModal";
 import { useState } from "react";
-import type { AdminTableColumn } from "./types";
+import type { AdminTableColumn, SortKey } from "./types";
+import { buildComparator } from "./builders/buildComparator";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -30,13 +31,29 @@ function getWidthStyle(column: AdminTableColumn<any>) {
 const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
+
+  const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
+
+  const [displayedData, setDisplayedData] = useState<T[]>(data);
+
+  const applySort = () => {
+    if (sortKeys.length === 0) setDisplayedData(data);
+    setDisplayedData((prevData) => {
+      const sortedData = [...prevData].sort(buildComparator<T>(sortKeys));
+      return sortedData;
+    });
+  };
+
   return (
     <div className={c.adminTable}>
       <AdminTableModal
         action={modalAction}
+        applySort={applySort}
         columns={columns}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
+        sortKeys={sortKeys}
+        setSortKeys={setSortKeys}
       />
       <div className={c.options}>
         <button
@@ -57,6 +74,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
           }}
         >
           <SortIcon className={c.icon} /> Sortiraj
+          {sortKeys.length > 0 && " (primijenjeno)"}
         </button>
         <button className={c.optionButton}>
           <SearchIcon className={c.icon} /> Pretraži
@@ -78,7 +96,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
+            {displayedData.map((item, index) => (
               <tr key={index}>
                 {columns.map((column) => (
                   <td
