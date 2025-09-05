@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import PlusIcon from "../../assets/icons/person-with-plus.svg";
 import type React from "react";
-import FullIndicator from "../FullIndicator";
+import MemberNumberIndicator from "../MemberNumberIndicator";
 import { useState } from "react";
 
 type MemberListProps = {
@@ -34,7 +34,7 @@ const MemberList: React.FC<MemberListProps> = ({
       <div className={c.header}>
         <span>Popis članova</span>
         <div className={c.divider} />
-        <FullIndicator
+        <MemberNumberIndicator
           numberOfIndicators={5}
           filledIndicators={formData.members.length + 1}
         />

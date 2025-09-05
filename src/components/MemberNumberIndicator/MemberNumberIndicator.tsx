@@ -1,12 +1,12 @@
-import c from "./FullIndicator.module.scss";
+import c from "./MemberNumberIndicator.module.scss";
 
-type FullIndicatorProps = {
+type MemberNumberIndicatorProps = {
   numberOfIndicators?: number;
   filledIndicators?: number;
   necessaryIndicators?: number;
 };
 
-const FullIndicator: React.FC<FullIndicatorProps> = ({
+const MemberNumberIndicator: React.FC<MemberNumberIndicatorProps> = ({
   numberOfIndicators = 5,
   filledIndicators = 0,
   necessaryIndicators = 3,
@@ -29,4 +29,4 @@ const FullIndicator: React.FC<FullIndicatorProps> = ({
   );
 };
 
-export default FullIndicator;
+export default MemberNumberIndicator;
