@@ -1,9 +1,9 @@
 import { useState } from "react";
 import c from "./PillButton.module.scss";
 import clsx from "clsx";
-import closeIcon from "../../../assets/icons/close.svg";
-import captainIcon from "../../../assets/icons/person-with-shield.svg";
-import personIcon from "../../../assets/icons/person.svg";
+import CloseIcon from "../../../assets/icons/close.svg?react";
+import CaptainIcon from "../../../assets/icons/person-with-shield.svg?react";
+import PersonIcon from "../../../assets/icons/person.svg?react";
 
 type PillButtonProps = {
   children?: React.ReactNode;
@@ -31,13 +31,12 @@ const PillButton: React.FC<PillButtonProps> = ({
       disabled={variant === "captain"}
     >
       <div className={c.content}>
-        <img src={variant === "captain" ? captainIcon : personIcon} alt="" />
+        {/* ✅ Use components directly */}
+        {variant === "captain" ? <CaptainIcon /> : <PersonIcon />}
         {children ? <span>{children}</span> : null}
-        {showClose && variant != "captain" ? (
-          <img
+        {showClose && variant !== "captain" ? (
+          <CloseIcon
             className={c.close}
-            src={closeIcon}
-            alt=""
             onClick={() => {
               if (removeMember) {
                 if (typeof children === "string") {
