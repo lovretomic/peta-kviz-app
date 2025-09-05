@@ -7,13 +7,13 @@ import personIcon from "../../../assets/icons/person.svg";
 
 type PillButtonProps = {
   children?: React.ReactNode;
-  variant?: "primary" | "captain";
+  variant?: "default" | "captain";
   removeMember?: (name: string) => void;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const PillButton: React.FC<PillButtonProps> = ({
   children,
-  variant = "primary",
+  variant = "default",
   className,
   removeMember,
   ...handlers
@@ -28,7 +28,7 @@ const PillButton: React.FC<PillButtonProps> = ({
     <button
       onClick={() => setShowClose(!showClose)}
       className={clsx(c.pillButton, className, {
-        [c.primary]: variant === "primary",
+        [c.default]: variant === "default",
         [c.captain]: variant === "captain",
       })}
       {...handlers}

@@ -20,23 +20,23 @@
   }
 }
 
-.primary {
+.default {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
   border: none;
 }
 
-.primary:hover:enabled {
+.default:hover:enabled {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.primary:active:enabled {
+.default:active:enabled {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
 .captain {
   border: 2px solid rgba(white, 0.2);
-  background-color: rgba(#52c42b54, 0.33);
+  background-color: #52c42b54;
   color: #52c42b;
   cursor: default;
 
