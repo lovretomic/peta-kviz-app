@@ -26,7 +26,8 @@ const TestPage = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <MemberList
-        formData={formData}
+        captainName={formData.captainName}
+        members={formData.members}
         addMember={addMember}
         removeMember={removeMember}
       />
