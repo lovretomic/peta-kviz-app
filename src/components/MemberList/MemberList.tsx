@@ -23,6 +23,7 @@ const MemberList: React.FC<MemberListProps> = ({
   removeMember,
 }) => {
   const [newMember, setNewMember] = useState("");
+  const hasMaxMembers = members.length + 1 >= maxMembers;
   return (
     <div className={c.memberList}>
       <div className={c.header}>
@@ -33,18 +34,18 @@ const MemberList: React.FC<MemberListProps> = ({
       <div className={c.inputGroup}>
         <Input
           placeholder={
-            members.length + 1 == maxMembers
+            hasMaxMembers
               ? "Upisan maksimalan broj članova"
               : "Upiši ime i prezime člana"
           }
           value={newMember}
           onChange={(e) => setNewMember(e.target.value)}
-          disabled={members.length + 1 === maxMembers}
+          disabled={hasMaxMembers}
         />
         <Button
           variant="primary"
           icon={PlusIcon}
-          disabled={members.length + 1 === maxMembers}
+          disabled={hasMaxMembers}
           onClick={() => {
             if (addMember) {
               addMember(newMember);
@@ -56,9 +57,9 @@ const MemberList: React.FC<MemberListProps> = ({
 
       {captainName && <PillButton variant="captain">{captainName}</PillButton>}
 
-      {members.map((m) => (
-        <PillButton key={m} removeMember={removeMember}>
-          {m}
+      {members.map((member) => (
+        <PillButton key={member} removeMember={removeMember}>
+          {member}
         </PillButton>
       ))}
     </div>
