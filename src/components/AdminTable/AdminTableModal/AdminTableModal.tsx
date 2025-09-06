@@ -1,27 +1,32 @@
 import { useState } from "react";
 import AdminButton from "../../AdminButton";
-import type { AdminTableColumn, SortKey } from "../types";
+import type { AdminTableColumn, FilterDesc, SortKey } from "../types";
 import c from "./AdminTableModal.module.scss";
 import CloseIcon from "../../../assets/icons/close.svg?react";
+import FilterPart from "./FilterPart";
 
 type AdminTableModalProps = {
   action: "sort" | "filter";
-  applySort?: () => void;
   columns: AdminTableColumn<any>[];
+  filterAndSort: () => void;
+  filterDescs: FilterDesc<any>[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   sortKeys: SortKey<any>[];
+  setFilterDescs: (descs: FilterDesc<any>[]) => void;
   setSortKeys: (keys: SortKey<any>[]) => void;
 };
 
 const AdminTableModal = ({
   action,
-  applySort,
+  filterAndSort,
   columns,
   isOpen,
   setIsOpen,
   sortKeys,
   setSortKeys,
+  filterDescs,
+  setFilterDescs,
 }: AdminTableModalProps) => {
   const SortingContent = () => {
     const [newSortKey, setNewSortKey] = useState<SortKey<any> | null>(null);
@@ -98,7 +103,7 @@ const AdminTableModal = ({
           </AdminButton>
           <AdminButton
             onClick={() => {
-              if (applySort) applySort();
+              if (filterAndSort) filterAndSort();
               setIsOpen(false);
             }}
           >
@@ -110,7 +115,92 @@ const AdminTableModal = ({
   };
 
   const FilteringContent = () => {
-    return <p>Uskoro</p>;
+    const [newFilterDesc, setNewFilterDesc] = useState<FilterDesc<any> | null>(
+      null
+    );
+
+    const addFilterDesc = () => {
+      if (newFilterDesc) {
+        setFilterDescs([...filterDescs, newFilterDesc]);
+        setNewFilterDesc(null);
+      }
+    };
+
+    const removeFilterDesc = (id: keyof any) => {
+      setFilterDescs(filterDescs.filter((desc) => desc.id !== id));
+    };
+
+    return (
+      <>
+        <div className={c.addFilter}>
+          <select
+            name="filterColumn"
+            id="filterColumn"
+            value={(newFilterDesc?.id as string) || ""}
+            onChange={(e) => {
+              setNewFilterDesc({
+                id: e.target.value,
+                type: "string",
+                op: "contains",
+                value: "",
+              });
+            }}
+          >
+            <option value="">Odaberi stupac</option>
+            {columns
+              .filter((c) => !filterDescs.find((desc) => desc.id === c.id))
+              .map((column) => (
+                <option key={column.id as string} value={column.id as string}>
+                  {column.label} ({column.type})
+                </option>
+              ))}
+          </select>
+
+          <button onClick={addFilterDesc}>Dodaj</button>
+        </div>
+        <div className={c.filteringList}>
+          {filterDescs.length === 0 && <p>Nema aktivnih filtera.</p>}
+          {filterDescs.map((filterDesc) => {
+            if (!filterDesc) return null;
+            const column = columns.find((c) => c.id === filterDesc.id);
+            if (!column) return null;
+
+            if (filterDesc.type === "string")
+              return (
+                <FilterPart
+                  key={filterDesc.id as string}
+                  type={"string"}
+                  label={column.label}
+                  descriptor={filterDesc}
+                  remove={() => removeFilterDesc(filterDesc.id)}
+                />
+              );
+            if (filterDesc.type === "number")
+              return (
+                <FilterPart
+                  key={filterDesc.id as string}
+                  type={"number"}
+                  label={column.label}
+                  descriptor={filterDesc}
+                  remove={() => removeFilterDesc(filterDesc.id)}
+                />
+              );
+          })}
+        </div>
+        <div className={c.buttons}>
+          <AdminButton variant="secondary" onClick={() => setIsOpen(false)}>
+            Odustani
+          </AdminButton>
+          <AdminButton
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            Filtriraj
+          </AdminButton>
+        </div>
+      </>
+    );
   };
 
   return (

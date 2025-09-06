@@ -10,8 +10,9 @@ import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
 import AdminTableModal from "./AdminTableModal";
 import { useState } from "react";
-import type { AdminTableColumn, SortKey } from "./types";
+import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
+import { buildFilter } from "./builders/buildFilter";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -35,14 +36,29 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
   const [sortKeyNumber, setSortKeyNumber] = useState<number>(0);
 
+  const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
+  const [filterDescNumber, setFilterDescNumber] = useState<number>(0);
+
   const [displayedData, setDisplayedData] = useState<T[]>(data);
 
-  const applySort = () => {
-    if (sortKeys.length === 0) setDisplayedData(data);
-    setDisplayedData((prevData) => {
-      const sortedData = [...prevData].sort(buildComparator<T>(sortKeys));
-      return sortedData;
-    });
+  const filterAndSort = () => {
+    let newData = [...data];
+
+    if (filterDescs.length === 0 && sortKeys.length === 0) {
+      setDisplayedData(newData);
+      return;
+    }
+
+    if (filterDescs.length > 0) {
+      newData = newData.filter(buildFilter(filterDescs));
+    }
+
+    if (sortKeys.length > 0) {
+      newData.sort(buildComparator(sortKeys));
+    }
+
+    setDisplayedData(newData);
+    setFilterDescNumber(filterDescs.length);
     setSortKeyNumber(sortKeys.length);
   };
 
@@ -50,12 +66,14 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
     <div className={c.adminTable}>
       <AdminTableModal
         action={modalAction}
-        applySort={applySort}
+        filterAndSort={filterAndSort}
         columns={columns}
         isOpen={isModalOpen}
         setIsOpen={setIsModalOpen}
         sortKeys={sortKeys}
         setSortKeys={setSortKeys}
+        filterDescs={filterDescs}
+        setFilterDescs={setFilterDescs}
       />
       <div className={c.options}>
         <button
@@ -64,9 +82,11 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
             setModalAction("filter");
             setIsModalOpen(true);
           }}
-          style={{ display: "none" }}
         >
           <FilterListIcon className={c.icon} /> Filtriraj
+          {filterDescNumber !== 0 && (
+            <div className={c.indicator}>{filterDescNumber}</div>
+          )}
         </button>
         <button
           className={c.optionButton}

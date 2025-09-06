@@ -49,6 +49,22 @@
       padding: 16px;
       gap: 8px;
 
+      .filteringList {
+        border: 1px solid rgba($grey-dark, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 400px;
+        box-sizing: border-box;
+        padding: 24px;
+
+        p {
+          color: rgba($grey-dark, 0.5);
+          user-select: none;
+        }
+      }
+
       .buttons {
         display: flex;
         gap: 8px;
