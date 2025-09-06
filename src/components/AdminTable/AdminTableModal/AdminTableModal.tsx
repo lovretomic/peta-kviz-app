@@ -130,6 +130,10 @@ const AdminTableModal = ({
       setFilterDescs(filterDescs.filter((desc) => desc.id !== id));
     };
 
+    const editFilterDesc = (id: keyof any, desc: FilterDesc<any>) => {
+      setFilterDescs(filterDescs.map((d) => (d.id === id ? desc : d)));
+    };
+
     return (
       <>
         <div className={c.addFilter}>
@@ -161,7 +165,6 @@ const AdminTableModal = ({
         <div className={c.filteringList}>
           {filterDescs.length === 0 && <p>Nema aktivnih filtera.</p>}
           {filterDescs.map((filterDesc) => {
-            if (!filterDesc) return null;
             const column = columns.find((c) => c.id === filterDesc.id);
             if (!column) return null;
 
@@ -173,6 +176,7 @@ const AdminTableModal = ({
                   label={column.label}
                   descriptor={filterDesc}
                   remove={() => removeFilterDesc(filterDesc.id)}
+                  edit={(desc) => editFilterDesc(filterDesc.id, desc)}
                 />
               );
             if (filterDesc.type === "number")
@@ -183,6 +187,7 @@ const AdminTableModal = ({
                   label={column.label}
                   descriptor={filterDesc}
                   remove={() => removeFilterDesc(filterDesc.id)}
+                  edit={(desc) => editFilterDesc(filterDesc.id, desc)}
                 />
               );
           })}

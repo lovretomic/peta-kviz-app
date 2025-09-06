@@ -53,6 +53,8 @@
         border: 1px solid rgba($grey-dark, 0.1);
         border-radius: 8px;
         display: flex;
+        flex-direction: column;
+        gap: 16px;
         align-items: center;
         justify-content: center;
         width: 400px;
