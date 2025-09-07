@@ -1,9 +1,10 @@
 import c from "./Leaderboard.module.scss";
 import clsx from "clsx";
+import LeaderboardEntry from "../LeaderboardEntry";
 
 type LeaderboardProps = {
   headers: string[];
-  rows: string[][];
+  rows: { rank: number; name: string; score: number }[];
   className?: string;
 } & React.HTMLAttributes<HTMLTableElement>;
 
@@ -27,11 +28,10 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       <tbody>
         {rows.map((row, rowIndex) => (
           <tr key={rowIndex} className={c.row}>
-            {row.map((cell, cellIndex) => (
-              <td key={cellIndex} className={c.cell}>
-                {cell}
-              </td>
-            ))}
+            <td className={c.td} colSpan={2}>
+              <LeaderboardEntry rank={row.rank} name={row.name} />
+            </td>
+            <td className={c.td}>{row.score}</td>
           </tr>
         ))}
       </tbody>
