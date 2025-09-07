@@ -3,6 +3,7 @@ import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 import Table from "../../components/Table";
+import LeaderboardElement from "../../components/LeaderboardElement";
 
 const TestPage = () => {
   return (
@@ -31,6 +32,8 @@ const TestPage = () => {
         />
       </div>
       <div>
+        <LeaderboardElement rank={1} name="Pera Perić" />
+        <LeaderboardElement rank={4} name="Mika Mikic" />
         <Table
           headers={["#", "Ime ekipe", "Broj bodova"]}
           rows={[
