@@ -2,8 +2,8 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
-import Table from "../../components/Table";
-import LeaderboardElement from "../../components/LeaderboardElement";
+import Leaderboard from "../../components/Leaderboard";
+import LeaderboardEntry from "../../components/LeaderboardEntry";
 
 const TestPage = () => {
   return (
@@ -32,9 +32,9 @@ const TestPage = () => {
         />
       </div>
       <div>
-        <LeaderboardElement rank={1} name="Pera Perić" />
-        <LeaderboardElement rank={4} name="Mika Mikic" />
-        <Table
+        <LeaderboardEntry rank={1} name="Pera Perić" />
+        <LeaderboardEntry rank={4} name="Mika Mikic" />
+        <Leaderboard
           headers={["#", "Ime ekipe", "Broj bodova"]}
           rows={[
             ["Row 1 Cell 1", "Row 1 Cell 2", "Row 1 Cell 3"],

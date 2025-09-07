@@ -1,20 +1,20 @@
-import c from "./Table.module.scss";
+import c from "./Leaderboard.module.scss";
 import clsx from "clsx";
 
-type TableProps = {
+type LeaderboardProps = {
   headers: string[];
   rows: string[][];
   className?: string;
 } & React.HTMLAttributes<HTMLTableElement>;
 
-const Table: React.FC<TableProps> = ({
+const Leaderboard: React.FC<LeaderboardProps> = ({
   headers,
   rows,
   className,
   ...handlers
 }) => {
   return (
-    <table className={clsx(c.table, className)} {...handlers}>
+    <table className={clsx(c.leaderboard, className)} {...handlers}>
       <thead>
         <tr>
           {headers.map((header, index) => (
@@ -39,4 +39,4 @@ const Table: React.FC<TableProps> = ({
   );
 };
 
-export default Table;
+export default Leaderboard;
