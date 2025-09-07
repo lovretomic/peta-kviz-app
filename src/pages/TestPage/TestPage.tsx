@@ -40,6 +40,12 @@ const TestPage = () => {
             { rank: 1, name: "Row 1 Cell 2", score: 60 },
             { rank: 2, name: "Row 2 Cell 2", score: 20 },
             { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { rank: 4, name: "Row 3 Cell 2", score: 10 },
           ]}
         />
       </div>
