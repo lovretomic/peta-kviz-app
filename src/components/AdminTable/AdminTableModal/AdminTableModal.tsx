@@ -4,6 +4,7 @@ import type { AdminTableColumn, FilterDesc, SortKey } from "../types";
 import c from "./AdminTableModal.module.scss";
 import CloseIcon from "../../../assets/icons/close.svg?react";
 import FilterPart from "./FilterPart";
+import { getDefaultFilterDesc } from "../helpers";
 
 type AdminTableModalProps = {
   action: "sort" | "filter";
@@ -142,12 +143,11 @@ const AdminTableModal = ({
             id="filterColumn"
             value={(newFilterDesc?.id as string) || ""}
             onChange={(e) => {
-              setNewFilterDesc({
-                id: e.target.value,
-                type: "string",
-                op: "contains",
-                value: "",
-              });
+              const selectedId = e.target.value;
+              const column = columns.find((c) => c.id === selectedId);
+              if (column) {
+                setNewFilterDesc(getDefaultFilterDesc(column));
+              }
             }}
           >
             <option value="">Odaberi stupac</option>
