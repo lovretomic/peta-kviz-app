@@ -28,9 +28,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       <tbody>
         {rows.map((row, rowIndex) => (
           <tr key={rowIndex} className={c.row}>
-            <td className={c.td} colSpan={2}>
-              <LeaderboardEntry rank={row.rank} name={row.name} />
-            </td>
+            <LeaderboardEntry rank={row.rank} name={row.name} />
             <td className={c.td}>{row.score}</td>
           </tr>
         ))}
