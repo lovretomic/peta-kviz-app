@@ -8,14 +8,16 @@ import DownloadIcon from "../../assets/icons/download.svg?react";
 import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
 import AdminTableModal from "./AdminTableModal";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
+import * as XLSX from "xlsx";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
   data: T[];
+  title: string;
 };
 
 function getWidthStyle(column: AdminTableColumn<any>) {
@@ -28,7 +30,7 @@ function getWidthStyle(column: AdminTableColumn<any>) {
   return {};
 }
 
-const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
+const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
 
@@ -37,6 +39,21 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
+
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  const downloadXLSX = () => {
+    if (!tableRef.current) return;
+    const table = tableRef.current;
+    const workbook = XLSX.utils.table_to_book(table);
+
+    const options: XLSX.WritingOptions = {
+      type: "file",
+      bookType: "xlsx",
+    };
+
+    XLSX.writeFile(workbook, `${title}.xlsx`, options);
+  };
 
   const filterAndSort = () => {
     let newData = [...data];
@@ -130,14 +147,18 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
               setSearchTerm(e.target.value);
             }}
           />
-          <AdminButton variant="secondary" Icon={DownloadIcon}>
+          <AdminButton
+            variant="secondary"
+            Icon={DownloadIcon}
+            onClick={downloadXLSX}
+          >
             Izvezi
           </AdminButton>
           <AdminButton Icon={UploadIcon}>Dodaj</AdminButton>
         </div>
       </div>
       <div className={c.tableWrapper}>
-        <table className={c.table}>
+        <table className={c.table} ref={tableRef}>
           <thead>
             <tr>
               {columns.map((column) => (

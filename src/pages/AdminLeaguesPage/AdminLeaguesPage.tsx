@@ -45,7 +45,7 @@ const leagues: League[] = [
 const AdminLeaguesPage = () => {
   return (
     <div className={c.page}>
-      <AdminTable columns={columns} data={leagues} />
+      <AdminTable columns={columns} data={leagues} title="Sve Lige" />
     </div>
   );
 };
