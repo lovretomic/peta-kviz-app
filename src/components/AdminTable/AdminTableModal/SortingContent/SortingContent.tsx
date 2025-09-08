@@ -93,7 +93,7 @@ const SortingContent = ({
         </AdminButton>
         <AdminButton
           onClick={() => {
-            if (filterAndSort) filterAndSort();
+            filterAndSort();
             setIsOpen(false);
           }}
         >

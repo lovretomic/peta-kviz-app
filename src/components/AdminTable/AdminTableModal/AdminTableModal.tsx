@@ -52,6 +52,7 @@ const AdminTableModal = ({
               setIsOpen={setIsOpen}
               filterDescs={filterDescs}
               setFilterDescs={setFilterDescs}
+              filterAndSort={filterAndSort}
             />
           )}
         </div>

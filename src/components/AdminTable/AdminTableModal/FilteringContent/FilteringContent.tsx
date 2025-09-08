@@ -8,6 +8,7 @@ import c from "../AdminTableModal.module.scss";
 
 type FilteringContentProps = {
   columns: AdminTableColumn<any>[];
+  filterAndSort: () => void;
   filterDescs: FilterDesc<any>[];
   setFilterDescs: (descs: FilterDesc<any>[]) => void;
   setIsOpen: (isOpen: boolean) => void;
@@ -18,6 +19,7 @@ const FilteringContent = ({
   setFilterDescs,
   columns,
   setIsOpen,
+  filterAndSort,
 }: FilteringContentProps) => {
   const [newFilterDesc, setNewFilterDesc] = useState<FilterDesc<any> | null>(
     null
@@ -101,6 +103,7 @@ const FilteringContent = ({
         </AdminButton>
         <AdminButton
           onClick={() => {
+            filterAndSort();
             setIsOpen(false);
           }}
         >

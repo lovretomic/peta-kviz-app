@@ -34,15 +34,13 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
   const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
-  const [sortKeyNumber, setSortKeyNumber] = useState<number>(0);
-
   const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
-  const [filterDescNumber, setFilterDescNumber] = useState<number>(0);
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
 
   const filterAndSort = () => {
     let newData = [...data];
+    console.log("Filtering and sorting", { filterDescs, sortKeys });
 
     if (filterDescs.length === 0 && sortKeys.length === 0) {
       setDisplayedData(newData);
@@ -58,8 +56,6 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
     }
 
     setDisplayedData(newData);
-    setFilterDescNumber(filterDescs.length);
-    setSortKeyNumber(sortKeys.length);
   };
 
   return (
@@ -84,8 +80,8 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
           }}
         >
           <FilterListIcon className={c.icon} /> Filtriraj
-          {filterDescNumber !== 0 && (
-            <div className={c.indicator}>{filterDescNumber}</div>
+          {filterDescs.length !== 0 && (
+            <div className={c.indicator}>{filterDescs.length}</div>
           )}
         </button>
         <button
@@ -96,8 +92,8 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
           }}
         >
           <SortIcon className={c.icon} /> Sortiraj
-          {sortKeyNumber !== 0 && (
-            <div className={c.indicator}>{sortKeyNumber}</div>
+          {sortKeys.length !== 0 && (
+            <div className={c.indicator}>{sortKeys.length}</div>
           )}
         </button>
         <button className={c.optionButton}>

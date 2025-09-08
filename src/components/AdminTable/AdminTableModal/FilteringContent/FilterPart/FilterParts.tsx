@@ -94,6 +94,20 @@ const NumberFilterPart = ({
             edit?.({ ...descriptor, a: e.target.value as unknown as number })
           }
         />
+        {descriptor.op === "between" && (
+          <>
+            <input
+              type="number"
+              value={descriptor.b}
+              onChange={(e) =>
+                edit?.({
+                  ...descriptor,
+                  b: e.target.value as unknown as number,
+                })
+              }
+            />
+          </>
+        )}
       </div>
 
       <button onClick={remove}>Ukloni</button>
