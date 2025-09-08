@@ -4,13 +4,19 @@ import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
 
-type AddEditModalProps = {
+type AddEditModalProps<T> = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  columns: AdminTableColumn<any>[];
+  columns: AdminTableColumn<T>[];
+  dataToEdit?: T;
 };
 
-const AddEditModal = ({ isOpen, setIsOpen, columns }: AddEditModalProps) => {
+const AddEditModal = ({
+  isOpen,
+  setIsOpen,
+  columns,
+  dataToEdit,
+}: AddEditModalProps<any>) => {
   return (
     <AdminModal isOpen={isOpen} setIsOpen={setIsOpen} title="AddEditModal">
       <div className={c.content}>
@@ -20,14 +26,26 @@ const AddEditModal = ({ isOpen, setIsOpen, columns }: AddEditModalProps) => {
               return (
                 <div>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <input type="text" id={column.id as string} />
+                  <input
+                    type="text"
+                    id={column.id as string}
+                    defaultValue={
+                      dataToEdit?.[column.id as keyof typeof dataToEdit]
+                    }
+                  />
                 </div>
               );
             case "number":
               return (
                 <div>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <input type="number" id={column.id as string} />
+                  <input
+                    type="number"
+                    id={column.id as string}
+                    defaultValue={
+                      dataToEdit?.[column.id as keyof typeof dataToEdit]
+                    }
+                  />
                 </div>
               );
             default:
@@ -43,7 +61,7 @@ const AddEditModal = ({ isOpen, setIsOpen, columns }: AddEditModalProps) => {
               setIsOpen(false);
             }}
           >
-            Dodaj
+            {dataToEdit ? "Spremi" : "Dodaj"}
           </AdminButton>
         </div>
       </div>

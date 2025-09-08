@@ -48,6 +48,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
+  const [dataToEdit, setDataToEdit] = useState<T | null>(null);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -86,7 +87,6 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         columns.some((column) => {
           const raw = column.getSearchValue?.(item);
           if (raw === undefined) return false;
-
           return raw.toLowerCase().includes(trimmed);
         })
       );
@@ -117,6 +117,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         isOpen={isAddEditModalOpen}
         setIsOpen={setIsAddEditModalOpen}
         columns={columns}
+        dataToEdit={dataToEdit}
       />
       <div className={c.options}>
         {displayedData.length !== data.length && (
@@ -170,7 +171,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           </AdminButton>
           <AdminButton
             Icon={AddIcon}
-            onClick={() => setIsAddEditModalOpen(true)}
+            onClick={() => {
+              setDataToEdit(null);
+              setIsAddEditModalOpen(true);
+            }}
           >
             Dodaj
           </AdminButton>
@@ -204,7 +208,14 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                 ))}
                 <td className={c.actions}>
                   <DeleteIcon className={c.actionIcon} title="Obriši" />
-                  <EditIcon className={c.actionIcon} title="Uredi" />
+                  <EditIcon
+                    className={c.actionIcon}
+                    title="Uredi"
+                    onClick={() => {
+                      setDataToEdit(item);
+                      setIsAddEditModalOpen(true);
+                    }}
+                  />
                 </td>
               </tr>
             ))}
