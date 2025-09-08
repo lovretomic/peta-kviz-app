@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
 import AdminTableButton from "../../components/AdminTable/AdminTableButton";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
@@ -13,41 +14,6 @@ type League = {
   name: string;
   quizzes?: Quiz[];
 };
-
-const columns: AdminTableColumn<League>[] = [
-  {
-    id: "id",
-    label: "ID",
-    type: "number",
-    width: 1,
-    render: (item) => item.id,
-    getSearchValue: (item) => item.id.toString(),
-    notEditable: true,
-  },
-  {
-    id: "name",
-    label: "Naziv",
-    type: "string",
-    render: (item) => item.name,
-    getSearchValue: (item) => item.name,
-    width: 200,
-  },
-  {
-    id: "quizzes",
-    label: "Kvizevi",
-    type: "action",
-    notSortable: true,
-    width: 1,
-    render: (item) => (
-      <AdminTableButton onClick={() => alert(item.name)}>
-        Prikaži
-      </AdminTableButton>
-    ),
-    onAction: (item) => {
-      alert(`Prikaz kvizova za ligu: ${item.name}`);
-    },
-  },
-];
 
 const leagues: League[] = [
   { id: 1, name: "Premier League" },
@@ -67,6 +33,41 @@ const leagues: League[] = [
 ];
 
 const AdminLeaguesPage = () => {
+  const navigate = useNavigate();
+
+  const columns: AdminTableColumn<League>[] = [
+    {
+      id: "id",
+      label: "ID",
+      type: "number",
+      width: 1,
+      render: (item) => item.id,
+      getSearchValue: (item) => item.id.toString(),
+      notEditable: true,
+    },
+    {
+      id: "name",
+      label: "Naziv",
+      type: "string",
+      render: (item) => item.name,
+      getSearchValue: (item) => item.name,
+      width: 200,
+    },
+    {
+      id: "quizzes",
+      label: "Kvizevi",
+      type: "action",
+      notSortable: true,
+      width: 1,
+      render: (item) => (
+        <AdminTableButton
+          onClick={() => navigate(`/admin/leagues/${item.id}/quizzes`)}
+        >
+          Prikaži
+        </AdminTableButton>
+      ),
+    },
+  ];
   return (
     <div className={c.page}>
       <AdminTable columns={columns} data={leagues} title="Sve Lige" />

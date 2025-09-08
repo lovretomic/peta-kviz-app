@@ -8,7 +8,6 @@ export type AdminTableColumn<T> = {
   type: ColumnType;
   width?: number | string;
   getSearchValue?: (item: T) => string;
-  onAction?: (item: T) => void;
   render: (item: T) => React.ReactNode;
 };
 
