@@ -12,14 +12,16 @@ const columns: AdminTableColumn<League>[] = [
     id: "id",
     label: "ID",
     type: "number",
-    render: (item) => item.id,
     width: 1,
+    render: (item) => item.id,
+    getSearchValue: (item) => item.id.toString(),
   },
   {
     id: "name",
     label: "Naziv",
     type: "string",
     render: (item) => item.name,
+    getSearchValue: (item) => item.name,
   },
 ];
 

@@ -7,6 +7,7 @@ export type AdminTableColumn<T> = {
   render: (item: T) => React.ReactNode;
   type: ColumnType;
   width?: number | string;
+  getSearchValue?: (item: T) => string;
 };
 
 export type StringFilterDesc<T> = {

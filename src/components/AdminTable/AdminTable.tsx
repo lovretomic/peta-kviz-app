@@ -3,13 +3,12 @@ import c from "./AdminTable.module.scss";
 
 import FilterListIcon from "../../assets/icons/filter-list.svg?react";
 import SortIcon from "../../assets/icons/sort.svg?react";
-import SearchIcon from "../../assets/icons/search.svg?react";
 
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import UploadIcon from "../../assets/icons/upload.svg?react";
 import clsx from "clsx";
 import AdminTableModal from "./AdminTableModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
@@ -35,13 +34,14 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
   const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
 
   const filterAndSort = () => {
     let newData = [...data];
 
-    if (filterDescs.length === 0 && sortKeys.length === 0) {
+    if (filterDescs.length === 0 && sortKeys.length === 0 && !searchTerm) {
       setDisplayedData(newData);
       return;
     }
@@ -54,8 +54,24 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
       newData.sort(buildComparator(sortKeys));
     }
 
+    const trimmed = searchTerm.trim().toLowerCase();
+    if (trimmed) {
+      newData = newData.filter((item) =>
+        columns.some((column) => {
+          const raw = column.getSearchValue?.(item);
+          if (raw === undefined) return false;
+
+          return raw.toLowerCase().includes(trimmed);
+        })
+      );
+    }
+
     setDisplayedData(newData);
   };
+
+  useEffect(() => {
+    filterAndSort();
+  }, [searchTerm]);
 
   return (
     <div className={c.adminTable}>
@@ -104,9 +120,15 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
               <div className={c.indicator}>{sortKeys.length}</div>
             )}
           </button>
-          <button className={c.optionButton}>
-            <SearchIcon className={c.icon} /> Pretraži
-          </button>
+          <input
+            type="text"
+            placeholder="Pretraži"
+            className={c.searchInput}
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
           <AdminButton variant="secondary" Icon={DownloadIcon}>
             Izvezi
           </AdminButton>
