@@ -15,6 +15,7 @@ import { buildFilter } from "./builders/buildFilter";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
+import AddEditModal from "./AddEditModal";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -33,8 +34,12 @@ function getWidthStyle(column: AdminTableColumn<any>) {
 }
 
 const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState<"sort" | "filter">("filter");
+  const [isFilterSortModalOpen, setIsFilterSortModalOpen] = useState(false);
+  const [filterSortModalAction, setFilterSortModalAction] = useState<
+    "sort" | "filter"
+  >("filter");
+
+  const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
   const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
@@ -96,15 +101,19 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   return (
     <div className={c.adminTable}>
       <FilterSortModal
-        action={modalAction}
+        action={filterSortModalAction}
         filterAndSort={filterAndSort}
         columns={columns}
-        isOpen={isModalOpen}
-        setIsOpen={setIsModalOpen}
+        isOpen={isFilterSortModalOpen}
+        setIsOpen={setIsFilterSortModalOpen}
         sortKeys={sortKeys}
         setSortKeys={setSortKeys}
         filterDescs={filterDescs}
         setFilterDescs={setFilterDescs}
+      />
+      <AddEditModal
+        isOpen={isAddEditModalOpen}
+        setIsOpen={setIsAddEditModalOpen}
       />
       <div className={c.options}>
         {displayedData.length !== data.length && (
@@ -119,8 +128,8 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           <button
             className={c.optionButton}
             onClick={() => {
-              setModalAction("filter");
-              setIsModalOpen(true);
+              setFilterSortModalAction("filter");
+              setIsFilterSortModalOpen(true);
             }}
           >
             <FilterListIcon className={c.icon} /> Filtriraj
@@ -131,8 +140,8 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           <button
             className={c.optionButton}
             onClick={() => {
-              setModalAction("sort");
-              setIsModalOpen(true);
+              setFilterSortModalAction("sort");
+              setIsFilterSortModalOpen(true);
             }}
           >
             <SortIcon className={c.icon} /> Sortiraj
@@ -156,7 +165,12 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           >
             Izvezi
           </AdminButton>
-          <AdminButton Icon={AddIcon}>Dodaj</AdminButton>
+          <AdminButton
+            Icon={AddIcon}
+            onClick={() => setIsAddEditModalOpen(true)}
+          >
+            Dodaj
+          </AdminButton>
         </div>
       </div>
       <div className={c.tableWrapper}>

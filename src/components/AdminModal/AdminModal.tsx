@@ -6,7 +6,7 @@ type AdminModalProps = {
   title: string;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 const AdminModal = ({
