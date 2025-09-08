@@ -2,7 +2,7 @@ import { useState } from "react";
 import AdminButton from "../../../AdminButton";
 import type { AdminTableColumn, SortKey } from "../../types";
 
-import c from "../AdminTableModal.module.scss";
+import c from "../FilterSortModal.module.scss";
 
 type SortingContentProps = {
   columns: AdminTableColumn<any>[];

@@ -1,8 +1,8 @@
 import type { AdminTableColumn, FilterDesc, SortKey } from "../types";
-import c from "./AdminTableModal.module.scss";
-import CloseIcon from "../../../assets/icons/close.svg?react";
+import c from "./FilterSortModal.module.scss";
 import SortingContent from "./SortingContent";
 import FilteringContent from "./FilteringContent";
+import AdminModal from "../../AdminModal";
 
 type FilterSortModalProps = {
   action: "sort" | "filter";
@@ -28,36 +28,31 @@ const FilterSortModal = ({
   setFilterDescs,
 }: FilterSortModalProps) => {
   return (
-    <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
-      <div className={c.modal}>
-        <header className={c.header}>
-          <h2>{action === "sort" ? "Sortiraj" : "Filtriraj"} tablicu</h2>
-          <CloseIcon
-            className={c.closeButton}
-            onClick={() => setIsOpen(false)}
+    <AdminModal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={action === "sort" ? "Sortiranje" : "Filtriranje"}
+    >
+      <div className={c.content}>
+        {action === "sort" ? (
+          <SortingContent
+            columns={columns}
+            filterAndSort={filterAndSort}
+            setIsOpen={setIsOpen}
+            setSortKeys={setSortKeys}
+            sortKeys={sortKeys}
           />
-        </header>
-        <div className={c.content}>
-          {action === "sort" ? (
-            <SortingContent
-              columns={columns}
-              filterAndSort={filterAndSort}
-              setIsOpen={setIsOpen}
-              setSortKeys={setSortKeys}
-              sortKeys={sortKeys}
-            />
-          ) : (
-            <FilteringContent
-              columns={columns}
-              setIsOpen={setIsOpen}
-              filterDescs={filterDescs}
-              setFilterDescs={setFilterDescs}
-              filterAndSort={filterAndSort}
-            />
-          )}
-        </div>
+        ) : (
+          <FilteringContent
+            columns={columns}
+            setIsOpen={setIsOpen}
+            filterDescs={filterDescs}
+            setFilterDescs={setFilterDescs}
+            filterAndSort={filterAndSort}
+          />
+        )}
       </div>
-    </div>
+    </AdminModal>
   );
 };
 

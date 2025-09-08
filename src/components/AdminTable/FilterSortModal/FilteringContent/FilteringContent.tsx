@@ -4,7 +4,7 @@ import FilterPart from "./FilterPart";
 import type { AdminTableColumn, FilterDesc } from "../../types";
 import { getDefaultFilterDesc } from "../../helpers";
 
-import c from "../AdminTableModal.module.scss";
+import c from "../FilterSortModal.module.scss";
 
 type FilteringContentProps = {
   columns: AdminTableColumn<any>[];
