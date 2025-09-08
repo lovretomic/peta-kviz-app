@@ -16,6 +16,13 @@ export const getDefaultFilterDesc = (column: AdminTableColumn<any>) => {
         op: "eq",
         a: 0,
       } as FilterDesc<any>;
+    case "timestamp":
+      return {
+        id: column.id,
+        type: "timestamp",
+        op: "eq",
+        a: new Date(),
+      } as FilterDesc<any>;
     default:
       throw new Error("Unsupported column type");
   }

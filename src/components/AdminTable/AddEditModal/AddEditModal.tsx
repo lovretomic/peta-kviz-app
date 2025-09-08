@@ -50,6 +50,20 @@ const AddEditModal = ({
                   />
                 </div>
               );
+            case "timestamp":
+              return (
+                <div>
+                  <label htmlFor={column.id as string}>{column.label}</label>
+                  <input
+                    type="datetime-local"
+                    id={column.id as string}
+                    defaultValue={
+                      dataToEdit?.[column.id as keyof typeof dataToEdit]
+                    }
+                    disabled={dataToEdit && column.notEditable}
+                  />
+                </div>
+              );
             default:
               return null;
           }

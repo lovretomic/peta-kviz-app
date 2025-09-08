@@ -1,4 +1,4 @@
-export type ColumnType = "string" | "number" | "action";
+export type ColumnType = "string" | "number" | "action" | "timestamp";
 
 export type AdminTableColumn<T> = {
   id: keyof T;
@@ -33,6 +33,14 @@ export type NumberFilterDesc<T> = {
   b?: number;
 };
 
+export type TimestampFilterDesc<T> = {
+  id: keyof T;
+  type: "timestamp";
+  op: "eq" | "gt" | "gte" | "lt" | "lte" | "between";
+  a?: Date;
+  b?: Date;
+};
+
 export const NumberFilterOps = [
   { value: "eq", label: "jednako" },
   { value: "gt", label: "veće od" },
@@ -42,7 +50,10 @@ export const NumberFilterOps = [
   { value: "between", label: "između" },
 ];
 
-export type FilterDesc<T> = StringFilterDesc<T> | NumberFilterDesc<T>;
+export type FilterDesc<T> =
+  | StringFilterDesc<T>
+  | NumberFilterDesc<T>
+  | TimestampFilterDesc<T>;
 
 export type SortKey<T> = {
   id: keyof T;

@@ -95,6 +95,17 @@ const FilteringContent = ({
                 edit={(desc) => editFilterDesc(filterDesc.id, desc)}
               />
             );
+          if (filterDesc.type === "timestamp")
+            return (
+              <FilterPart
+                key={filterDesc.id as string}
+                type={"timestamp"}
+                label={column.label}
+                descriptor={filterDesc}
+                remove={() => removeFilterDesc(filterDesc.id)}
+                edit={(desc) => editFilterDesc(filterDesc.id, desc)}
+              />
+            );
         })}
       </div>
       <div className={c.buttons}>

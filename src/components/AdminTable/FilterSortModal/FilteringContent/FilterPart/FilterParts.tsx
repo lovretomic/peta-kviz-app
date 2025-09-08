@@ -3,6 +3,7 @@ import {
   StringFilterOps,
   type NumberFilterDesc,
   type StringFilterDesc,
+  type TimestampFilterDesc,
 } from "../../../types";
 
 import c from "./FilterParts.module.scss";
@@ -23,7 +24,18 @@ type NumberFilterPartProps = {
   edit: (desc: NumberFilterDesc<any>) => void;
 };
 
-type FilterPartProps = StringFilterPartProps | NumberFilterPartProps;
+type TimestampFilterPartProps = {
+  type: "timestamp";
+  label?: string;
+  descriptor: TimestampFilterDesc<any>;
+  remove: () => void;
+  edit: (desc: TimestampFilterDesc<any>) => void;
+};
+
+type FilterPartProps =
+  | StringFilterPartProps
+  | NumberFilterPartProps
+  | TimestampFilterPartProps;
 
 const StringFilterPart = ({
   label,
@@ -115,6 +127,59 @@ const NumberFilterPart = ({
   );
 };
 
+const TimestampFilterPart = ({
+  label,
+  descriptor,
+  remove,
+  edit,
+}: Omit<TimestampFilterPartProps, "type">) => {
+  return (
+    <div className={c.filterPart}>
+      <div className={c.header}>
+        <p className={c.type}>{descriptor.type}</p>
+        <h4 className={c.label}>{label}</h4>
+      </div>
+      <div className={c.inputs}>
+        <select
+          name=""
+          id=""
+          value={descriptor.op}
+          onChange={(e) => edit?.({ ...descriptor, op: e.target.value as any })}
+        >
+          {NumberFilterOps.map((op) => (
+            <option key={op.value} value={op.value}>
+              {op.label}
+            </option>
+          ))}
+        </select>
+        <input
+          type="datetime-local"
+          value={descriptor.a?.toISOString().slice(0, 16)}
+          onChange={(e) =>
+            edit?.({ ...descriptor, a: new Date(e.target.value) })
+          }
+        />
+        {descriptor.op === "between" && (
+          <>
+            <input
+              type="datetime-local"
+              value={descriptor.b?.toISOString().slice(0, 16)}
+              onChange={(e) =>
+                edit?.({
+                  ...descriptor,
+                  b: new Date(e.target.value),
+                })
+              }
+            />
+          </>
+        )}
+      </div>
+
+      <button onClick={remove}>Ukloni</button>
+    </div>
+  );
+};
+
 const FilterPart = ({
   type,
   label,
@@ -135,6 +200,15 @@ const FilterPart = ({
     case "number":
       return (
         <NumberFilterPart
+          label={label}
+          descriptor={descriptor}
+          remove={remove}
+          edit={edit}
+        />
+      );
+    case "timestamp":
+      return (
+        <TimestampFilterPart
           label={label}
           descriptor={descriptor}
           remove={remove}
