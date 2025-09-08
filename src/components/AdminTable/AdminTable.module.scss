@@ -61,6 +61,22 @@
         opacity: 1;
       }
     }
+
+    .searchInput {
+      border-radius: 8px;
+      border: 1px solid rgba($grey-dark, 0.2);
+      padding: 0 16px;
+      outline: none;
+      transition: 100ms ease;
+
+      &:hover {
+        border-color: rgba($grey-dark, 0.4);
+      }
+
+      &:focus {
+        border-color: $grey-dark;
+      }
+    }
   }
 
   .tableWrapper {

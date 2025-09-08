@@ -71,6 +71,7 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   return (
