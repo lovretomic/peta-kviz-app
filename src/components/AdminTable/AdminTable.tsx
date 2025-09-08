@@ -114,6 +114,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
       <AddEditModal
         isOpen={isAddEditModalOpen}
         setIsOpen={setIsAddEditModalOpen}
+        columns={columns}
       />
       <div className={c.options}>
         {displayedData.length !== data.length && (
