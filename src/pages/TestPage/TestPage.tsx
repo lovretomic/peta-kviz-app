@@ -37,15 +37,14 @@ const TestPage = () => {
         <Leaderboard
           headers={["#", "Ime ekipe", "Broj bodova"]}
           rows={[
-            { rank: 1, name: "Row 1 Cell 2", score: 60 },
-            { rank: 2, name: "Row 2 Cell 2", score: 20 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
-            { rank: 4, name: "Row 3 Cell 2", score: 10 },
+            { name: "Row 3 Cell 2", score: 3 },
+            { name: "Row 1 Cell 2", score: 60 },
+            { name: "Row 2 Cell 2", score: 20.5 },
+            { name: "Row 3 Cell 2", score: 10 },
+            { name: "Row 3 Cell 2", score: 5 },
+            { name: "Row 3 Cell 2", score: 5 },
+            { name: "Row 3 Cell 2", score: 2 },
+            { name: "Row 3 Cell 2", score: 1 },
           ]}
         />
       </div>
