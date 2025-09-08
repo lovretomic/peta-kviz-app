@@ -3,7 +3,7 @@ import {
   StringFilterOps,
   type NumberFilterDesc,
   type StringFilterDesc,
-} from "../../types";
+} from "../../../types";
 
 import c from "./FilterParts.module.scss";
 
