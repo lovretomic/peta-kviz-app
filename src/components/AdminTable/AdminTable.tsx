@@ -5,6 +5,8 @@ import FilterListIcon from "../../assets/icons/filter-list.svg?react";
 import SortIcon from "../../assets/icons/sort.svg?react";
 import DownloadIcon from "../../assets/icons/download.svg?react";
 import AddIcon from "../../assets/icons/add.svg?react";
+import EditIcon from "../../assets/icons/edit.svg?react";
+import DeleteIcon from "../../assets/icons/delete.svg?react";
 
 import clsx from "clsx";
 
@@ -183,6 +185,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                   {column.label}
                 </th>
               ))}
+              <th className={c.actions}>Radnje</th>
             </tr>
           </thead>
           <tbody>
@@ -199,6 +202,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                     {column.render(item)}
                   </td>
                 ))}
+                <td className={c.actions}>
+                  <DeleteIcon className={c.actionIcon} title="Obriši" />
+                  <EditIcon className={c.actionIcon} title="Uredi" />
+                </td>
               </tr>
             ))}
           </tbody>

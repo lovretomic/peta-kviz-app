@@ -129,6 +129,28 @@
           }
         }
       }
+
+      .actions {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 8px;
+
+        .actionIcon {
+          fill: $grey-dark;
+          opacity: 0.4;
+          cursor: pointer;
+          transition: 100ms ease;
+          background-color: rgba($grey-dark, 0.1);
+          border-radius: 4px;
+          height: 20px;
+          width: 20px;
+          padding: 2px;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
     }
   }
 }
