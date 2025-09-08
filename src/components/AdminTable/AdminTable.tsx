@@ -40,7 +40,6 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
 
   const filterAndSort = () => {
     let newData = [...data];
-    console.log("Filtering and sorting", { filterDescs, sortKeys });
 
     if (filterDescs.length === 0 && sortKeys.length === 0) {
       setDisplayedData(newData);
@@ -72,37 +71,47 @@ const AdminTable = <T,>({ columns, data }: AdminTableProps<T>) => {
         setFilterDescs={setFilterDescs}
       />
       <div className={c.options}>
-        <button
-          className={c.optionButton}
-          onClick={() => {
-            setModalAction("filter");
-            setIsModalOpen(true);
-          }}
-        >
-          <FilterListIcon className={c.icon} /> Filtriraj
-          {filterDescs.length !== 0 && (
-            <div className={c.indicator}>{filterDescs.length}</div>
-          )}
-        </button>
-        <button
-          className={c.optionButton}
-          onClick={() => {
-            setModalAction("sort");
-            setIsModalOpen(true);
-          }}
-        >
-          <SortIcon className={c.icon} /> Sortiraj
-          {sortKeys.length !== 0 && (
-            <div className={c.indicator}>{sortKeys.length}</div>
-          )}
-        </button>
-        <button className={c.optionButton}>
-          <SearchIcon className={c.icon} /> Pretraži
-        </button>
-        <AdminButton variant="secondary" Icon={DownloadIcon}>
-          Izvezi
-        </AdminButton>
-        <AdminButton Icon={UploadIcon}>Dodaj</AdminButton>
+        {displayedData.length !== data.length && (
+          <p className={c.rowCount}>
+            Broj prikazanih redova: {displayedData.length}/{data.length}
+          </p>
+        )}
+        {displayedData.length === data.length && (
+          <p className={c.rowCount}>Broj redova: {data.length}</p>
+        )}
+        <div className={c.rightWrapper}>
+          <button
+            className={c.optionButton}
+            onClick={() => {
+              setModalAction("filter");
+              setIsModalOpen(true);
+            }}
+          >
+            <FilterListIcon className={c.icon} /> Filtriraj
+            {filterDescs.length !== 0 && (
+              <div className={c.indicator}>{filterDescs.length}</div>
+            )}
+          </button>
+          <button
+            className={c.optionButton}
+            onClick={() => {
+              setModalAction("sort");
+              setIsModalOpen(true);
+            }}
+          >
+            <SortIcon className={c.icon} /> Sortiraj
+            {sortKeys.length !== 0 && (
+              <div className={c.indicator}>{sortKeys.length}</div>
+            )}
+          </button>
+          <button className={c.optionButton}>
+            <SearchIcon className={c.icon} /> Pretraži
+          </button>
+          <AdminButton variant="secondary" Icon={DownloadIcon}>
+            Izvezi
+          </AdminButton>
+          <AdminButton Icon={UploadIcon}>Dodaj</AdminButton>
+        </div>
       </div>
       <div className={c.tableWrapper}>
         <table className={c.table}>

@@ -11,9 +11,22 @@
 
   .options {
     display: flex;
-    justify-content: flex-end;
-    gap: 12px;
+
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 12px;
+
+    .rowCount {
+      color: rgba($grey-dark, 0.7);
+      font-size: 14px;
+      user-select: none;
+      padding-left: 24px;
+    }
+
+    .rightWrapper {
+      gap: 12px;
+      display: flex;
+    }
 
     .optionButton {
       .icon {
