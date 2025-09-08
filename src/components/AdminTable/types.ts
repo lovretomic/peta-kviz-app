@@ -3,6 +3,7 @@ export type ColumnType = "string" | "number";
 export type AdminTableColumn<T> = {
   id: keyof T;
   notSortable?: boolean;
+  notEditable?: boolean;
   label: string;
   render: (item: T) => React.ReactNode;
   type: ColumnType;

@@ -15,6 +15,7 @@ const columns: AdminTableColumn<League>[] = [
     width: 1,
     render: (item) => item.id,
     getSearchValue: (item) => item.id.toString(),
+    notEditable: true,
   },
   {
     id: "name",
