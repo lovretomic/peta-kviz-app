@@ -96,14 +96,16 @@
         background-color: #f7f7f7;
       }
 
-      th {
-        padding: 8px 24px;
-        box-sizing: border-box;
-        text-align: left;
-        font-weight: normal;
-        user-select: none;
-        color: rgba($grey-dark, 0.7);
+      tbody {
+        tr {
+          &:hover {
+            background-color: rgba($grey-dark, 0.03);
+          }
+        }
+      }
 
+      th,
+      td {
         &:first-child {
           border-radius: 12px 0 0 12px;
         }
@@ -111,6 +113,15 @@
         &:last-child {
           border-radius: 0 12px 12px 0;
         }
+      }
+
+      th {
+        padding: 8px 24px;
+        box-sizing: border-box;
+        text-align: left;
+        font-weight: normal;
+        user-select: none;
+        color: rgba($grey-dark, 0.7);
       }
 
       tr {
