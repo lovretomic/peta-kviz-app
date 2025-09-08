@@ -1,10 +1,17 @@
 import AdminTable from "../../components/AdminTable";
+import AdminTableButton from "../../components/AdminTable/AdminTableButton";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeaguesPage.module.scss";
+
+type Quiz = {
+  id: number;
+  title: string;
+};
 
 type League = {
   id: number;
   name: string;
+  quizzes?: Quiz[];
 };
 
 const columns: AdminTableColumn<League>[] = [
@@ -23,6 +30,22 @@ const columns: AdminTableColumn<League>[] = [
     type: "string",
     render: (item) => item.name,
     getSearchValue: (item) => item.name,
+    width: 200,
+  },
+  {
+    id: "quizzes",
+    label: "Kvizevi",
+    type: "action",
+    notSortable: true,
+    width: 1,
+    render: (item) => (
+      <AdminTableButton onClick={() => alert(item.name)}>
+        Prikaži
+      </AdminTableButton>
+    ),
+    onAction: (item) => {
+      alert(`Prikaz kvizova za ligu: ${item.name}`);
+    },
   },
 ];
 

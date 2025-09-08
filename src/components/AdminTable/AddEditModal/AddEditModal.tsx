@@ -32,7 +32,7 @@ const AddEditModal = ({
                     defaultValue={
                       dataToEdit?.[column.id as keyof typeof dataToEdit]
                     }
-                    disabled={column.notEditable}
+                    disabled={dataToEdit && column.notEditable}
                   />
                 </div>
               );
@@ -46,7 +46,7 @@ const AddEditModal = ({
                     defaultValue={
                       dataToEdit?.[column.id as keyof typeof dataToEdit]
                     }
-                    disabled={column.notEditable}
+                    disabled={dataToEdit && column.notEditable}
                   />
                 </div>
               );

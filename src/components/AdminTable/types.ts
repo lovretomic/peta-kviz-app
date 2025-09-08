@@ -1,14 +1,15 @@
-export type ColumnType = "string" | "number";
+export type ColumnType = "string" | "number" | "action";
 
 export type AdminTableColumn<T> = {
   id: keyof T;
+  label: string;
   notSortable?: boolean;
   notEditable?: boolean;
-  label: string;
-  render: (item: T) => React.ReactNode;
   type: ColumnType;
   width?: number | string;
   getSearchValue?: (item: T) => string;
+  onAction?: (item: T) => void;
+  render: (item: T) => React.ReactNode;
 };
 
 export type StringFilterDesc<T> = {
