@@ -4,7 +4,7 @@ import CloseIcon from "../../../assets/icons/close.svg?react";
 import SortingContent from "./SortingContent";
 import FilteringContent from "./FilteringContent";
 
-type AdminTableModalProps = {
+type FilterSortModalProps = {
   action: "sort" | "filter";
   columns: AdminTableColumn<any>[];
   filterAndSort: () => void;
@@ -16,7 +16,7 @@ type AdminTableModalProps = {
   setSortKeys: (keys: SortKey<any>[]) => void;
 };
 
-const AdminTableModal = ({
+const FilterSortModal = ({
   action,
   filterAndSort,
   columns,
@@ -26,7 +26,7 @@ const AdminTableModal = ({
   setSortKeys,
   filterDescs,
   setFilterDescs,
-}: AdminTableModalProps) => {
+}: FilterSortModalProps) => {
   return (
     <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
       <div className={c.modal}>
@@ -61,4 +61,4 @@ const AdminTableModal = ({
   );
 };
 
-export default AdminTableModal;
+export default FilterSortModal;

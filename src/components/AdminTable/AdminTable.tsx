@@ -3,16 +3,18 @@ import c from "./AdminTable.module.scss";
 
 import FilterListIcon from "../../assets/icons/filter-list.svg?react";
 import SortIcon from "../../assets/icons/sort.svg?react";
-
 import DownloadIcon from "../../assets/icons/download.svg?react";
-import UploadIcon from "../../assets/icons/upload.svg?react";
+import AddIcon from "../../assets/icons/add.svg?react";
+
 import clsx from "clsx";
-import AdminTableModal from "./AdminTableModal";
+
 import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
+
 import * as XLSX from "xlsx";
+import FilterSortModal from "./FilterSortModal";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -93,7 +95,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   return (
     <div className={c.adminTable}>
-      <AdminTableModal
+      <FilterSortModal
         action={modalAction}
         filterAndSort={filterAndSort}
         columns={columns}
@@ -154,7 +156,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           >
             Izvezi
           </AdminButton>
-          <AdminButton Icon={UploadIcon}>Dodaj</AdminButton>
+          <AdminButton Icon={AddIcon}>Dodaj</AdminButton>
         </div>
       </div>
       <div className={c.tableWrapper}>
