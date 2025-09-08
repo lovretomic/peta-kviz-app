@@ -30,25 +30,27 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
     }
   });
   return (
-    <table className={clsx(c.leaderboard, className)} {...handlers}>
-      <thead>
-        <tr>
-          {headers.map((header, index) => (
-            <th key={index} className={c.th}>
-              {header}
-            </th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rankedRows.map((row, rowIndex) => (
-          <tr key={rowIndex} className={c.row}>
-            <LeaderboardEntry rank={row.rank} name={row.name} />
-            <td className={c.td}>{row.score}</td>
+    <div className={c.leaderboardContainer}>
+      <table className={clsx(c.leaderboard, className)} {...handlers}>
+        <thead>
+          <tr>
+            {headers.map((header, index) => (
+              <th key={index} className={c.th}>
+                {header}
+              </th>
+            ))}
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {rankedRows.map((row, rowIndex) => (
+            <tr key={rowIndex} className={c.row}>
+              <LeaderboardEntry rank={row.rank} name={row.name} />
+              <td className={c.td}>{row.score}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
