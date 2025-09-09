@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
-import AdminTableButton from "../../components/AdminTable/AdminTableButton";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeaguesPage.module.scss";
 
@@ -41,7 +40,7 @@ const AdminLeaguesPage = () => {
       label: "ID",
       type: "number",
       width: 1,
-      render: (item) => item.id,
+      accessor: (item) => item.id,
       getSearchValue: (item) => item.id.toString(),
       notEditable: true,
     },
@@ -49,7 +48,7 @@ const AdminLeaguesPage = () => {
       id: "name",
       label: "Naziv",
       type: "string",
-      render: (item) => item.name,
+      accessor: (item) => item.name,
       getSearchValue: (item) => item.name,
       width: 200,
     },
@@ -59,13 +58,9 @@ const AdminLeaguesPage = () => {
       type: "action",
       notSortable: true,
       width: 1,
-      render: (item) => (
-        <AdminTableButton
-          onClick={() => navigate(`/admin/leagues/${item.id}/quizzes`)}
-        >
-          Prikaži
-        </AdminTableButton>
-      ),
+      onAction: (item) => {
+        navigate(`/admin/leagues/${item.id}/quizzes`);
+      },
     },
   ];
   return (

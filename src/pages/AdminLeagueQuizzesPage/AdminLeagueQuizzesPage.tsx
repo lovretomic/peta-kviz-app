@@ -4,7 +4,6 @@ import type { AdminTableColumn } from "../../components/AdminTable/types";
 
 import c from "./AdminLeagueQuizzesPage.module.scss";
 import { formatDate } from "../../helpers";
-import AdminTableButton from "../../components/AdminTable/AdminTableButton";
 
 type Quiz = {
   id: number;
@@ -20,7 +19,7 @@ const AdminLeagueQuizzesPage = () => {
     {
       id: "id",
       label: "ID",
-      render: (quiz) => quiz.id,
+      accessor: (quiz) => quiz.id,
       getSearchValue: (quiz) => quiz.id.toString(),
       type: "number",
       width: 1,
@@ -29,7 +28,7 @@ const AdminLeagueQuizzesPage = () => {
     {
       id: "title",
       label: "Naslov",
-      render: (quiz) => quiz.title,
+      accessor: (quiz) => quiz.title,
       getSearchValue: (quiz) => quiz.title,
       type: "string",
       width: 200,
@@ -37,7 +36,7 @@ const AdminLeagueQuizzesPage = () => {
     {
       id: "timestamp",
       label: "Vrijeme",
-      render: (quiz) => formatDate(quiz.timestamp),
+      accessor: (quiz) => new Date(quiz.timestamp),
       type: "timestamp",
       width: 250,
       getSearchValue: (quiz) => formatDate(quiz.timestamp),
@@ -47,15 +46,9 @@ const AdminLeagueQuizzesPage = () => {
       label: "Ekipe",
       type: "action",
       notSortable: true,
-      render: (quiz) => (
-        <AdminTableButton
-          onClick={() =>
-            navigate(`/admin/leagues/${leagueId}/quizzes/${quiz.id}`)
-          }
-        >
-          Pregledaj
-        </AdminTableButton>
-      ),
+      onAction: (item) => {
+        navigate(`/admin/leagues/${leagueId}/quizzes/${item.id}/applications`);
+      },
     },
   ];
 

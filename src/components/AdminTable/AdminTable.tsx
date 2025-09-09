@@ -8,8 +8,6 @@ import AddIcon from "../../assets/icons/add.svg?react";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import DeleteIcon from "../../assets/icons/delete.svg?react";
 
-import clsx from "clsx";
-
 import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
@@ -18,6 +16,7 @@ import { buildFilter } from "./builders/buildFilter";
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
 import AddEditModal from "./AddEditModal";
+import Render from "./Render/Render";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -196,14 +195,20 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             {displayedData.map((item, index) => (
               <tr key={index}>
                 {columns.map((column) => (
-                  <td
-                    key={column.id as string}
-                    style={getWidthStyle(column)}
-                    className={clsx({
-                      [c.number]: column.type === "number",
-                    })}
-                  >
-                    {column.render(item)}
+                  <td key={column.id as string} style={getWidthStyle(column)}>
+                    {column.render ? (
+                      column.render(item)
+                    ) : (
+                      <Render
+                        type={column.type}
+                        value={
+                          column.accessor ? column.accessor(item) : undefined
+                        }
+                        actionName={column.actionName}
+                        onAction={column.onAction}
+                        item={item}
+                      />
+                    )}
                   </td>
                 ))}
                 <td className={c.actions}>

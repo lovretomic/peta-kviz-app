@@ -3,6 +3,7 @@ export type ColumnType = "string" | "number" | "action" | "timestamp";
 export type AdminTableColumn<T> = {
   id: string | keyof T;
   label: string;
+  actionName?: string;
   notSortable?: boolean;
   notEditable?: boolean;
   inputHidden?: boolean;
@@ -10,7 +11,9 @@ export type AdminTableColumn<T> = {
   type: ColumnType;
   width?: number | string;
   getSearchValue?: (item: T) => string;
-  render: (item: T) => React.ReactNode;
+  render?: (item: T) => React.ReactNode;
+  accessor?: (item: T) => any;
+  onAction?: (item: T) => void;
 };
 
 export type StringFilterDesc<T> = {
