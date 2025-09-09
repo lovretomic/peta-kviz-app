@@ -4,4 +4,5 @@ export type Team = {
   captainName: string;
   captainEmail: string;
   members: string[];
+  applicationDate: Date;
 };

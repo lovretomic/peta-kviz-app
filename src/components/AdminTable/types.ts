@@ -5,6 +5,8 @@ export type AdminTableColumn<T> = {
   label: string;
   notSortable?: boolean;
   notEditable?: boolean;
+  inputHidden?: boolean;
+  labelHidden?: boolean;
   type: ColumnType;
   width?: number | string;
   getSearchValue?: (item: T) => string;

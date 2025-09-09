@@ -21,6 +21,7 @@ const AddEditModal = ({
     <AdminModal isOpen={isOpen} setIsOpen={setIsOpen} title="AddEditModal">
       <div className={c.content}>
         {columns.map((column) => {
+          if (column.inputHidden) return null;
           switch (column.type) {
             case "string":
               return (

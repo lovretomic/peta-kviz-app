@@ -186,7 +186,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             <tr>
               {columns.map((column) => (
                 <th key={column.id as string} style={getWidthStyle(column)}>
-                  {column.label}
+                  {column.labelHidden ? "" : column.label}
                 </th>
               ))}
               <th className={c.actions}>Radnje</th>
