@@ -19,6 +19,7 @@ const AdminLeagueQuizzesPage = () => {
       id: "id",
       label: "ID",
       render: (quiz) => quiz.id,
+      getSearchValue: (quiz) => quiz.id.toString(),
       type: "number",
       width: 1,
       notEditable: true,
@@ -27,6 +28,7 @@ const AdminLeagueQuizzesPage = () => {
       id: "title",
       label: "Naslov",
       render: (quiz) => quiz.title,
+      getSearchValue: (quiz) => quiz.title,
       type: "string",
       width: 200,
     },
@@ -36,6 +38,7 @@ const AdminLeagueQuizzesPage = () => {
       render: (quiz) => formatDate(quiz.timestamp),
       type: "timestamp",
       width: 250,
+      getSearchValue: (quiz) => formatDate(quiz.timestamp),
     },
   ];
 
