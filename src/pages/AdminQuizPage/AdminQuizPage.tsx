@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import c from "./AdminQuizPage.module.scss";
 import HandWithCheckIcon from "../../assets/icons/hand-with-check.svg?react";
 import SettingsIcon from "../../assets/icons/settings.svg?react";
-import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type CardDefinition = {
   title: string;
@@ -12,20 +12,20 @@ type CardDefinition = {
 };
 
 const AdminQuizPage = () => {
-  const { id } = useParams();
+  const navigate = useNavigate();
 
   const cards: CardDefinition[] = [
     {
       title: "Postavke",
       Icon: <SettingsIcon />,
       message: "Uređivanje naslova, datuma. Ostale postavke.",
-      href: `/admin/quiz/${id}/settings`,
+      href: `settings`,
     },
     {
       title: "Prijave",
       Icon: <HandWithCheckIcon />,
       message: "Pregled i upravljanje prijavama.",
-      href: `/admin/quiz/${id}/applications`,
+      href: `applications`,
     },
   ];
 
@@ -42,7 +42,11 @@ const AdminQuizPage = () => {
       </div>
       <div className={c.cards}>
         {cards.map((card) => (
-          <div key={card.title} className={c.card}>
+          <div
+            key={card.title}
+            className={c.card}
+            onClick={() => navigate(card.href)}
+          >
             <div className={c.icon}>{card.Icon}</div>
             <h2 className={c.title}>{card.title}</h2>
             <p className={c.message}>{card.message}</p>
