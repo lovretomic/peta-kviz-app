@@ -10,7 +10,7 @@ const data: Team[] = [
     name: "Ekipe 1",
     captainName: "Ivan Horvat",
     captainEmail: "ivan.horvat@example.com",
-    members: ["Ana Kovač", "Marko Marić", "Luka Babić"],
+    members: ["Ana Kovač", "Marko Marić", "Luka Babić", "Petra Novak"],
     applicationDate: new Date("2024-06-15T10:30:00Z"),
   },
   {
@@ -69,20 +69,10 @@ const AdminQuizApplicationsPage = () => {
     {
       id: "members",
       label: "Članovi",
-      type: "string",
-      accessor: (team) => team.members.join(", "),
+      type: "stringArray",
+      accessor: (team) => team.members,
       getSearchValue: (team) => team.members.join(", "),
       width: 200,
-    },
-    {
-      id: "membersCount",
-      label: "Broj Članova",
-      accessor: (team) => team.members.length,
-      getSearchValue: (team) => team.members.length.toString(),
-      type: "number",
-      width: 1,
-      labelHidden: true,
-      inputHidden: true,
     },
     {
       id: "applicationDate",

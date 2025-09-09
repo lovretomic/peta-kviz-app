@@ -1,4 +1,9 @@
-export type ColumnType = "string" | "number" | "action" | "timestamp";
+export type ColumnType =
+  | "string"
+  | "number"
+  | "action"
+  | "timestamp"
+  | "stringArray";
 
 export type AdminTableColumn<T> = {
   id: string | keyof T;

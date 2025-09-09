@@ -10,12 +10,13 @@ export function formatDate(
 
   if (!d || Number.isNaN(d.getTime())) return "N/A";
 
-  const day = String(d.getDate()).padStart(2, "0");
-  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate());
+  const month = String(d.getMonth() + 1);
   const year = d.getFullYear();
   const hours = String(d.getHours()).padStart(2, "0");
   const minutes = String(d.getMinutes()).padStart(2, "0");
-  return `${day}. ${month}. ${year}. u ${hours}:${minutes}`;
+  const seconds = String(d.getSeconds()).padStart(2, "0");
+  return `${day}. ${month}. ${year}. u ${hours}:${minutes}:${seconds}`;
 }
 
 export function toLocalInputValue(date: Date): string {

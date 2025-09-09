@@ -42,6 +42,21 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
         </AdminTableButton>
       );
     }
+    case "stringArray": {
+      if (!Array.isArray(value) || !value.every((v) => typeof v === "string")) {
+        console.warn("Expected string array for stringArray column");
+        return null;
+      }
+      return (
+        <div className={c.stringArray}>
+          {value.map((v) => (
+            <p key={v}>{v}</p>
+          ))}
+        </div>
+      );
+    }
+    default:
+      return null;
   }
 };
 
