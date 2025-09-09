@@ -24,7 +24,7 @@ const AddEditModal = ({
           switch (column.type) {
             case "string":
               return (
-                <div>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
                   <input
                     type="text"
@@ -38,7 +38,7 @@ const AddEditModal = ({
               );
             case "number":
               return (
-                <div>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
                   <input
                     type="number"
@@ -52,7 +52,7 @@ const AddEditModal = ({
               );
             case "timestamp":
               return (
-                <div>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
                   <input
                     type="datetime-local"

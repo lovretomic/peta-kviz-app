@@ -153,7 +153,7 @@ const TimestampFilterPart = ({
           ))}
         </select>
         <input
-          type="datetime-local"
+          type="datetime"
           value={descriptor.a?.toISOString().slice(0, 16)}
           onChange={(e) =>
             edit?.({ ...descriptor, a: new Date(e.target.value) })
