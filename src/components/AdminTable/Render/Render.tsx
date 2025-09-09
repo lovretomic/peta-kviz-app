@@ -28,8 +28,8 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
       return <p className={c.number}>{value}</p>;
     }
     case "timestamp": {
-      if (!(value instanceof Date)) {
-        console.warn("Expected Date for timestamp column");
+      if (!(value instanceof Date) && typeof value !== "string") {
+        console.warn("Expected Date or string for timestamp column");
         return null;
       }
       return <p>{formatDate(value)}</p>;

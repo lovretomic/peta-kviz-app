@@ -88,7 +88,7 @@ const AdminQuizApplicationsPage = () => {
       id: "applicationDate",
       label: "Datum prijave",
       type: "timestamp",
-      accessor: (team) => formatDate(team.applicationDate?.toISOString() || ""),
+      accessor: (team) => team.applicationDate,
       getSearchValue: (team) =>
         formatDate(team.applicationDate?.toISOString() || ""),
     },
