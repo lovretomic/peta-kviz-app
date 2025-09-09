@@ -1,3 +1,4 @@
+import { getTimestampMs } from "../../../helpers";
 import type { SortKey } from "../types";
 import { toNumber } from "./helpers";
 
@@ -29,6 +30,12 @@ export function buildComparator<T>(keys: SortKey<T>[]): (a: T, b: T) => number {
           return (a: T, b: T) => cmpNumbers(a[key], b[key]);
         case "string":
           return (a: T, b: T) => cmpStrings(a[key], b[key]);
+        case "timestamp":
+          return (a: T, b: T) => {
+            const ta = getTimestampMs(a[key]);
+            const tb = getTimestampMs(b[key]);
+            return cmpNumbers(ta, tb);
+          };
         default:
           return (a: T, b: T) => cmpStrings(a[key], b[key]);
       }
