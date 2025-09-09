@@ -31,7 +31,6 @@ const PillButton: React.FC<PillButtonProps> = ({
       disabled={variant === "captain"}
     >
       <div className={c.content}>
-        {/* ✅ Use components directly */}
         {variant === "captain" ? <CaptainIcon /> : <PersonIcon />}
         {children ? <span>{children}</span> : null}
         {showClose && variant !== "captain" ? (
