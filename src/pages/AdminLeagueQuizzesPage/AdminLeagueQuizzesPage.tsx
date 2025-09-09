@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 
 import c from "./AdminLeagueQuizzesPage.module.scss";
 import { formatDate } from "../../helpers";
+import AdminTableButton from "../../components/AdminTable/AdminTableButton";
 
 type Quiz = {
   id: number;
@@ -13,6 +14,7 @@ type Quiz = {
 
 const AdminLeagueQuizzesPage = () => {
   const { leagueId } = useParams();
+  const navigate = useNavigate();
 
   const columns: AdminTableColumn<Quiz>[] = [
     {
@@ -39,6 +41,21 @@ const AdminLeagueQuizzesPage = () => {
       type: "timestamp",
       width: 250,
       getSearchValue: (quiz) => formatDate(quiz.timestamp),
+    },
+    {
+      id: "teams",
+      label: "Ekipe",
+      type: "action",
+      notSortable: true,
+      render: (quiz) => (
+        <AdminTableButton
+          onClick={() =>
+            navigate(`/admin/leagues/${leagueId}/quizzes/${quiz.id}`)
+          }
+        >
+          Pregledaj
+        </AdminTableButton>
+      ),
     },
   ];
 

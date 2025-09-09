@@ -1,7 +1,7 @@
 export type ColumnType = "string" | "number" | "action" | "timestamp";
 
 export type AdminTableColumn<T> = {
-  id: keyof T;
+  id: string | keyof T;
   label: string;
   notSortable?: boolean;
   notEditable?: boolean;
