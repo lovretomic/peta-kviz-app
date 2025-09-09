@@ -66,6 +66,7 @@ const FilteringContent = ({
         </select>
 
         <button onClick={addFilterDesc}>Dodaj</button>
+        <button onClick={() => console.log(filterDescs)}>log</button>
       </div>
       <div className={c.filteringList}>
         {filterDescs.length === 0 && <p>Nema aktivnih filtera.</p>}

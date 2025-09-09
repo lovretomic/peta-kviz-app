@@ -1,3 +1,4 @@
+import { getTimestampMs } from "../../../helpers";
 import type { FilterDesc } from "../types";
 import { toNumber } from "./helpers";
 
@@ -48,6 +49,61 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
               return a !== undefined && b !== undefined && n >= a && n <= b;
           }
         };
+      }
+
+      case "timestamp": {
+        const a = f.a?.getTime();
+        const b = f.b?.getTime();
+
+        // If operands are missing, return a no-op predicate
+        if (f.op === "between") {
+          if (a == null || b == null) return () => true;
+        } else {
+          if (a == null) return () => true;
+        }
+
+        if (f.op === "between") {
+          const min = Math.min(a!, b!);
+          const max = Math.max(a!, b!);
+          return (row: T) => {
+            const ts = getTimestampMs(row[key]);
+            return ts != null && ts >= min && ts <= max;
+          };
+        }
+
+        // Optional: widen equality to minute precision (helps with datetime-local)
+        const eqWindowMs = 60_000;
+
+        switch (f.op) {
+          case "eq":
+            return (row: T) => {
+              const ts = getTimestampMs(row[key]);
+              return ts != null && ts >= a! && ts < a! + eqWindowMs;
+              // If you truly want exact ms equality, use: ts != null && ts === a!
+            };
+          case "lt":
+            return (row: T) => {
+              const ts = getTimestampMs(row[key]);
+              return ts != null && ts < a!;
+            };
+          case "lte":
+            return (row: T) => {
+              const ts = getTimestampMs(row[key]);
+              return ts != null && ts <= a!;
+            };
+          case "gt":
+            return (row: T) => {
+              const ts = getTimestampMs(row[key]);
+              return ts != null && ts > a!;
+            };
+          case "gte":
+            return (row: T) => {
+              const ts = getTimestampMs(row[key]);
+              return ts != null && ts >= a!;
+            };
+          default:
+            return () => true; // unknown op -> no-op
+        }
       }
     }
   });

@@ -50,6 +50,15 @@ export const NumberFilterOps = [
   { value: "between", label: "između" },
 ];
 
+export const TimestampFilterOps = [
+  { value: "eq", label: "jednako" },
+  { value: "gt", label: "nakon" },
+  { value: "gte", label: "nakon ili jednako" },
+  { value: "lt", label: "prije" },
+  { value: "lte", label: "prije ili jednako" },
+  { value: "between", label: "između" },
+];
+
 export type FilterDesc<T> =
   | StringFilterDesc<T>
   | NumberFilterDesc<T>

@@ -1,6 +1,8 @@
+import { toLocalInputValue } from "../../../../../helpers";
 import {
   NumberFilterOps,
   StringFilterOps,
+  TimestampFilterOps,
   type NumberFilterDesc,
   type StringFilterDesc,
   type TimestampFilterDesc,
@@ -101,6 +103,7 @@ const NumberFilterPart = ({
         </select>
         <input
           type="number"
+          id={descriptor.id as string}
           value={descriptor.a}
           onChange={(e) =>
             edit?.({ ...descriptor, a: e.target.value as unknown as number })
@@ -110,6 +113,7 @@ const NumberFilterPart = ({
           <>
             <input
               type="number"
+              id={descriptor.id as string}
               value={descriptor.b}
               onChange={(e) =>
                 edit?.({
@@ -142,34 +146,34 @@ const TimestampFilterPart = ({
       <div className={c.inputs}>
         <select
           name=""
-          id=""
           value={descriptor.op}
           onChange={(e) => edit?.({ ...descriptor, op: e.target.value as any })}
         >
-          {NumberFilterOps.map((op) => (
+          {TimestampFilterOps.map((op) => (
             <option key={op.value} value={op.value}>
               {op.label}
             </option>
           ))}
         </select>
         <input
-          type="datetime"
-          value={descriptor.a?.toISOString().slice(0, 16)}
-          onChange={(e) =>
-            edit?.({ ...descriptor, a: new Date(e.target.value) })
-          }
+          type="datetime-local"
+          value={descriptor.a ? toLocalInputValue(descriptor.a) : ""}
+          onChange={(e) => {
+            const v = e.target.value;
+            const d = v ? new Date(v) : undefined;
+            edit?.({ ...descriptor, a: d });
+          }}
         />
         {descriptor.op === "between" && (
           <>
             <input
               type="datetime-local"
-              value={descriptor.b?.toISOString().slice(0, 16)}
-              onChange={(e) =>
-                edit?.({
-                  ...descriptor,
-                  b: new Date(e.target.value),
-                })
-              }
+              value={descriptor.a ? toLocalInputValue(descriptor.a) : ""}
+              onChange={(e) => {
+                const v = e.target.value;
+                const d = v ? new Date(v) : undefined;
+                edit?.({ ...descriptor, a: d });
+              }}
             />
           </>
         )}
