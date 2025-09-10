@@ -30,7 +30,15 @@ const TestPage = () => {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        width: "800px",
+        margin: "0 auto",
+      }}
+    >
       <div style={{ display: "flex", gap: "10px" }}>
         <Button variant="primary">Button with text</Button>
         <Button variant="outlined" icon={trashIcon}>
@@ -60,7 +68,7 @@ const TestPage = () => {
         addMember={addMember}
         removeMember={removeMember}
       />
-      <div style={{ width: "400px", height: "400px" }}>
+      <div>
         <LeaderboardEntry rank={1} name="Pera Perić" />
         <LeaderboardEntry rank={4} name="Mika Mikic" />
         <Leaderboard
