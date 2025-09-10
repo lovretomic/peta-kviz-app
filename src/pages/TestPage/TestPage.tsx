@@ -4,8 +4,31 @@ import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 import Leaderboard from "../../components/Leaderboard";
 import LeaderboardEntry from "../../components/LeaderboardEntry";
+import { useState } from "react";
+import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
+  const [formData, setFormData] = useState({
+    teamName: "Moja ekipa",
+    captainName: "Mak Terbovc",
+    captainEmail: "example@example.com",
+    members: ["Sahu mra", "Lovre Thomic"],
+  });
+
+  function addMember(name: string) {
+    setFormData((prevData) => ({
+      ...prevData,
+      members: [...prevData.members, name],
+    }));
+  }
+
+  function removeMember(name: string) {
+    setFormData((prevData) => ({
+      ...prevData,
+      members: prevData.members.filter((member) => member !== name),
+    }));
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div style={{ display: "flex", gap: "10px" }}>
@@ -48,6 +71,12 @@ const TestPage = () => {
           ]}
         />
       </div>
+      <MemberList
+        captainName={formData.captainName}
+        members={formData.members}
+        addMember={addMember}
+        removeMember={removeMember}
+      />
     </div>
   );
 };
