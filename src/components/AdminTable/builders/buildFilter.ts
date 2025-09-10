@@ -23,6 +23,8 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
               return s.startsWith(needle);
             case "endsWith":
               return s.endsWith(needle);
+            default:
+              return () => true;
           }
         };
       }
@@ -47,6 +49,8 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
               return a !== undefined && n >= a;
             case "between":
               return a !== undefined && b !== undefined && n >= a && n <= b;
+            default:
+              return () => true;
           }
         };
       }
@@ -55,7 +59,6 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
         const a = f.a?.getTime();
         const b = f.b?.getTime();
 
-        // If operands are missing, return a no-op predicate
         if (f.op === "between") {
           if (a == null || b == null) return () => true;
         } else {
@@ -71,7 +74,6 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
           };
         }
 
-        // Optional: widen equality to minute precision (helps with datetime-local)
         const eqWindowMs = 60_000;
 
         switch (f.op) {
@@ -102,8 +104,48 @@ export function buildFilter<T>(filters: FilterDesc<T>[]): (row: T) => boolean {
               return ts != null && ts >= a!;
             };
           default:
-            return () => true; // unknown op -> no-op
+            return () => true;
         }
+      }
+      case "stringArray": {
+        const needle = (f.value ?? "").toLowerCase();
+        const a = toNumber(f.a);
+        const b = toNumber(f.b);
+        return (row: T) => {
+          const raw = row[key];
+          const arr: string[] = Array.isArray(raw)
+            ? raw.map((v) => String(v).toLowerCase())
+            : [];
+          switch (f.op) {
+            case "contains":
+              return arr.some((s) => s.includes(needle));
+            case "equals":
+              return arr.some((s) => s === needle);
+            case "startsWith":
+              return arr.some((s) => s.startsWith(needle));
+            case "endsWith":
+              return arr.some((s) => s.endsWith(needle));
+            case "countEq":
+              return a !== undefined && arr.length === a;
+            case "countGt":
+              return a !== undefined && arr.length > a;
+            case "countGte":
+              return a !== undefined && arr.length >= a;
+            case "countLt":
+              return a !== undefined && arr.length < a;
+            case "countLte":
+              return a !== undefined && arr.length <= a;
+            case "countBetween":
+              return (
+                a !== undefined &&
+                b !== undefined &&
+                arr.length >= a &&
+                arr.length <= b
+              );
+            default:
+              return () => true;
+          }
+        };
       }
     }
   });

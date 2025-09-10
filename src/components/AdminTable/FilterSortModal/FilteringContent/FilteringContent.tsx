@@ -107,6 +107,17 @@ const FilteringContent = ({
                 edit={(desc) => editFilterDesc(filterDesc.id, desc)}
               />
             );
+          if (filterDesc.type === "stringArray")
+            return (
+              <FilterPart
+                key={filterDesc.id as string}
+                type={"stringArray"}
+                label={column.label}
+                descriptor={filterDesc}
+                remove={() => removeFilterDesc(filterDesc.id)}
+                edit={(desc) => editFilterDesc(filterDesc.id, desc)}
+              />
+            );
         })}
       </div>
       <div className={c.buttons}>

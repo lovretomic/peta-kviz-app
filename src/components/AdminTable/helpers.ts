@@ -23,6 +23,13 @@ export const getDefaultFilterDesc = (column: AdminTableColumn<any>) => {
         op: "eq",
         a: new Date(),
       } as FilterDesc<any>;
+    case "stringArray":
+      return {
+        id: column.id,
+        type: "stringArray",
+        op: "contains",
+        value: "",
+      } as FilterDesc<any>;
     default:
       throw new Error("Unsupported column type");
   }

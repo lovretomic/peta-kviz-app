@@ -51,6 +51,25 @@ export type TimestampFilterDesc<T> = {
   b?: Date;
 };
 
+export type StringArrayFilterDesc<T> = {
+  id: keyof T;
+  type: "stringArray";
+  op:
+    | "contains"
+    | "equals"
+    | "startsWith"
+    | "endsWith"
+    | "countEq"
+    | "countGt"
+    | "countGte"
+    | "countLt"
+    | "countLte"
+    | "countBetween";
+  value: string;
+  a?: number;
+  b?: number;
+};
+
 export const NumberFilterOps = [
   { value: "eq", label: "jednako" },
   { value: "gt", label: "veće od" },
@@ -69,10 +88,24 @@ export const TimestampFilterOps = [
   { value: "between", label: "između" },
 ];
 
+export const StringArrayFilterOps = [
+  { value: "contains", label: "sadrži" },
+  { value: "equals", label: "jednako" },
+  { value: "startsWith", label: "počinje s" },
+  { value: "endsWith", label: "završava s" },
+  { value: "countEq", label: "broj elemenata jednako" },
+  { value: "countGt", label: "broj elemenata veće od" },
+  { value: "countGte", label: "broj elemenata veće ili jednako" },
+  { value: "countLt", label: "broj elemenata manje od" },
+  { value: "countLte", label: "broj elemenata manje ili jednako" },
+  { value: "countBetween", label: "broj elemenata između" },
+];
+
 export type FilterDesc<T> =
   | StringFilterDesc<T>
   | NumberFilterDesc<T>
-  | TimestampFilterDesc<T>;
+  | TimestampFilterDesc<T>
+  | StringArrayFilterDesc<T>;
 
 export type SortKey<T> = {
   id: keyof T;

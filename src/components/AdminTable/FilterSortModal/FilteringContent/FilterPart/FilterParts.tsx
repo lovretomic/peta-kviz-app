@@ -1,9 +1,11 @@
 import { toLocalInputValue } from "../../../../../helpers";
 import {
   NumberFilterOps,
+  StringArrayFilterOps,
   StringFilterOps,
   TimestampFilterOps,
   type NumberFilterDesc,
+  type StringArrayFilterDesc,
   type StringFilterDesc,
   type TimestampFilterDesc,
 } from "../../../types";
@@ -34,10 +36,19 @@ type TimestampFilterPartProps = {
   edit: (desc: TimestampFilterDesc<any>) => void;
 };
 
+type StringArrayFilterPartProps = {
+  type: "stringArray";
+  label?: string;
+  descriptor: StringArrayFilterDesc<any>;
+  remove: () => void;
+  edit: (desc: StringArrayFilterDesc<any>) => void;
+};
+
 type FilterPartProps =
   | StringFilterPartProps
   | NumberFilterPartProps
-  | TimestampFilterPartProps;
+  | TimestampFilterPartProps
+  | StringArrayFilterPartProps;
 
 const StringFilterPart = ({
   label,
@@ -184,6 +195,99 @@ const TimestampFilterPart = ({
   );
 };
 
+const StringArrayFilterPart = ({
+  label,
+  descriptor,
+  remove,
+  edit,
+}: Omit<StringArrayFilterPartProps, "type">) => {
+  return (
+    <div className={c.filterPart}>
+      <div className={c.header}>
+        <p className={c.type}>{descriptor.type}</p>
+        <h4 className={c.label}>{label}</h4>
+      </div>
+      <div className={c.inputs}>
+        <select
+          name=""
+          id=""
+          value={descriptor.op}
+          onChange={(e) => edit?.({ ...descriptor, op: e.target.value as any })}
+        >
+          {StringArrayFilterOps.map((op) => (
+            <option key={op.value} value={op.value}>
+              {op.label}
+            </option>
+          ))}
+        </select>
+        {(() => {
+          switch (descriptor.op) {
+            case "contains":
+            case "equals":
+            case "startsWith":
+            case "endsWith":
+              return (
+                <input
+                  type="text"
+                  value={descriptor.value}
+                  onChange={(e) =>
+                    edit?.({ ...descriptor, value: e.target.value })
+                  }
+                />
+              );
+            case "countEq":
+            case "countGt":
+            case "countGte":
+            case "countLt":
+            case "countLte":
+              return (
+                <input
+                  type="number"
+                  value={descriptor.a}
+                  onChange={(e) =>
+                    edit?.({
+                      ...descriptor,
+                      a: e.target.value as unknown as number,
+                    })
+                  }
+                />
+              );
+            case "countBetween":
+              return (
+                <>
+                  <input
+                    type="number"
+                    value={descriptor.a}
+                    onChange={(e) =>
+                      edit?.({
+                        ...descriptor,
+                        a: e.target.value as unknown as number,
+                      })
+                    }
+                  />
+                  <input
+                    type="number"
+                    value={descriptor.b}
+                    onChange={(e) =>
+                      edit?.({
+                        ...descriptor,
+                        b: e.target.value as unknown as number,
+                      })
+                    }
+                  />
+                </>
+              );
+            default:
+              return null;
+          }
+        })()}
+      </div>
+
+      <button onClick={remove}>Ukloni</button>
+    </div>
+  );
+};
+
 const FilterPart = ({
   type,
   label,
@@ -213,6 +317,15 @@ const FilterPart = ({
     case "timestamp":
       return (
         <TimestampFilterPart
+          label={label}
+          descriptor={descriptor}
+          remove={remove}
+          edit={edit}
+        />
+      );
+    case "stringArray":
+      return (
+        <StringArrayFilterPart
           label={label}
           descriptor={descriptor}
           remove={remove}
