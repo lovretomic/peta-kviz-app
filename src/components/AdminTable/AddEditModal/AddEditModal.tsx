@@ -65,6 +65,27 @@ const AddEditModal = ({
                   />
                 </div>
               );
+            case "stringArray":
+              return (
+                <div key={column.id as string} className={c.stringArray}>
+                  <label htmlFor={column.id as string}>{column.label}</label>
+                  {dataToEdit &&
+                    dataToEdit[column.id as keyof typeof dataToEdit].map(
+                      (value: string, index: number) => (
+                        <div>
+                          <input
+                            key={index}
+                            type="text"
+                            defaultValue={value}
+                            disabled={dataToEdit && column.notEditable}
+                          />
+                          <button>Ukloni</button>
+                        </div>
+                      )
+                    )}
+                  <button>Dodaj</button>
+                </div>
+              );
             default:
               return null;
           }
