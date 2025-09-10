@@ -36,6 +36,12 @@ export function buildComparator<T>(keys: SortKey<T>[]): (a: T, b: T) => number {
             const tb = getTimestampMs(b[key]);
             return cmpNumbers(ta, tb);
           };
+        case "stringArray":
+          return (a: T, b: T) =>
+            cmpNumbers(
+              (a[key] as unknown[] | undefined)?.length,
+              (b[key] as unknown[] | undefined)?.length
+            );
         default:
           return (a: T, b: T) => cmpStrings(a[key], b[key]);
       }
