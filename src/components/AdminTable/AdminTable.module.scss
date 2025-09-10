@@ -163,5 +163,14 @@
         }
       }
     }
+
+    .noData {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      color: rgba($grey-dark, 0.7);
+      font-style: italic;
+    }
   }
 }

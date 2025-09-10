@@ -226,6 +226,9 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             ))}
           </tbody>
         </table>
+        {displayedData.length === 0 && (
+          <div className={c.noData}>Nema podataka za prikaz.</div>
+        )}
       </div>
     </div>
   );
