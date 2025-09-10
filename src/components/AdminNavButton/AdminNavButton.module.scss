@@ -28,6 +28,15 @@
     }
   }
 
+  &:disabled {
+    cursor: default;
+    opacity: 0.2;
+
+    &:hover {
+      background: none;
+    }
+  }
+
   &:hover {
     background: rgba(white, 0.2);
   }

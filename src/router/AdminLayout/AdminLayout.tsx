@@ -9,7 +9,12 @@ const AdminLayout = () => {
     <div className={c.adminLayout}>
       <nav className={c.navigation}>
         {adminNavigationItems.map((item) => (
-          <AdminNavButton key={item.name} Icon={item.Icon} path={item.path}>
+          <AdminNavButton
+            key={item.name}
+            Icon={item.Icon}
+            path={item.path}
+            disabled={item.disabled}
+          >
             {item.name}
           </AdminNavButton>
         ))}

@@ -72,7 +72,7 @@ const AddEditModal = ({
                   {dataToEdit &&
                     dataToEdit[column.id as keyof typeof dataToEdit].map(
                       (value: string, index: number) => (
-                        <div>
+                        <div key={index}>
                           <input
                             key={index}
                             type="text"

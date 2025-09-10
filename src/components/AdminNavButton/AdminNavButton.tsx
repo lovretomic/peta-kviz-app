@@ -5,12 +5,14 @@ import clsx from "clsx";
 type AdminNavButtonProps = {
   path: string;
   Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  disabled?: boolean;
 };
 
 const AdminNavButton = ({
   children,
   path,
   Icon,
+  disabled,
   ...handlers
 }: React.HTMLAttributes<HTMLButtonElement> & AdminNavButtonProps) => {
   const navigate = useNavigate();
@@ -18,9 +20,12 @@ const AdminNavButton = ({
 
   return (
     <button
-      className={clsx(c.adminNavButton, { [c.selected]: currentPath === path })}
+      className={clsx(c.adminNavButton, {
+        [c.selected]: currentPath === path,
+      })}
       {...handlers}
       onClick={() => navigate(path)}
+      disabled={disabled}
     >
       {Icon && <Icon className={c.icon} />}
       {children}

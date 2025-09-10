@@ -43,11 +43,12 @@ const AdminLeagueQuizzesPage = () => {
     },
     {
       id: "teams",
-      label: "Ekipe",
+      label: "Prijave",
+      labelHidden: true,
       type: "action",
       notSortable: true,
       onAction: (item) => {
-        navigate(`/admin/leagues/${leagueId}/quizzes/${item.id}/applications`);
+        navigate(`/admin/leagues/${leagueId}/quizzes/${item.id}`);
       },
     },
   ];

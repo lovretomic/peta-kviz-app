@@ -8,12 +8,28 @@ export type NewNavigationItem = {
   name: string;
   path: string;
   Icon?: React.FC<React.SVGProps<SVGSVGElement>>;
+  disabled?: boolean;
 };
 
 export const adminNavigationItems: NewNavigationItem[] = [
-  { name: "Početna", path: "/admin", Icon: HomeIcon },
+  { name: "Početna", path: "/admin", Icon: HomeIcon, disabled: true },
   { name: "Sve Lige", path: "/admin/leagues", Icon: CardsStarIcon },
-  { name: "Svi Kvizevi", path: "/admin/quizzes", Icon: BuildingBlocksIcon },
-  { name: "Sve Statistike", path: "/admin/stats", Icon: BarChart4BarsIcon },
-  { name: "Obavijesti", path: "/admin/notifications", Icon: NotificationsIcon },
+  {
+    name: "Svi Kvizevi",
+    path: "/admin/quizzes",
+    Icon: BuildingBlocksIcon,
+    disabled: true,
+  },
+  {
+    name: "Sve Statistike",
+    path: "/admin/stats",
+    Icon: BarChart4BarsIcon,
+    disabled: true,
+  },
+  {
+    name: "Obavijesti",
+    path: "/admin/notifications",
+    Icon: NotificationsIcon,
+    disabled: true,
+  },
 ];
