@@ -2,6 +2,7 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
+import CodeModal from "../../components/CodeModal";
 
 const TestPage = () => {
   return (
@@ -28,6 +29,9 @@ const TestPage = () => {
           percentage={70}
           variant="withButtons"
         />
+      </div>
+      <div>
+        <CodeModal date="12.12.2012." code="ABC12s" />
       </div>
     </div>
   );
