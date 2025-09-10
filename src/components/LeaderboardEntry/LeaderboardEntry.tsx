@@ -10,8 +10,12 @@ const LeaderboardEntry: React.FC<LeaderboardEntryProps> = ({ rank, name }) => {
   const isTopThree = rank <= 3;
   return (
     <>
-      <td className={clsx(c.rank, { [c.firstThree]: isTopThree })}>{rank}</td>
-      <td className={c.name}>{name}</td>
+      <div className={c.row}>
+        <div className={clsx(c.rank, { [c.firstThree]: isTopThree })}>
+          {rank}
+        </div>
+        <div className={c.name}>{name}</div>
+      </div>
     </>
   );
 };
