@@ -54,7 +54,13 @@ const TestPage = () => {
           variant="withButtons"
         />
       </div>
-      <div>
+      <MemberList
+        captainName={formData.captainName}
+        members={formData.members}
+        addMember={addMember}
+        removeMember={removeMember}
+      />
+      <div style={{ width: "400px", height: "400px" }}>
         <LeaderboardEntry rank={1} name="Pera Perić" />
         <LeaderboardEntry rank={4} name="Mika Mikic" />
         <Leaderboard
@@ -71,12 +77,6 @@ const TestPage = () => {
           ]}
         />
       </div>
-      <MemberList
-        captainName={formData.captainName}
-        members={formData.members}
-        addMember={addMember}
-        removeMember={removeMember}
-      />
     </div>
   );
 };

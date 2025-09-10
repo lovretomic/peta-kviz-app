@@ -43,8 +43,25 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
         </thead>
         <tbody>
           {rankedRows.map((row, rowIndex) => (
-            <tr key={rowIndex} className={c.row}>
-              <LeaderboardEntry rank={row.rank} name={row.name} />
+            <tr key={rowIndex}>
+              <td className={c.td}>
+                <div>
+                  <LeaderboardEntry
+                    rank={row.rank}
+                    name={row.name}
+                    render="rank"
+                  />
+                </div>
+              </td>
+              <td className={c.td}>
+                <div>
+                  <LeaderboardEntry
+                    rank={row.rank}
+                    name={row.name}
+                    render="name"
+                  />
+                </div>
+              </td>
               <td className={c.td}>{row.score}</td>
             </tr>
           ))}
