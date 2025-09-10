@@ -62,7 +62,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
                   />
                 </div>
               </td>
-              <td className={c.td}>{row.score}</td>
+              <td className={c.td}>{row.score.toString().replace(".", ",")}</td>
             </tr>
           ))}
         </tbody>
