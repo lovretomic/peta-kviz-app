@@ -92,6 +92,13 @@ const ApplicationForm = () => {
           variant="primary"
           className={c.submitButton}
           disabled={memberListDisabled}
+          onClick={() => {
+            setApplication({
+              ...application,
+              appliedAt: new Date(),
+            } as Application);
+            console.log("Application submitted:", application);
+          }}
         >
           Pošalji prijavu
         </Button>
