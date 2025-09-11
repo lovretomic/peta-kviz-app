@@ -6,6 +6,8 @@ import ProgressBar from "../../components/ProgressBar";
 import c from "./ApplicationForm.module.scss";
 import clsx from "clsx";
 
+import ChevronBackward from "../../assets/icons/chevron-backward.svg?react";
+
 type Application = {
   teamName: string;
   captainName: string;
@@ -22,7 +24,7 @@ const ApplicationForm = () => {
     !application?.captainEmail;
 
   return (
-    <>
+    <div className={c.page}>
       <div className={c.ellipse} />
       <div className={c.container}>
         <ProgressBar
@@ -30,6 +32,9 @@ const ApplicationForm = () => {
           label="Kviz općeg znanja"
           date={new Date()}
         />
+        <button className={c.backButton} onClick={() => window.history.back()}>
+          <ChevronBackward />
+        </button>
         <h2>Prijava ekipe</h2>
         <Input
           placeholder="Upiši ime ekipe"
@@ -103,7 +108,7 @@ const ApplicationForm = () => {
           Pošalji prijavu
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 
