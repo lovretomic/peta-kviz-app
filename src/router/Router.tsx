@@ -9,6 +9,7 @@ import LeaderboardPage from "../pages/LeaderboardPage";
 import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
+import ApplicationForm from "../pages/ApplicationForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -16,9 +17,10 @@ const router = createBrowserRouter(
       <Route element={<Layout />}>
         <Route path="/" element={<QuizzesPage />} />
         <Route path="/leaderboard" element={<LeaderboardPage />} />
-        <Route path="/apply" element={<ApplicationPage />} />
+        <Route path="/application" element={<ApplicationPage />} />
         <Route path="/test" element={<TestPage />} />
       </Route>
+      <Route path="/apply" element={<ApplicationForm />} />
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </>
   )
