@@ -19,6 +19,7 @@ import FilterSortModal from "./FilterSortModal";
 import AddEditModal from "./AddEditModal";
 import Render from "./Render/Render";
 import VisibilityModal from "./VisibilityModal";
+import clsx from "clsx";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -36,22 +37,34 @@ function getWidthStyle(column: AdminTableColumn<any>) {
   return {};
 }
 
-const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
-  const [isFilterSortModalOpen, setIsFilterSortModalOpen] = useState(false);
-  const [filterSortModalAction, setFilterSortModalAction] = useState<
-    "sort" | "filter"
-  >("filter");
+type ModalsState = {
+  filterSort: "filter" | "sort" | null;
+  addEdit: "add" | "edit" | null;
+  visibility: boolean;
+};
 
-  const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
-  const [isVisibilityModalOpen, setIsVisibilityModalOpen] = useState(false);
+type CustomizationState = {
+  sortKeys: SortKey<any>[];
+  filterDescs: FilterDesc<any>[];
+  searchTerm: string;
+};
+
+const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
+  const [modals, setModals] = useState<ModalsState>({
+    filterSort: null,
+    addEdit: null,
+    visibility: false,
+  });
+
+  const [customization, setCustomization] = useState<CustomizationState>({
+    sortKeys: [],
+    filterDescs: [],
+    searchTerm: "",
+  });
+
   const [displayedColumns, setDisplayedColumns] = useState(
     columns.filter((c) => !c.hiddenByDefault)
   );
-
-  const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
-  const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
 
@@ -73,20 +86,24 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   const filterAndSort = () => {
     let newData = [...data];
 
-    if (filterDescs.length === 0 && sortKeys.length === 0 && !searchTerm) {
+    if (
+      customization.filterDescs.length === 0 &&
+      customization.sortKeys.length === 0 &&
+      !customization.searchTerm
+    ) {
       setDisplayedData(newData);
       return;
     }
 
-    if (filterDescs.length > 0) {
-      newData = newData.filter(buildFilter(filterDescs));
+    if (customization.filterDescs.length > 0) {
+      newData = newData.filter(buildFilter(customization.filterDescs));
     }
 
-    if (sortKeys.length > 0) {
-      newData.sort(buildComparator(sortKeys));
+    if (customization.sortKeys.length > 0) {
+      newData.sort(buildComparator(customization.sortKeys));
     }
 
-    const trimmed = searchTerm.trim().toLowerCase();
+    const trimmed = customization.searchTerm.trim().toLowerCase();
     if (trimmed) {
       newData = newData.filter((item) =>
         columns.some((column) => {
@@ -103,30 +120,55 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   useEffect(() => {
     filterAndSort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm]);
+  }, [customization.searchTerm]);
 
   return (
     <div className={c.adminTable}>
       <FilterSortModal
-        action={filterSortModalAction}
+        action={modals.filterSort || "filter"}
         filterAndSort={filterAndSort}
         columns={columns}
-        isOpen={isFilterSortModalOpen}
-        setIsOpen={setIsFilterSortModalOpen}
-        sortKeys={sortKeys}
-        setSortKeys={setSortKeys}
-        filterDescs={filterDescs}
-        setFilterDescs={setFilterDescs}
+        isOpen={modals.filterSort !== null}
+        setIsOpen={(isOpen) => {
+          setModals((prev) => ({
+            ...prev,
+            filterSort: isOpen ? "filter" : null,
+          }));
+        }}
+        sortKeys={customization.sortKeys}
+        setSortKeys={(sortKeys) => {
+          setCustomization((prev) => ({
+            ...prev,
+            sortKeys,
+          }));
+        }}
+        filterDescs={customization.filterDescs}
+        setFilterDescs={(filterDescs) => {
+          setCustomization((prev) => ({
+            ...prev,
+            filterDescs,
+          }));
+        }}
       />
       <AddEditModal
-        isOpen={isAddEditModalOpen}
-        setIsOpen={setIsAddEditModalOpen}
+        isOpen={modals.addEdit !== null}
+        setIsOpen={(isOpen) => {
+          setModals((prev) => ({
+            ...prev,
+            addEdit: isOpen ? "add" : null,
+          }));
+        }}
         columns={columns}
         dataToEdit={dataToEdit}
       />
       <VisibilityModal
-        isOpen={isVisibilityModalOpen}
-        setIsOpen={setIsVisibilityModalOpen}
+        isOpen={modals.visibility}
+        setIsOpen={(isOpen) => {
+          setModals((prev) => ({
+            ...prev,
+            visibility: isOpen,
+          }));
+        }}
         columns={columns}
         displayedColumns={displayedColumns}
         setDisplayedColumns={setDisplayedColumns}
@@ -144,40 +186,59 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           <button
             className={c.optionButton}
             onClick={() => {
-              setFilterSortModalAction("filter");
-              setIsFilterSortModalOpen(true);
+              setModals((prev) => ({
+                ...prev,
+                filterSort: "filter",
+              }));
             }}
           >
             <FilterListIcon className={c.icon} /> Filtriraj
-            {filterDescs.length !== 0 && (
-              <div className={c.indicator}>{filterDescs.length}</div>
+            {customization.filterDescs.length !== 0 && (
+              <div className={c.indicator}>
+                {customization.filterDescs.length}
+              </div>
             )}
           </button>
           <button
             className={c.optionButton}
             onClick={() => {
-              setFilterSortModalAction("sort");
-              setIsFilterSortModalOpen(true);
+              setModals((prev) => ({
+                ...prev,
+                filterSort: "sort",
+              }));
             }}
           >
             <SortIcon className={c.icon} /> Sortiraj
-            {sortKeys.length !== 0 && (
-              <div className={c.indicator}>{sortKeys.length}</div>
+            {customization.sortKeys.length !== 0 && (
+              <div className={c.indicator}>{customization.sortKeys.length}</div>
             )}
           </button>
           <button
             className={c.optionButton}
-            onClick={() => setIsVisibilityModalOpen(true)}
+            onClick={() => {
+              setModals((prev) => ({
+                ...prev,
+                visibility: true,
+              }));
+            }}
           >
             <VisibilityIcon className={c.icon} /> Prikaz
+            {displayedColumns.length !== columns.length && (
+              <div className={clsx(c.indicator, c.visibilityIndicator)}>
+                {displayedColumns.length}/{columns.length}
+              </div>
+            )}
           </button>
           <input
             type="text"
             placeholder="Pretraži"
             className={c.searchInput}
-            value={searchTerm}
+            value={customization.searchTerm}
             onChange={(e) => {
-              setSearchTerm(e.target.value);
+              setCustomization((prev) => ({
+                ...prev,
+                searchTerm: e.target.value,
+              }));
             }}
           />
           <AdminButton
@@ -191,7 +252,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             Icon={AddIcon}
             onClick={() => {
               setDataToEdit(null);
-              setIsAddEditModalOpen(true);
+              setModals((prev) => ({
+                ...prev,
+                addEdit: "add",
+              }));
             }}
           >
             Dodaj
@@ -238,7 +302,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                       title="Uredi"
                       onClick={() => {
                         setDataToEdit(item);
-                        setIsAddEditModalOpen(true);
+                        setModals((prev) => ({
+                          ...prev,
+                          addEdit: "edit",
+                        }));
                       }}
                     />
                   </td>
