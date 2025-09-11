@@ -16,7 +16,7 @@ const AdminButton = ({
   ...props
 }: AdminButtonProps) => {
   return (
-    <button className={clsx(c.adminButton, c[variant])} {...props}>
+    <button {...props} className={clsx(c.adminButton, c[variant])}>
       {iconPosition === "left" && Icon && <Icon className={c.icon} />}
       {children}
       {iconPosition === "right" && Icon && <Icon className={c.icon} />}
