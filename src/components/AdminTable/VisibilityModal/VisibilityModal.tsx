@@ -46,9 +46,6 @@ const VisibilityModal = ({
             <input
               type="checkbox"
               id={`${column.id as string}-${index}`}
-              defaultChecked={displayedColumnsToAdd?.some(
-                (c) => c.id === column.id
-              )}
               checked={
                 selectAll ||
                 displayedColumnsToAdd?.some((c) => c.id === column.id)
