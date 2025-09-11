@@ -1,9 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import AdminButton from "../../components/AdminButton";
 import AdminInput from "../../components/AdminInput";
 import AdminSelect from "../../components/AdminSelect";
 import c from "./AdminQuizSettingsPage.module.scss";
 
 const AdminQuizSettingsPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className={c.page}>
       <h1>Postavke</h1>
@@ -52,7 +55,14 @@ const AdminQuizSettingsPage = () => {
       </div>
 
       <div className={c.buttons}>
-        <AdminButton variant="secondary">Povratak</AdminButton>
+        <AdminButton
+          variant="secondary"
+          onClick={() =>
+            navigate(window.location.pathname.replace("/settings", ""))
+          }
+        >
+          Povratak
+        </AdminButton>
         <AdminButton>Spremi promjene</AdminButton>
       </div>
     </div>

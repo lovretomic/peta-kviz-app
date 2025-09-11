@@ -81,11 +81,15 @@ const AddEditModal = ({
                             defaultValue={value}
                             disabled={dataToEdit && column.notEditable}
                           />
-                          <button>Ukloni</button>
+                          <button disabled={dataToEdit && column.notEditable}>
+                            Ukloni
+                          </button>
                         </div>
                       )
                     )}
-                  <button>Dodaj</button>
+                  <button disabled={dataToEdit && column.notEditable}>
+                    Dodaj
+                  </button>
                 </div>
               );
             default:
