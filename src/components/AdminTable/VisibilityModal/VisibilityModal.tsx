@@ -60,7 +60,21 @@ const VisibilityModal = ({
               }
               onChange={(e) => {
                 if (e.target.checked) {
-                  setDisplayedColumnsToAdd([...displayedColumnsToAdd, column]);
+                  const newDisplayedColumns = [
+                    ...displayedColumnsToAdd,
+                    column,
+                  ];
+                  setDisplayedColumnsToAdd(
+                    newDisplayedColumns.sort((a, b) => {
+                      const aIndex = columns.findIndex(
+                        (col) => col.id === a.id
+                      );
+                      const bIndex = columns.findIndex(
+                        (col) => col.id === b.id
+                      );
+                      return aIndex - bIndex;
+                    })
+                  );
                 } else {
                   setDisplayedColumnsToAdd(
                     displayedColumnsToAdd.filter((c) => c.id !== column.id)

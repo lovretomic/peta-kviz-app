@@ -250,7 +250,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             Icon={DownloadIcon}
             onClick={downloadXLSX}
           >
-            Izvezi
+            Izvezi (.xlsx)
           </AdminButton>
           <AdminButton
             Icon={AddIcon}
@@ -319,10 +319,9 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           </table>
         )}
 
-        {displayedData.length === 0 ||
-          (displayedColumns.length === 0 && (
-            <div className={c.noData}>Nema podataka za prikaz.</div>
-          ))}
+        {displayedData.length === 0 || displayedColumns.length === 0 ? (
+          <div className={c.noData}>Nema podataka za prikaz.</div>
+        ) : null}
       </div>
     </div>
   );

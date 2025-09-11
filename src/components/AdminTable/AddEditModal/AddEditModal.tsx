@@ -19,7 +19,11 @@ const AddEditModal = ({
   dataToEdit,
 }: AddEditModalProps<any>) => {
   return (
-    <AdminModal isOpen={isOpen} setIsOpen={setIsOpen} title="AddEditModal">
+    <AdminModal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={dataToEdit ? "Uredi" : "Dodaj"}
+    >
       <div className={c.content}>
         {columns.map((column) => {
           if (column.inputHidden) return null;
