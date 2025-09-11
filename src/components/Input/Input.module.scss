@@ -1,15 +1,18 @@
 .input {
   width: 100%;
   border: 1px solid rgba(white, 0.4);
+  box-sizing: border-box;
   padding: 12px 16px;
   background-color: rgba(white, 0.05);
   color: white;
   border-radius: 5px;
   font-size: 16px;
   transition-duration: 200ms;
+
   &::placeholder {
     color: rgba(white, 0.5);
   }
+
   &:focus {
     outline: none;
     border-color: rgba(white, 0.8);
