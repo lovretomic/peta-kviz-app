@@ -20,6 +20,7 @@ export function formatDate(
 }
 
 export function toLocalInputValue(date: Date): string {
+  if (date == undefined) return "";
   const off = date.getTimezoneOffset() * 60000;
   return new Date(date.getTime() - off).toISOString().slice(0, 16);
 }

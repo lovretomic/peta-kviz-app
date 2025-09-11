@@ -1,3 +1,4 @@
+import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
 import type { AdminTableColumn } from "../types";
@@ -58,17 +59,18 @@ const AddEditModal = ({
                   <input
                     type="datetime-local"
                     id={column.id as string}
-                    defaultValue={
-                      dataToEdit?.[column.id as keyof typeof dataToEdit]
-                    }
+                    defaultValue={toLocalInputValue(
+                      dataToEdit?.[column.id as keyof typeof dataToEdit] as Date
+                    )}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
               );
+
             case "stringArray":
               return (
                 <div key={column.id as string} className={c.stringArray}>
-                  <label htmlFor={column.id as string}>{column.label}</label>
+                  <label>{column.label}</label>
                   {dataToEdit &&
                     dataToEdit[column.id as keyof typeof dataToEdit].map(
                       (value: string, index: number) => (
