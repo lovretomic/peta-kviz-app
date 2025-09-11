@@ -81,6 +81,15 @@ html {
     margin-bottom: 24px;
   }
 
+  .memberList {
+    opacity: 1;
+    transition: 200ms ease;
+
+    &.disabled {
+      opacity: 0.4;
+    }
+  }
+
   .submitButton {
     margin-top: 16px;
   }

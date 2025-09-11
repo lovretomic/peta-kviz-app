@@ -2,13 +2,16 @@
   border-radius: 32px;
   padding: 8px 12px;
   gap: 8px;
-  cursor: pointer;
   font-size: 16px;
   transition: 0.3s ease;
   width: auto;
   display: flex;
   flex-direction: column;
   align-self: flex-start;
+
+  &:enabled {
+    cursor: pointer;
+  }
 
   .content {
     display: flex;
@@ -26,11 +29,11 @@
   border: none;
 }
 
-.default:hover:enabled {
+.default:not(:disabled):hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-.default:active:enabled {
+.default:enabled:active {
   background-color: rgba(255, 255, 255, 0.4);
 }
 

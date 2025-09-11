@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import MemberList from "../../components/MemberList";
 import ProgressBar from "../../components/ProgressBar";
 import c from "./ApplicationForm.module.scss";
+import clsx from "clsx";
 
 type Application = {
   teamName: string;
@@ -15,6 +16,10 @@ type Application = {
 
 const ApplicationForm = () => {
   const [application, setApplication] = useState<Application | null>(null);
+  const memberListDisabled =
+    !application?.teamName ||
+    !application?.captainName ||
+    !application?.captainEmail;
 
   return (
     <>
@@ -62,6 +67,11 @@ const ApplicationForm = () => {
         </div>
 
         <MemberList
+          disabled={memberListDisabled}
+          className={clsx({
+            [c.memberList]: true,
+            [c.disabled]: memberListDisabled,
+          })}
           captainName={application?.captainName || ""}
           members={application?.members || []}
           addMember={(name) =>
@@ -78,7 +88,11 @@ const ApplicationForm = () => {
           }
           maxMembers={5}
         />
-        <Button variant="primary" className={c.submitButton}>
+        <Button
+          variant="primary"
+          className={c.submitButton}
+          disabled={memberListDisabled}
+        >
           Pošalji prijavu
         </Button>
       </div>
