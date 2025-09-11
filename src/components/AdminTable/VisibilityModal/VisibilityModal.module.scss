@@ -1,0 +1,11 @@
+.content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .row {
+    display: flex;
+    gap: 4px;
+  }
+}

@@ -7,6 +7,7 @@ import DownloadIcon from "../../assets/icons/download.svg?react";
 import AddIcon from "../../assets/icons/add.svg?react";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import DeleteIcon from "../../assets/icons/delete.svg?react";
+import VisibilityIcon from "../../assets/icons/visibility.svg?react";
 
 import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
@@ -17,6 +18,7 @@ import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
 import AddEditModal from "./AddEditModal";
 import Render from "./Render/Render";
+import VisibilityModal from "./VisibilityModal";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
@@ -41,6 +43,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   >("filter");
 
   const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
+  const [isVisibilityModalOpen, setIsVisibilityModalOpen] = useState(false);
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
   const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
@@ -118,6 +121,11 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         columns={columns}
         dataToEdit={dataToEdit}
       />
+      <VisibilityModal
+        isOpen={isVisibilityModalOpen}
+        setIsOpen={setIsVisibilityModalOpen}
+        columns={columns}
+      />
       <div className={c.options}>
         {displayedData.length !== data.length && (
           <p className={c.rowCount}>
@@ -151,6 +159,12 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
             {sortKeys.length !== 0 && (
               <div className={c.indicator}>{sortKeys.length}</div>
             )}
+          </button>
+          <button
+            className={c.optionButton}
+            onClick={() => setIsVisibilityModalOpen(true)}
+          >
+            <VisibilityIcon className={c.icon} /> Prikaz
           </button>
           <input
             type="text"
