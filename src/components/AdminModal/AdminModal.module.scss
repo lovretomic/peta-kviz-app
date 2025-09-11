@@ -30,6 +30,9 @@
         cursor: pointer;
         border-radius: 4px;
         transition: 100ms ease;
+        height: 12px;
+        width: 12px;
+        padding: 4px;
 
         &:hover {
           background-color: rgba(white, 0.1);
