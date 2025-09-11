@@ -120,13 +120,17 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   useEffect(() => {
     filterAndSort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [customization.searchTerm]);
+  }, [
+    customization.searchTerm,
+    customization.sortKeys,
+    customization.filterDescs,
+    data,
+  ]);
 
   return (
     <div className={c.adminTable}>
       <FilterSortModal
         action={modals.filterSort || "filter"}
-        filterAndSort={filterAndSort}
         columns={columns}
         isOpen={modals.filterSort !== null}
         setIsOpen={(isOpen) => {

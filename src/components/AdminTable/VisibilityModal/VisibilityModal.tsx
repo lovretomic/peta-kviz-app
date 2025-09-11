@@ -1,7 +1,9 @@
+import { useState } from "react";
 import AdminModal from "../../AdminModal";
 import type { AdminTableColumn } from "../types";
 
 import c from "./VisibilityModal.module.scss";
+import AdminButton from "../../AdminButton";
 
 type VisibilityModalProps = {
   isOpen: boolean;
@@ -18,6 +20,10 @@ const VisibilityModal = ({
   displayedColumns,
   setDisplayedColumns,
 }: VisibilityModalProps) => {
+  const [displayedColumnsToAdd, setDisplayedColumnsToAdd] = useState<
+    AdminTableColumn<any>[]
+  >(displayedColumns || []);
+
   return (
     <AdminModal title="Uredi prikaz" isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={c.content}>
@@ -26,13 +32,15 @@ const VisibilityModal = ({
             <input
               type="checkbox"
               id={`${column.id as string}-${index}`}
-              defaultChecked={displayedColumns?.some((c) => c.id === column.id)}
+              defaultChecked={displayedColumnsToAdd?.some(
+                (c) => c.id === column.id
+              )}
               onChange={(e) => {
                 if (e.target.checked) {
-                  setDisplayedColumns([...displayedColumns, column]);
+                  setDisplayedColumnsToAdd([...displayedColumnsToAdd, column]);
                 } else {
-                  setDisplayedColumns(
-                    displayedColumns.filter((c) => c.id !== column.id)
+                  setDisplayedColumnsToAdd(
+                    displayedColumnsToAdd.filter((c) => c.id !== column.id)
                   );
                 }
               }}
@@ -42,6 +50,19 @@ const VisibilityModal = ({
             </label>
           </div>
         ))}
+        <div className={c.buttons}>
+          <AdminButton onClick={() => setIsOpen(false)} variant="secondary">
+            Odustani
+          </AdminButton>
+          <AdminButton
+            onClick={() => {
+              setDisplayedColumns(displayedColumnsToAdd);
+              setIsOpen(false);
+            }}
+          >
+            Spremi
+          </AdminButton>
+        </div>
       </div>
     </AdminModal>
   );

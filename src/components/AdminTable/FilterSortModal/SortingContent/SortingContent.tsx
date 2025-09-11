@@ -6,7 +6,6 @@ import c from "../FilterSortModal.module.scss";
 
 type SortingContentProps = {
   columns: AdminTableColumn<any>[];
-  filterAndSort: () => void;
   setIsOpen: (isOpen: boolean) => void;
   setSortKeys: (keys: SortKey<any>[]) => void;
   sortKeys: SortKey<any>[];
@@ -15,21 +14,23 @@ type SortingContentProps = {
 const SortingContent = ({
   sortKeys,
   setSortKeys,
-  filterAndSort,
   columns,
   setIsOpen,
 }: SortingContentProps) => {
+  const [sortKeysToAdd, setSortKeysToAdd] = useState<SortKey<any>[]>(
+    sortKeys || []
+  );
   const [newSortKey, setNewSortKey] = useState<SortKey<any> | null>(null);
 
   const addSortKey = () => {
     if (newSortKey) {
-      setSortKeys([...sortKeys, newSortKey]);
+      setSortKeysToAdd([...sortKeysToAdd, newSortKey]);
       setNewSortKey(null);
     }
   };
 
   const removeSortKey = (id: keyof any) => {
-    setSortKeys(sortKeys.filter((key) => key.id !== id));
+    setSortKeysToAdd(sortKeysToAdd.filter((key) => key.id !== id));
   };
 
   return (
@@ -51,7 +52,7 @@ const SortingContent = ({
           <option value="">Odaberi stupac</option>
           {columns
             .filter((c) => !c.notSortable)
-            .filter((c) => !sortKeys.find((key) => key.id === c.id))
+            .filter((c) => !sortKeysToAdd.find((key) => key.id === c.id))
             .map((column) => (
               <option key={column.id as string} value={column.id as string}>
                 {column.label}
@@ -77,7 +78,7 @@ const SortingContent = ({
         <button onClick={addSortKey}>Dodaj</button>
       </div>
       <div className={c.sortingList}>
-        {sortKeys.map((sortKey) => (
+        {sortKeysToAdd.map((sortKey) => (
           <div key={sortKey.id as string} className={c.column}>
             <span>
               {columns.find((c) => c.id === sortKey.id)?.label}:{" "}
@@ -93,7 +94,7 @@ const SortingContent = ({
         </AdminButton>
         <AdminButton
           onClick={() => {
-            filterAndSort();
+            setSortKeys(sortKeysToAdd);
             setIsOpen(false);
           }}
         >

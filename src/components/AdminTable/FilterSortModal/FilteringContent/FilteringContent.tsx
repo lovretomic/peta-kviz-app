@@ -8,7 +8,6 @@ import c from "../FilterSortModal.module.scss";
 
 type FilteringContentProps = {
   columns: AdminTableColumn<any>[];
-  filterAndSort: () => void;
   filterDescs: FilterDesc<any>[];
   setFilterDescs: (descs: FilterDesc<any>[]) => void;
   setIsOpen: (isOpen: boolean) => void;
@@ -19,25 +18,28 @@ const FilteringContent = ({
   setFilterDescs,
   columns,
   setIsOpen,
-  filterAndSort,
 }: FilteringContentProps) => {
+  const [filterDescsToAdd, setFilterDescsToAdd] = useState<FilterDesc<any>[]>(
+    filterDescs || []
+  );
+
   const [newFilterDesc, setNewFilterDesc] = useState<FilterDesc<any> | null>(
     null
   );
 
   const addFilterDesc = () => {
     if (newFilterDesc) {
-      setFilterDescs([...filterDescs, newFilterDesc]);
+      setFilterDescsToAdd([...filterDescsToAdd, newFilterDesc]);
       setNewFilterDesc(null);
     }
   };
 
   const removeFilterDesc = (id: keyof any) => {
-    setFilterDescs(filterDescs.filter((desc) => desc.id !== id));
+    setFilterDescsToAdd(filterDescsToAdd.filter((desc) => desc.id !== id));
   };
 
   const editFilterDesc = (id: keyof any, desc: FilterDesc<any>) => {
-    setFilterDescs(filterDescs.map((d) => (d.id === id ? desc : d)));
+    setFilterDescsToAdd(filterDescsToAdd.map((d) => (d.id === id ? desc : d)));
   };
 
   return (
@@ -57,7 +59,7 @@ const FilteringContent = ({
         >
           <option value="">Odaberi stupac</option>
           {columns
-            .filter((c) => !filterDescs.find((desc) => desc.id === c.id))
+            .filter((c) => !filterDescsToAdd.find((desc) => desc.id === c.id))
             .map((column) => (
               <option key={column.id as string} value={column.id as string}>
                 {column.label} ({column.type})
@@ -66,11 +68,10 @@ const FilteringContent = ({
         </select>
 
         <button onClick={addFilterDesc}>Dodaj</button>
-        <button onClick={() => console.log(filterDescs)}>log</button>
       </div>
       <div className={c.filteringList}>
-        {filterDescs.length === 0 && <p>Nema aktivnih filtera.</p>}
-        {filterDescs.map((filterDesc) => {
+        {filterDescsToAdd.length === 0 && <p>Nema aktivnih filtera.</p>}
+        {filterDescsToAdd.map((filterDesc) => {
           const column = columns.find((c) => c.id === filterDesc.id);
           if (!column) return null;
 
@@ -126,7 +127,7 @@ const FilteringContent = ({
         </AdminButton>
         <AdminButton
           onClick={() => {
-            filterAndSort();
+            setFilterDescs(filterDescsToAdd);
             setIsOpen(false);
           }}
         >

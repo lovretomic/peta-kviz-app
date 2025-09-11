@@ -7,7 +7,6 @@ import AdminModal from "../../AdminModal";
 type FilterSortModalProps = {
   action: "sort" | "filter";
   columns: AdminTableColumn<any>[];
-  filterAndSort: () => void;
   filterDescs: FilterDesc<any>[];
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -18,7 +17,6 @@ type FilterSortModalProps = {
 
 const FilterSortModal = ({
   action,
-  filterAndSort,
   columns,
   isOpen,
   setIsOpen,
@@ -37,7 +35,6 @@ const FilterSortModal = ({
         {action === "sort" ? (
           <SortingContent
             columns={columns}
-            filterAndSort={filterAndSort}
             setIsOpen={setIsOpen}
             setSortKeys={setSortKeys}
             sortKeys={sortKeys}
@@ -48,7 +45,6 @@ const FilterSortModal = ({
             setIsOpen={setIsOpen}
             filterDescs={filterDescs}
             setFilterDescs={setFilterDescs}
-            filterAndSort={filterAndSort}
           />
         )}
       </div>
