@@ -22,6 +22,7 @@ const Button: React.FC<ButtonProps> = ({
         [c.secondary]: variant === "secondary",
         [c.outlined]: variant === "outlined",
         [c.iconOnly]: isIconOnly,
+        [c.disabled]: handlers.disabled,
       })}
       {...handlers}
     >
