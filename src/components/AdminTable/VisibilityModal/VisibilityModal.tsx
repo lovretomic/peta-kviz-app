@@ -24,9 +24,23 @@ const VisibilityModal = ({
     AdminTableColumn<any>[]
   >(displayedColumns || []);
 
+  const [selectAll, setSelectAll] = useState(false);
+
   return (
     <AdminModal title="Uredi prikaz" isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className={c.content}>
+        <div key={"select-all"} className={c.row}>
+          <input
+            type="checkbox"
+            id={"select-all"}
+            checked={selectAll}
+            onChange={(e) => {
+              setSelectAll(e.target.checked);
+            }}
+          />
+          <label htmlFor={"select-all"}>Izaberi sve</label>
+        </div>
+        <hr />
         {columns?.map((column, index) => (
           <div key={column.id as string} className={c.row}>
             <input
@@ -35,6 +49,15 @@ const VisibilityModal = ({
               defaultChecked={displayedColumnsToAdd?.some(
                 (c) => c.id === column.id
               )}
+              checked={
+                selectAll ||
+                displayedColumnsToAdd?.some((c) => c.id === column.id)
+              }
+              disabled={
+                selectAll ||
+                (displayedColumnsToAdd.length <= 1 &&
+                  displayedColumnsToAdd?.some((c) => c.id === column.id))
+              }
               onChange={(e) => {
                 if (e.target.checked) {
                   setDisplayedColumnsToAdd([...displayedColumnsToAdd, column]);
@@ -56,7 +79,7 @@ const VisibilityModal = ({
           </AdminButton>
           <AdminButton
             onClick={() => {
-              setDisplayedColumns(displayedColumnsToAdd);
+              setDisplayedColumns(selectAll ? columns : displayedColumnsToAdd);
               setIsOpen(false);
             }}
           >
