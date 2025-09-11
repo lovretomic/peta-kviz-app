@@ -13,6 +13,7 @@ export type AdminTableColumn<T> = {
   notEditable?: boolean;
   inputHidden?: boolean;
   labelHidden?: boolean;
+  hiddenByDefault?: boolean;
   type: ColumnType;
   width?: number | string;
   getSearchValue?: (item: T) => string;

@@ -65,6 +65,7 @@ const AdminQuizApplicationsPage = () => {
       accessor: (team) => team.captainEmail,
       getSearchValue: (team) => team.captainEmail,
       width: 200,
+      hiddenByDefault: true,
     },
     {
       id: "members",

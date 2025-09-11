@@ -44,6 +44,9 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   const [isAddEditModalOpen, setIsAddEditModalOpen] = useState(false);
   const [isVisibilityModalOpen, setIsVisibilityModalOpen] = useState(false);
+  const [displayedColumns, setDisplayedColumns] = useState(
+    columns.filter((c) => !c.hiddenByDefault)
+  );
 
   const [sortKeys, setSortKeys] = useState<SortKey<any>[]>([]);
   const [filterDescs, setFilterDescs] = useState<FilterDesc<any>[]>([]);
@@ -125,6 +128,8 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         isOpen={isVisibilityModalOpen}
         setIsOpen={setIsVisibilityModalOpen}
         columns={columns}
+        displayedColumns={displayedColumns}
+        setDisplayedColumns={setDisplayedColumns}
       />
       <div className={c.options}>
         {displayedData.length !== data.length && (
@@ -194,55 +199,59 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         </div>
       </div>
       <div className={c.tableWrapper}>
-        <table className={c.table} ref={tableRef}>
-          <thead>
-            <tr>
-              {columns.map((column) => (
-                <th key={column.id as string} style={getWidthStyle(column)}>
-                  {column.labelHidden ? "" : column.label}
-                </th>
-              ))}
-              <th className={c.actions}>Radnje</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedData.map((item, index) => (
-              <tr key={index}>
-                {columns.map((column) => (
-                  <td key={column.id as string} style={getWidthStyle(column)}>
-                    {column.render ? (
-                      column.render(item)
-                    ) : (
-                      <Render
-                        type={column.type}
-                        value={
-                          column.accessor ? column.accessor(item) : undefined
-                        }
-                        actionName={column.actionName}
-                        onAction={column.onAction}
-                        item={item}
-                      />
-                    )}
-                  </td>
+        {displayedColumns.length !== 0 && (
+          <table className={c.table} ref={tableRef}>
+            <thead>
+              <tr>
+                {displayedColumns.map((column) => (
+                  <th key={column.id as string} style={getWidthStyle(column)}>
+                    {column.labelHidden ? "" : column.label}
+                  </th>
                 ))}
-                <td className={c.actions}>
-                  <DeleteIcon className={c.actionIcon} title="Obriši" />
-                  <EditIcon
-                    className={c.actionIcon}
-                    title="Uredi"
-                    onClick={() => {
-                      setDataToEdit(item);
-                      setIsAddEditModalOpen(true);
-                    }}
-                  />
-                </td>
+                <th className={c.actions}>Radnje</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {displayedData.length === 0 && (
-          <div className={c.noData}>Nema podataka za prikaz.</div>
+            </thead>
+            <tbody>
+              {displayedData.map((item, index) => (
+                <tr key={index}>
+                  {displayedColumns.map((column) => (
+                    <td key={column.id as string} style={getWidthStyle(column)}>
+                      {column.render ? (
+                        column.render(item)
+                      ) : (
+                        <Render
+                          type={column.type}
+                          value={
+                            column.accessor ? column.accessor(item) : undefined
+                          }
+                          actionName={column.actionName}
+                          onAction={column.onAction}
+                          item={item}
+                        />
+                      )}
+                    </td>
+                  ))}
+                  <td className={c.actions}>
+                    <DeleteIcon className={c.actionIcon} title="Obriši" />
+                    <EditIcon
+                      className={c.actionIcon}
+                      title="Uredi"
+                      onClick={() => {
+                        setDataToEdit(item);
+                        setIsAddEditModalOpen(true);
+                      }}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
+
+        {displayedData.length === 0 ||
+          (displayedColumns.length === 0 && (
+            <div className={c.noData}>Nema podataka za prikaz.</div>
+          ))}
       </div>
     </div>
   );
