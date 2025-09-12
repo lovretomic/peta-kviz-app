@@ -1,0 +1,40 @@
+.leaderboardContainer {
+  max-height: 100%;
+  overflow-y: auto;
+  border: 1px solid rgba(white, 0.2);
+  border-radius: 8px;
+  scrollbar-color: rgba(white, 0.2);
+}
+
+.leaderboard {
+  width: 100%;
+  border-spacing: 16px 16px;
+  border: none;
+  overflow: scroll;
+}
+
+.team {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.rank {
+  text-align: center;
+  width: 24px;
+  color: rgba(white, 0.5);
+  font-weight: normal;
+}
+
+.name {
+  text-align: left;
+  font-weight: bold;
+}
+
+.score {
+  text-align: right;
+}
+
+.playerTd {
+  text-align: left;
+}
