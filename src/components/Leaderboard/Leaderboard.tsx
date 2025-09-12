@@ -34,35 +34,24 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       <table className={clsx(c.leaderboard, className)} {...handlers}>
         <thead>
           <tr>
-            {headers.map((header, index) => (
-              <th key={index} className={c.th}>
-                {header}
-              </th>
-            ))}
+            <th>
+              <div className={c.team}>
+                <div className={c.rank}>#</div>
+                <div className={c.name}>Ime ekipe</div>
+              </div>
+            </th>
+            <th className={c.score}>Broj bodova</th>
           </tr>
         </thead>
         <tbody>
           {rankedRows.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              <td className={c.td}>
-                <div>
-                  <LeaderboardEntry
-                    rank={row.rank}
-                    name={row.name}
-                    render="rank"
-                  />
-                </div>
+              <td className={c.playerTd}>
+                <LeaderboardEntry rank={row.rank} name={row.name} />
               </td>
-              <td className={c.td}>
-                <div>
-                  <LeaderboardEntry
-                    rank={row.rank}
-                    name={row.name}
-                    render="name"
-                  />
-                </div>
+              <td className={c.scoreTd}>
+                {row.score.toString().replace(".", ",")}
               </td>
-              <td className={c.td}>{row.score.toString().replace(".", ",")}</td>
             </tr>
           ))}
         </tbody>

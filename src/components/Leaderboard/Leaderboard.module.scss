@@ -1,10 +1,34 @@
 .leaderboard {
   width: 100%;
   border-collapse: separate;
-  border-spacing: 16px 12px;
+  border-spacing: 16px 16px;
   border: rgba(white, 0.2) solid 1px;
   border-radius: 8px;
   overflow: scroll;
+  scrollbar-color: pink;
+}
+
+.team {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-left: 0;
+}
+
+.rank {
+  text-align: center;
+  width: 24px;
+  color: rgba(white, 0.5);
+  font-weight: normal;
+}
+
+.name {
+  text-align: left;
+  font-weight: bold;
+}
+
+.score {
+  text-align: right;
 }
 
 .leaderboardContainer {
@@ -12,25 +36,10 @@
   overflow-y: auto;
 }
 
-.th {
-  color: white;
-  font-size: 16px;
-  font-weight: 700;
-}
-
-th:first-child {
-  color: rgba(white, 0.5);
-  text-align: center;
-  width: 24px;
-  white-space: nowrap;
-}
-
-td:nth-child(2),
-th:nth-child(2) {
+.playerTd {
   text-align: left;
 }
 
-td:nth-child(3),
-th:nth-child(3) {
+.scoreTd {
   text-align: right;
 }
