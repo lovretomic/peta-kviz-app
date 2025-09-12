@@ -72,7 +72,6 @@ const TestPage = () => {
         <LeaderboardEntry rank={1} name="Pera Perić" />
         <LeaderboardEntry rank={4} name="Mika Mikic" />
         <Leaderboard
-          headers={["# Ime ekipe", "Broj bodova"]}
           rows={[
             { name: "Row 3 Cell 2", score: 3 },
             { name: "Row 1 Cell 2", score: 60 },
