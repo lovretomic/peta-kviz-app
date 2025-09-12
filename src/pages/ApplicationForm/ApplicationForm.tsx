@@ -7,6 +7,7 @@ import c from "./ApplicationForm.module.scss";
 import clsx from "clsx";
 
 import ChevronBackward from "../../assets/icons/chevron-backward.svg?react";
+import PageWrapper from "../../components/PageWrapper";
 
 type Application = {
   teamName: string;
@@ -24,7 +25,7 @@ const ApplicationForm = () => {
     !application?.captainEmail;
 
   return (
-    <div className={c.page}>
+    <PageWrapper className={c.page}>
       <div className={c.ellipse} />
       <div className={c.container}>
         <ProgressBar
@@ -108,7 +109,7 @@ const ApplicationForm = () => {
           Pošalji prijavu
         </Button>
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 
