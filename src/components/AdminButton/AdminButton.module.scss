@@ -1,0 +1,50 @@
+.adminButton {
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+
+  transition: 100ms ease-in-out;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  height: 40px;
+
+  &.primary {
+    background-color: $grey-dark;
+    color: white;
+    box-shadow: 0 0 5px 0px rgba($grey-dark, 0.15);
+
+    &:hover {
+      background-color: lighten($grey-dark, 10%);
+    }
+
+    .icon {
+      fill: white;
+    }
+  }
+
+  &.secondary {
+    background-color: rgba($grey-dark, 0.1);
+    color: $grey-dark;
+
+    &:hover {
+      background-color: rgba($grey-dark, 0.2);
+    }
+
+    .icon {
+      fill: $grey-dark;
+    }
+  }
+
+  &:active {
+    box-shadow: none;
+  }
+}

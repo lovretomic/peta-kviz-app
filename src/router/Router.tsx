@@ -9,6 +9,16 @@ import LeaderboardPage from "../pages/LeaderboardPage";
 import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
+import AdminLayout from "./AdminLayout";
+import AdminLoginPage from "../pages/AdminLoginPage";
+import AdminHomePage from "../pages/AdminHomePage";
+import AdminAllQuizzesPage from "../pages/AdminAllQuizzesPage";
+import AdminNotFoundPage from "../pages/AdminNotFoundPage";
+import AdminLeaguesPage from "../pages/AdminLeaguesPage";
+import AdminLeagueQuizzesPage from "../pages/AdminLeagueQuizzesPage";
+import AdminQuizPage from "../pages/AdminQuizPage";
+import AdminQuizApplicationsPage from "../pages/AdminQuizApplicationsPage";
+import AdminQuizSettingsPage from "../pages/AdminQuizSettingsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +28,29 @@ const router = createBrowserRouter(
         <Route path="/leaderboard" element={<LeaderboardPage />} />
         <Route path="/apply" element={<ApplicationPage />} />
         <Route path="/test" element={<TestPage />} />
+      </Route>
+      <Route path="/admin">
+        <Route path="login" element={<AdminLoginPage />} />
+        <Route element={<AdminLayout />}>
+          <Route index element={<AdminHomePage />} />
+          <Route path="all-quizzes" element={<AdminAllQuizzesPage />} />
+          <Route path="leagues">
+            <Route index element={<AdminLeaguesPage />} />
+            <Route path=":leagueId" element={<AdminLeagueQuizzesPage />} />
+            <Route path=":leagueId/quizzes">
+              <Route index element={<AdminLeagueQuizzesPage />} />
+              <Route path=":quizId">
+                <Route index element={<AdminQuizPage />} />
+                <Route path="settings" element={<AdminQuizSettingsPage />} />
+                <Route
+                  path="applications"
+                  element={<AdminQuizApplicationsPage />}
+                />
+              </Route>
+            </Route>
+          </Route>
+          <Route path="*" element={<AdminNotFoundPage />} />
+        </Route>
       </Route>
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </>
