@@ -3,13 +3,11 @@ import clsx from "clsx";
 import LeaderboardEntry from "../LeaderboardEntry";
 
 type LeaderboardProps = {
-  headers: string[];
   rows: { name: string; score: number }[];
   className?: string;
 } & React.HTMLAttributes<HTMLTableElement>;
 
 const Leaderboard: React.FC<LeaderboardProps> = ({
-  headers,
   rows,
   className,
   ...handlers
