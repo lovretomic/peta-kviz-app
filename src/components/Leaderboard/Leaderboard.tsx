@@ -49,7 +49,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
               <td className={c.playerTd}>
                 <LeaderboardEntry rank={row.rank} name={row.name} />
               </td>
-              <td className={c.scoreTd}>
+              <td className={c.score}>
                 {row.score.toString().replace(".", ",")}
               </td>
             </tr>

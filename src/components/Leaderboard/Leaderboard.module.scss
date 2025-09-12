@@ -1,18 +1,23 @@
+.leaderboardContainer {
+  max-height: 100%;
+  overflow-y: auto;
+  border: 1px solid rgba(white, 0.2);
+  border-radius: 8px;
+  scrollbar-color: rgba(white, 0.2);
+}
+
 .leaderboard {
   width: 100%;
   border-collapse: separate;
   border-spacing: 16px 16px;
-  border: rgba(white, 0.2) solid 1px;
-  border-radius: 8px;
+  border: none;
   overflow: scroll;
-  scrollbar-color: pink;
 }
 
 .team {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  margin-left: 0;
 }
 
 .rank {
@@ -31,15 +36,6 @@
   text-align: right;
 }
 
-.leaderboardContainer {
-  max-height: 100%;
-  overflow-y: auto;
-}
-
 .playerTd {
   text-align: left;
-}
-
-.scoreTd {
-  text-align: right;
 }
