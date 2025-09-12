@@ -27,6 +27,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
       return { ...row, rank };
     }
   });
+
   return (
     <div className={c.leaderboardContainer}>
       <table className={clsx(c.leaderboard, className)} {...handlers}>
