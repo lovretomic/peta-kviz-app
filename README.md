@@ -1,69 +1,30 @@
-# React + TypeScript + Vite
+[![Deploy to Firebase Hosting on merge](https://github.com/lovretomic/peta-kviz-app/actions/workflows/firebase-hosting-merge.yml/badge.svg)](https://github.com/lovretomic/peta-kviz-app/actions/workflows/firebase-hosting-merge.yml)
+# Peta Kviz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Peta Kviz App** je aplikacija za vođenje pub kvizova u V. gimnaziji u Zagrebu. Dostupna je na adresi https://peta-kviz-app.web.app.
 
-Currently, two official plugins are available:
+## 🚀 Lokalno pokretanje aplikacije
+### 📦 Preduvjeti
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Prije pokretanja aplikacije, na računalu je potrebno imati instalirano sljedeće:
 
-## Expanding the ESLint configuration
+- [Node.js](https://nodejs.org/en/download/)
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Preporučujemo instalaciju Yarna putem Node.js instalacije.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🔧 Instalacija paketa
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+U korijenskom direktoriju projekta pokrenite:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn
+```
+### 🏃 Pokretanje aplikacije
+
+Zatim pokrenite razvojni server:
+```bash
+yarn dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Aplikaciji možete pristupiti putem internetskog preglednika na adresi http://localhost:5173/.
