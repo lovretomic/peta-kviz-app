@@ -1,0 +1,37 @@
+.applicationCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(white, 0.2);
+
+  .headerWrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: rgba(white, 0.2);
+    }
+  }
+
+  .members {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .member {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .icon {
+        padding: 4px;
+      }
+    }
+  }
+}
