@@ -1,0 +1,19 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rank {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.firstThree {
+  border-radius: 4px;
+  background-color: rgba(white, 0.2);
+}
