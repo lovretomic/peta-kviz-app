@@ -6,6 +6,10 @@ import PersonIcon from "../../assets/icons/person.svg?react";
 import clsx from "clsx";
 
 import WarningIcon from "../../assets/icons/warning.svg?react";
+import EditIcon from "../../assets/icons/edit.svg?react";
+import RestartIcon from "../../assets/icons/restart.svg?react";
+import TrashIcon from "../../assets/icons/trash.svg?react";
+
 import Button from "../Button";
 
 export type Team = {
@@ -18,6 +22,26 @@ export type Team = {
 type ApplicationCardProps = {
   team: Team;
   action: "complete" | "edit" | "reapply";
+};
+
+type Action = {
+  label: string;
+  icon: React.ReactElement;
+};
+
+const actions: Record<ApplicationCardProps["action"], Action> = {
+  complete: {
+    label: "Dovrši prijavu",
+    icon: <WarningIcon />,
+  },
+  edit: {
+    label: "Izmijeni prijavu",
+    icon: <EditIcon />,
+  },
+  reapply: {
+    label: "Ponovno prijavi",
+    icon: <RestartIcon />,
+  },
 };
 
 const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
@@ -43,13 +67,18 @@ const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
           </div>
         ))}
       </div>
-      <Button icon={<WarningIcon />}>
-        {action === "complete"
-          ? "Complete"
-          : action === "edit"
-          ? "Edit"
-          : "Reapply"}
-      </Button>
+      <div className={c.buttons}>
+        <Button
+          icon={actions[action].icon}
+          variant={action === "complete" ? "primary" : "outlined"}
+        >
+          {actions[action].label}
+        </Button>
+
+        {action !== "reapply" && (
+          <Button icon={<TrashIcon />} variant="outlined" />
+        )}
+      </div>
     </div>
   );
 };

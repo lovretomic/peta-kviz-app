@@ -19,10 +19,6 @@
     width: 100%;
     height: 100%;
     gap: 8px;
-
-    * {
-      fill: $green-dark;
-    }
   }
 }
 
@@ -38,6 +34,10 @@
   span {
     color: #1d2f31;
   }
+
+  * {
+    fill: $green-dark;
+  }
 }
 
 .primary:hover:enabled {
@@ -51,10 +51,16 @@
 .secondary {
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
+
+  * {
+    fill: white;
+  }
 }
+
 .secondary:hover:enabled {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 .secondary:active:enabled {
   background-color: rgba(255, 255, 255, 0.4);
 }
@@ -63,10 +69,16 @@
   background-color: rgba(255, 255, 255, 0.2);
   color: white;
   border: 1px solid white;
+
+  * {
+    fill: white;
+  }
 }
+
 .outlined:hover:enabled {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 .outlined:active:enabled {
   background-color: rgba(255, 255, 255, 0.4);
 }
