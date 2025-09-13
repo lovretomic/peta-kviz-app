@@ -1,17 +1,27 @@
 import { clsx } from "clsx";
 import Logo from "../../assets/logo.svg";
+import MeshgridLogo from "../../assets/meshgrid.svg";
 import c from "./ClickableLogo.module.scss";
 
-const ClickableLogo = (props: React.HTMLAttributes<HTMLImageElement>) => {
+type ClickableLogoProps = {
+  meshgrid?: boolean;
+} & React.HTMLAttributes<HTMLImageElement>;
+
+const ClickableLogo: React.FC<ClickableLogoProps> = ({
+  meshgrid,
+  ...props
+}) => {
   return (
     <img
       {...props}
       className={clsx(c.clickableLogo, props.className)}
-      src={Logo}
+      src={meshgrid ? MeshgridLogo : Logo}
       alt="Logo"
       onClick={() =>
         window.open(
-          "https://www.instagram.com/peta_kviz/",
+          meshgrid
+            ? "https://linktr.ee/meshgrid"
+            : "https://www.instagram.com/peta_kviz/",
           "_blank",
           "noopener,noreferrer"
         )

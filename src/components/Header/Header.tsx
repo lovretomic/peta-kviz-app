@@ -19,8 +19,14 @@ const Header = () => {
 
   return (
     <header className={clsx(c.header, { [c.isDesktop]: isDesktop })}>
-      {!isDesktop && <ClickableLogo className={c.logo} />}
       <h1 className={c.title}>{title}</h1>
+
+      {!isDesktop && (
+        <div className={c.logos}>
+          <ClickableLogo className={c.logo} />
+          <ClickableLogo meshgrid className={c.logo} />
+        </div>
+      )}
     </header>
   );
 };
