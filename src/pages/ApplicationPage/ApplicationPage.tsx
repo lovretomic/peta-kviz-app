@@ -16,7 +16,7 @@ const ApplicationPage = () => {
   return (
     <PageWrapper className={c.page}>
       <ProgressBar percentage={50} label="Prijava ekipe" date={new Date()} />
-      <ApplicationCard team={team} action="edit" />
+      <ApplicationCard team={team} action="complete" />
     </PageWrapper>
   );
 };

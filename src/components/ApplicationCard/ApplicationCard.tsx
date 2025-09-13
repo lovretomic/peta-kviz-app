@@ -6,6 +6,7 @@ import PersonIcon from "../../assets/icons/person.svg?react";
 import clsx from "clsx";
 
 import WarningIcon from "../../assets/icons/warning.svg?react";
+import Button from "../Button";
 
 export type Team = {
   name: string;
@@ -42,19 +43,13 @@ const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
           </div>
         ))}
       </div>
-      <button
-        className={clsx(c.button, {
-          [c.primary]: action === "complete",
-          [c.secondary]: action === "edit" || action === "reapply",
-        })}
-      >
+      <Button icon={<WarningIcon />}>
         {action === "complete"
           ? "Complete"
           : action === "edit"
           ? "Edit"
           : "Reapply"}
-        {action === "complete" && <WarningIcon className={c.warningIcon} />}
-      </button>
+      </Button>
     </div>
   );
 };
