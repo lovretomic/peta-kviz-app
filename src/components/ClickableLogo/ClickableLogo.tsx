@@ -4,22 +4,22 @@ import MeshgridLogo from "../../assets/meshgrid.svg";
 import c from "./ClickableLogo.module.scss";
 
 type ClickableLogoProps = {
-  meshgrid?: boolean;
+  Meshgrid?: boolean;
 } & React.HTMLAttributes<HTMLImageElement>;
 
 const ClickableLogo: React.FC<ClickableLogoProps> = ({
-  meshgrid,
+  Meshgrid = false,
   ...props
 }) => {
   return (
     <img
       {...props}
       className={clsx(c.clickableLogo, props.className)}
-      src={meshgrid ? MeshgridLogo : Logo}
+      src={Meshgrid ? MeshgridLogo : Logo}
       alt="Logo"
       onClick={() =>
         window.open(
-          meshgrid
+          Meshgrid
             ? "https://linktr.ee/meshgrid"
             : "https://www.instagram.com/peta_kviz/",
           "_blank",

@@ -24,7 +24,7 @@ const Header = () => {
       {!isDesktop && (
         <div className={c.logos}>
           <ClickableLogo className={c.logo} />
-          <ClickableLogo meshgrid className={c.logo} />
+          <ClickableLogo Meshgrid className={c.logo} />
         </div>
       )}
     </header>
