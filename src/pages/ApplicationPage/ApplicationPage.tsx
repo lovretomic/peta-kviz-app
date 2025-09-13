@@ -12,7 +12,7 @@ const team: Team = {
   name: "Team A",
   captainName: "John Doe",
   captainEmail: "john.doe@example.com",
-  members: ["Alice", "Bob", "Charlie"],
+  members: ["Alice", "Bob"],
 };
 
 const ApplicationPage = () => {

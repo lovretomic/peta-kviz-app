@@ -9,6 +9,7 @@ import WarningIcon from "../../assets/icons/warning.svg?react";
 import EditIcon from "../../assets/icons/edit.svg?react";
 import RestartIcon from "../../assets/icons/restart.svg?react";
 import TrashIcon from "../../assets/icons/trash.svg?react";
+import PersonOffIcon from "../../assets/icons/person-off.svg?react";
 
 import Button from "../Button";
 
@@ -64,6 +65,12 @@ const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
           <div key={member} className={c.member}>
             <PersonIcon className={c.icon} />
             <p>{member}</p>
+          </div>
+        ))}
+        {[...Array(3 - team.members.length)].map((_, index) => (
+          <div key={index} className={clsx(c.member, c.missing)}>
+            <PersonOffIcon className={c.icon} />
+            <p>Nedostaje član</p>
           </div>
         ))}
       </div>
