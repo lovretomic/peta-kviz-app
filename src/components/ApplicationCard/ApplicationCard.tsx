@@ -3,6 +3,9 @@ import c from "./ApplicationCard.module.scss";
 
 import StarIcon from "../../assets/icons/star.svg?react";
 import PersonIcon from "../../assets/icons/person.svg?react";
+import clsx from "clsx";
+
+import WarningIcon from "../../assets/icons/warning.svg?react";
 
 export type Team = {
   name: string;
@@ -26,8 +29,11 @@ const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
       </div>
       <div className={c.members}>
         <div className={c.member}>
-          <StarIcon className={c.icon} />
-          <p>{team.captainName}</p>
+          <StarIcon className={clsx(c.icon, c.captainIcon)} />
+          <div className={c.captainData}>
+            <p>{team.captainName}</p>
+            <p>{team.captainEmail}</p>
+          </div>
         </div>
         {team.members.map((member) => (
           <div key={member} className={c.member}>
@@ -36,12 +42,18 @@ const ApplicationCard = ({ team, action }: ApplicationCardProps) => {
           </div>
         ))}
       </div>
-      <button>
+      <button
+        className={clsx(c.button, {
+          [c.primary]: action === "complete",
+          [c.secondary]: action === "edit" || action === "reapply",
+        })}
+      >
         {action === "complete"
           ? "Complete"
           : action === "edit"
           ? "Edit"
           : "Reapply"}
+        {action === "complete" && <WarningIcon className={c.warningIcon} />}
       </button>
     </div>
   );
