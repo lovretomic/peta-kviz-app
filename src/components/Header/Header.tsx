@@ -3,6 +3,7 @@ import c from "./Header.module.scss";
 import { navigationItems } from "../../router/navigationItems";
 import { useIsDesktop } from "../../hooks/useIsDesktop";
 import ClickableLogo from "../ClickableLogo";
+import clsx from "clsx";
 
 const Header = () => {
   const location = useLocation();
@@ -17,13 +18,8 @@ const Header = () => {
   )?.name;
 
   return (
-    <header className={c.header}>
-      {!isDesktop && (
-        <>
-          <ClickableLogo className={c.logo} />
-          <div className={c.separator} />
-        </>
-      )}
+    <header className={clsx(c.header, { [c.isDesktop]: isDesktop })}>
+      {!isDesktop && <ClickableLogo className={c.logo} />}
       <h1 className={c.title}>{title}</h1>
     </header>
   );
