@@ -1,0 +1,35 @@
+.actionsHeader {
+  width: 100%;
+  border-bottom: 1px solid rgba(white, 0.05);
+  box-sizing: border-box;
+  padding: 16px 0;
+
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 24px;
+  }
+
+  * {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 0;
+  }
+
+  select {
+    option {
+      color: $green-dark;
+    }
+  }
+}
+
+.pageWrapper {
+  box-sizing: border-box;
+  padding-bottom: 24px;
+  padding-top: 24px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+}
