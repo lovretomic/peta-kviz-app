@@ -2,17 +2,24 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 24px;
   box-sizing: border-box;
-  padding: 16px;
+  padding: 16px 40px;
   border-bottom: rgba(white, 0.05) solid 1px;
 
   position: relative;
 
-  .logo {
-    height: 50px;
-    position: absolute;
-    left: 40px;
+  .logos {
+    display: flex;
+    gap: 24px;
+    .logo {
+      height: 50px;
+    }
+  }
+
+  .navigationItems {
+    display: flex;
+    gap: 24px;
   }
 }

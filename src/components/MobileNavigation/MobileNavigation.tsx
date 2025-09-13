@@ -6,6 +6,7 @@ import NavigationButton from "../NavigationButton/NavigationButton";
 const MobileNavigation = () => {
   return (
     <nav className={c.mobileNavigation}>
+      <div className={c.gradient} />
       {navigationItems.map((item) => (
         <NavigationButton key={item.name} item={item} />
       ))}

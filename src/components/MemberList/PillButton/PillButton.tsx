@@ -22,13 +22,15 @@ const PillButton: React.FC<PillButtonProps> = ({
 
   return (
     <button
-      onClick={() => setShowClose(!showClose)}
+      onClick={() => {
+        if (!handlers.disabled) setShowClose(!showClose);
+      }}
       className={clsx(c.pillButton, className, {
         [c.default]: variant === "default",
         [c.captain]: variant === "captain",
       })}
       {...handlers}
-      disabled={variant === "captain"}
+      disabled={variant === "captain" || handlers.disabled}
     >
       <div className={c.content}>
         {variant === "captain" ? <CaptainIcon /> : <PersonIcon />}

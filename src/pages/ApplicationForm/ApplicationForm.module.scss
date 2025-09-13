@@ -1,0 +1,97 @@
+.page {
+  overflow-x: hidden;
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.ellipse {
+  width: 500px;
+  height: 350px;
+  border-radius: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  pointer-events: none;
+
+  z-index: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .backButton {
+    height: 40px;
+    width: 40px;
+    background-color: rgba(white, 0.05);
+    border: none;
+    border-radius: 8px;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 40px;
+    transition: 100ms ease;
+
+    &:hover {
+      background-color: rgba(white, 0.1);
+    }
+
+    &:active {
+      background-color: rgba(white, 0.2);
+    }
+  }
+
+  h2,
+  p {
+    text-align: left;
+    width: 100%;
+  }
+
+  h2 {
+    color: #fff;
+    font-style: normal;
+    line-height: normal;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+
+  p {
+    margin-bottom: 8px;
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .memberList {
+    opacity: 1;
+    transition: 200ms ease;
+
+    &.disabled {
+      opacity: 0.4;
+    }
+  }
+
+  .submitButton {
+    margin-top: 16px;
+  }
+}
