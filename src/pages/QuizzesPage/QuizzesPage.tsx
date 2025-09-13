@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import PageWrapper from "../../components/PageWrapper";
 import ProgressBar from "../../components/ProgressBar";
 import type { QuizResults } from "../../components/QuizCard/QuizCard";
@@ -34,6 +34,8 @@ const QuizzesPage = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isDesktop = useIsDesktop();
 
+  const [expandedQuiz, setExpandedQuiz] = useState<string | null>(null);
+
   return (
     <div className={c.page}>
       <div className={c.actionsHeader}>
@@ -58,7 +60,14 @@ const QuizzesPage = () => {
         />
 
         {quizResults.map((quiz) => (
-          <QuizCard key={quiz.name} quizResults={quiz} />
+          <QuizCard
+            key={quiz.name}
+            quizResults={quiz}
+            isOpen={expandedQuiz === quiz.name}
+            onToggle={() =>
+              setExpandedQuiz(expandedQuiz === quiz.name ? null : quiz.name)
+            }
+          />
         ))}
       </PageWrapper>
     </div>
