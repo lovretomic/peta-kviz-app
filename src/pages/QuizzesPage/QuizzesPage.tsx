@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import PageWrapper from "../../components/PageWrapper";
 import ProgressBar from "../../components/ProgressBar";
 import type { QuizResults } from "../../components/QuizCard/QuizCard";
@@ -15,11 +16,25 @@ const quizResults: QuizResults[] = [
     date: new Date(),
     leaderboard: ["Petar Perić", "Luka Lukić", "Maja Marić"],
   },
+  {
+    name: "Kviz 3",
+    date: new Date(),
+    leaderboard: ["Ivana Ivanković", "Katarina Kovač", "Nikola Novak"],
+  },
 ];
 
 const QuizzesPage = () => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = wrapperRef.current;
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }, []);
+
   return (
-    <>
+    <div className={c.page}>
       <div className={c.actionsHeader}>
         <PageWrapper className={c.wrapper}>
           <select name="" id="">
@@ -29,12 +44,11 @@ const QuizzesPage = () => {
           <button>Sortiraj</button>
         </PageWrapper>
       </div>
-      <PageWrapper className={c.pageWrapper}>
-        <div className={c.quizList}>
-          {quizResults.map((quiz) => (
-            <QuizCard key={quiz.name} quizResults={quiz} />
-          ))}
-        </div>
+      <PageWrapper className={c.pageWrapper} ref={wrapperRef}>
+        {quizResults.map((quiz) => (
+          <QuizCard key={quiz.name} quizResults={quiz} />
+        ))}
+
         <ProgressBar
           label="Loading..."
           percentage={45}
@@ -43,7 +57,7 @@ const QuizzesPage = () => {
           buttonVariant="secondary"
         />
       </PageWrapper>
-    </>
+    </div>
   );
 };
 
