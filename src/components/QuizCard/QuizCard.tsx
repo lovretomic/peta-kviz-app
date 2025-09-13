@@ -23,7 +23,12 @@ const QuizCard: React.FC<QuizCardProps> = ({
   onToggle,
 }) => {
   return (
-    <div className={c.quizCard}>
+    <div
+      className={clsx(c.quizCard, { [c.isOpen]: isOpen })}
+      onClick={() => {
+        if (!isOpen && onToggle) onToggle();
+      }}
+    >
       <div className={c.header}>
         <p>{quizResults.name}</p>
         <div className={c.rightWrapper}>

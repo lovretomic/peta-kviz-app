@@ -6,6 +6,10 @@
   display: flex;
   flex-direction: column;
 
+  &:not(&.isOpen) {
+    cursor: pointer;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;

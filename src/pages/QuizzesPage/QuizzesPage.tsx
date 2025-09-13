@@ -4,8 +4,6 @@ import ProgressBar from "../../components/ProgressBar";
 import type { QuizResults } from "../../components/QuizCard/QuizCard";
 import QuizCard from "../../components/QuizCard/QuizCard";
 import c from "./QuizzesPage.module.scss";
-import { useIsDesktop } from "../../hooks/useIsDesktop";
-import clsx from "clsx";
 
 const quizResults: QuizResults[] = [
   {
@@ -32,7 +30,6 @@ const quizResults: QuizResults[] = [
 
 const QuizzesPage = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const isDesktop = useIsDesktop();
 
   const [expandedQuiz, setExpandedQuiz] = useState<string | null>(null);
 
@@ -47,12 +44,9 @@ const QuizzesPage = () => {
           <button>Sortiraj</button>
         </PageWrapper>
       </div>
-      <PageWrapper
-        className={clsx(c.pageWrapper, { [c.isDesktop]: isDesktop })}
-        ref={wrapperRef}
-      >
+      <PageWrapper className={c.pageWrapper} ref={wrapperRef}>
         <ProgressBar
-          label="Loading..."
+          label="Kviz općeg znanja"
           percentage={45}
           date={new Date()}
           buttonLabel="Pregledaj prijavu"
@@ -64,9 +58,9 @@ const QuizzesPage = () => {
             key={quiz.name}
             quizResults={quiz}
             isOpen={expandedQuiz === quiz.name}
-            onToggle={() =>
-              setExpandedQuiz(expandedQuiz === quiz.name ? null : quiz.name)
-            }
+            onToggle={() => {
+              setExpandedQuiz(expandedQuiz === quiz.name ? null : quiz.name);
+            }}
           />
         ))}
       </PageWrapper>
