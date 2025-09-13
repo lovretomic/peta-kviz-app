@@ -19,7 +19,8 @@ const QuizzesPage = () => {
           label="Loading..."
           percentage={45}
           date={new Date()}
-          variant="withButtons"
+          buttonLabel="Pregledaj prijavu"
+          buttonVariant="secondary"
         />
       </PageWrapper>
     </>
