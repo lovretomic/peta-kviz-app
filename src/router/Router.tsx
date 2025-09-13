@@ -20,7 +20,7 @@ const router = createBrowserRouter(
         <Route path="/application" element={<ApplicationPage />} />
         <Route path="/test" element={<TestPage />} />
       </Route>
-      <Route path="/apply" element={<ApplicationForm />} />
+      <Route path="/application/apply" element={<ApplicationForm />} />
       <Route path="*" element={<h1>404 Not Found</h1>} />
     </>
   )
