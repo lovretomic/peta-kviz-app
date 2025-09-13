@@ -1,6 +1,8 @@
 import { formatDate } from "../../dateHelpers";
+import Button from "../Button";
 import LeaderboardEntry from "../LeaderboardEntry";
 import c from "./QuizCard.module.scss";
+import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
 
 export type QuizResults = {
   name: string;
@@ -19,6 +21,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quizResults }) => {
         <p>{quizResults.name}</p>
         <div className={c.rightWrapper}>
           <p>{formatDate(quizResults.date)}</p>
+          <KeyboardArrowDownIcon className={c.icon} />
         </div>
       </div>
       <div className={c.leaderboard}>
@@ -26,6 +29,7 @@ const QuizCard: React.FC<QuizCardProps> = ({ quizResults }) => {
           <LeaderboardEntry key={index} name={name} rank={index + 1} />
         ))}
       </div>
+      <Button variant="secondary">Pregledaj sve rezultate</Button>
     </div>
   );
 };
