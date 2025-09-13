@@ -5,12 +5,17 @@
   align-items: center;
   flex-direction: column;
   gap: 24px;
+  margin-bottom: 12px;
 
   padding-top: 40px;
   box-shadow: 0 0 50px 20px $green-dark;
 
+  .logo {
+    height: 70px;
+  }
+
   .separator {
-    width: 150px;
+    width: 100px;
     height: 1px;
     background-color: rgba(white, 0.05);
   }
