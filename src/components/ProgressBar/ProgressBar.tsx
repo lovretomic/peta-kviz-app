@@ -2,6 +2,7 @@ import c from "./ProgressBar.module.scss";
 import clsx from "clsx";
 import carIcon from "../../assets/icons/full-cars.svg";
 import Button, { type ButtonVariant } from "../Button/Button";
+import { formatDate } from "../../dateHelpers";
 
 type ProgressBarProps = {
   percentage: number;
@@ -13,18 +14,6 @@ type ProgressBarProps = {
   onButtonClick?: () => void;
   showMessage?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
-
-function formatDate(date: Date | string): string {
-  if (typeof date === "string") {
-    return Date.parse(date) ? date : "Neispravan datum";
-  }
-  return date.toLocaleDateString("hr-HR", {
-    weekday: "long",
-    year: "numeric",
-    month: "narrow",
-    day: "numeric",
-  });
-}
 
 const ProgressBar: React.FC<ProgressBarProps> = ({
   percentage,

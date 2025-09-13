@@ -31,5 +31,18 @@
   height: 100%;
   width: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  $card-gap: 16px;
+  gap: $card-gap;
+
+  .quizList {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: $card-gap;
+    overflow-y: auto;
+    flex-grow: 1;
+  }
 }
