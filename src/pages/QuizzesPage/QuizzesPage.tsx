@@ -12,22 +12,38 @@ const quizResults: QuizResults[] = [
   {
     name: "Kviz 1",
     date: new Date("2024-01-01"),
-    leaderboard: ["Ivan Horvat", "Ana Kovač", "Marko Marić"],
+    leaderboard: [
+      { name: "Ana Horvat", score: 85.5 },
+      { name: "Marko Markić", score: 78.0 },
+      { name: "Ivana Ivić", score: 92.0 },
+    ],
   },
   {
     name: "Kviz 2",
     date: new Date("2024-01-02"),
-    leaderboard: ["Petar Perić", "Luka Lukić", "Maja Marić"],
+    leaderboard: [
+      { name: "Ivan Horvat", score: 85.5 },
+      { name: "Ana Kovač", score: 85.5 },
+      { name: "Marko Marić", score: 92.0 },
+    ],
   },
   {
     name: "Kviz 3",
     date: new Date("2024-01-03"),
-    leaderboard: ["Ivana Ivanković", "Katarina Kovač", "Nikola Novak"],
+    leaderboard: [
+      { name: "Ivana Ivanković", score: 85.5 },
+      { name: "Katarina Kovač", score: 78.0 },
+      { name: "Nikola Novak", score: 92.0 },
+    ],
   },
   {
     name: "Kviz 4",
     date: new Date("2024-01-04"),
-    leaderboard: ["Ana Kovač", "Marko Marić", "Ivan Horvat"],
+    leaderboard: [
+      { name: "Ana Kovač", score: 85.5 },
+      { name: "Marko Marić", score: 78.0 },
+      { name: "Ivan Horvat", score: 92.0 },
+    ],
   },
 ];
 

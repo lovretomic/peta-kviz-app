@@ -4,11 +4,13 @@ import LeaderboardEntry from "../LeaderboardEntry";
 import c from "./QuizCard.module.scss";
 import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
 import clsx from "clsx";
+import { getRankedRows } from "../../leaderboardHelpers";
+import type { LeaderboardRow } from "../Leaderboard/Leaderboard";
 
 export type QuizResults = {
   name: string;
   date: string | Date;
-  leaderboard: string[];
+  leaderboard: LeaderboardRow[];
 };
 
 type QuizCardProps = {
@@ -22,6 +24,7 @@ const QuizCard: React.FC<QuizCardProps> = ({
   isOpen = false,
   onToggle,
 }) => {
+  const rankedRows = getRankedRows(quizResults.leaderboard);
   return (
     <div
       className={clsx(c.quizCard, { [c.isOpen]: isOpen })}
@@ -40,8 +43,8 @@ const QuizCard: React.FC<QuizCardProps> = ({
         </div>
       </div>
       <div className={clsx(c.leaderboard, { [c.isOpen]: isOpen })}>
-        {quizResults.leaderboard.map((name, index) => (
-          <LeaderboardEntry key={index} name={name} rank={index + 1} />
+        {rankedRows.map((row) => (
+          <LeaderboardEntry key={row.name} name={row.name} rank={row.rank} />
         ))}
         <Button variant="secondary" className={c.button}>
           Pregledaj sve rezultate
