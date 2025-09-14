@@ -2,8 +2,13 @@ import c from "./Leaderboard.module.scss";
 import clsx from "clsx";
 import LeaderboardEntry from "../LeaderboardEntry";
 
+export type LeaderboardRow = {
+  name: string;
+  score: number;
+};
+
 type LeaderboardProps = {
-  rows: { name: string; score: number }[];
+  rows: LeaderboardRow[];
   className?: string;
 } & React.HTMLAttributes<HTMLTableElement>;
 
