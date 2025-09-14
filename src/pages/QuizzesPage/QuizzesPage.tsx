@@ -6,6 +6,7 @@ import QuizCard from "../../components/QuizCard/QuizCard";
 import c from "./QuizzesPage.module.scss";
 
 import SwapVertIcon from "../../assets/icons/swap-vert.svg?react";
+import ActionsHeader from "../../components/ActionsHeader";
 
 const quizResults: QuizResults[] = [
   {
@@ -39,22 +40,20 @@ const QuizzesPage = () => {
 
   return (
     <div className={c.page}>
-      <div className={c.actionsHeader}>
-        <PageWrapper className={c.wrapper}>
-          <select name="" id="">
-            <option value="">Liga 2024.</option>
-            <option value="">Liga 2025.</option>
-          </select>
-          <button
-            onClick={() => {
-              setSortingDirection(sortingDirection === "asc" ? "desc" : "asc");
-            }}
-          >
-            <SwapVertIcon className={c.icon} />
-            Sortiraj
-          </button>
-        </PageWrapper>
-      </div>
+      <ActionsHeader>
+        <select name="" id="">
+          <option value="">Liga 2024.</option>
+          <option value="">Liga 2025.</option>
+        </select>
+        <button
+          onClick={() => {
+            setSortingDirection(sortingDirection === "asc" ? "desc" : "asc");
+          }}
+        >
+          <SwapVertIcon className={c.icon} />
+          Sortiraj
+        </button>
+      </ActionsHeader>
       <PageWrapper className={c.pageWrapper} ref={wrapperRef}>
         <ProgressBar
           label="Kviz općeg znanja"
