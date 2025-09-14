@@ -1,0 +1,38 @@
+.page {
+  padding: 0 40px;
+  width: 600px;
+
+  * {
+    color: $grey-dark;
+  }
+
+  .description {
+    font-size: 16px;
+    color: rgba($grey-dark, 0.7);
+  }
+
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 4px;
+      margin-top: 16px;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 24px;
+  }
+
+  .buttons {
+    width: 100%;
+    margin-top: 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
