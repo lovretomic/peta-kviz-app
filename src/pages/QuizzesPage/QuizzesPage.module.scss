@@ -28,8 +28,21 @@
   }
 
   select {
+    cursor: pointer;
     option {
       color: $green-dark;
+    }
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+
+    &:hover {
+      opacity: 0.5;
     }
   }
 }

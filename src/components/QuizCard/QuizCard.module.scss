@@ -23,6 +23,7 @@
 
       .icon {
         cursor: pointer;
+        transition: transform 0.2s ease;
 
         &.isOpen {
           transform: rotate(180deg);
