@@ -7,6 +7,7 @@ import c from "./QuizzesPage.module.scss";
 
 import SwapVertIcon from "../../assets/icons/swap-vert.svg?react";
 import ActionsHeader from "../../components/ActionsHeader";
+import Select from "../../components/Select";
 
 const quizResults: QuizResults[] = [
   {
@@ -57,10 +58,17 @@ const QuizzesPage = () => {
   return (
     <div className={c.page}>
       <ActionsHeader>
-        <select name="" id="">
-          <option value="">Liga 2024.</option>
-          <option value="">Liga 2025.</option>
-        </select>
+        <Select
+          options={[
+            { value: "liga-2024", label: "Liga 2024." },
+            { value: "liga-2025", label: "Liga 2025." },
+            { value: "liga-2026", label: "Liga 202692384928749283." },
+          ]}
+          onChange={(option) => {
+            console.log("Selected option:", option);
+          }}
+        />
+
         <button
           onClick={() => {
             setSortingDirection(sortingDirection === "asc" ? "desc" : "asc");
