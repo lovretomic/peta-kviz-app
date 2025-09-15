@@ -59,14 +59,12 @@ const QuizzesPage = () => {
     <div className={c.page}>
       <ActionsHeader>
         <Select
+          placeholder="Odaberi ligu"
           options={[
             { value: "liga-2024", label: "Liga 2024." },
             { value: "liga-2025", label: "Liga 2025." },
             { value: "liga-2026", label: "Liga 202692384928749283." },
           ]}
-          onChange={(option) => {
-            console.log("Selected option:", option);
-          }}
         />
 
         <button

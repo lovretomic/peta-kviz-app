@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import c from "./Select.module.scss";
 
+import KeyboardArrowDownIcon from "../../assets/icons/keyboard-arrow-down.svg?react";
+
 type SelectOption = {
   key?: string;
   value: string;
@@ -69,6 +71,7 @@ const Select = ({
         onClick={() => setIsOpen(!isOpen)}
       >
         {selectedOption?.label || placeholder}
+        <KeyboardArrowDownIcon />
       </div>
       {isOpen && (
         <div
@@ -79,7 +82,7 @@ const Select = ({
         >
           {options.map((option) => (
             <div
-              key={option.key}
+              key={option.key || option.value}
               className={c.option}
               onClick={() => handleOptionChange(option)}
             >

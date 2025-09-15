@@ -2,6 +2,7 @@ import ActionsHeader from "../../components/ActionsHeader";
 import Leaderboard from "../../components/Leaderboard";
 import type { LeaderboardRow } from "../../components/Leaderboard/Leaderboard";
 import PageWrapper from "../../components/PageWrapper";
+import Select from "../../components/Select";
 
 import c from "./ResultsPage.module.scss";
 
@@ -25,16 +26,23 @@ const ResultsPage = () => {
   return (
     <div className={c.page}>
       <ActionsHeader>
-        <select name="" id="">
-          <option value="">Liga 2024.</option>
-          <option value="">Liga 2025.</option>
-        </select>
-        <select name="" id="">
-          <option value="">Rezultati lige</option>
-          <option value="">Kviz općeg znanja (19. 4. 2025.)</option>
-          <option value="">Kviz općeg znanja (19. 5. 2025.)</option>
-          <option value="">Kviz općeg znanja (19. 6. 2025.)</option>
-        </select>
+        <Select
+          placeholder="Odaberi ligu"
+          options={[
+            { value: "liga-2024", label: "Liga 2024." },
+            { value: "liga-2025", label: "Liga 2025." },
+          ]}
+        />
+        <Select
+          placeholder="Odaberi kviz"
+          options={[
+            { value: "rezultati-lige", label: "Rezultati lige" },
+            {
+              value: "kviz-19-4-2025",
+              label: "Kviz općeg znanja (19. 4. 2025.)",
+            },
+          ]}
+        />
       </ActionsHeader>
       <PageWrapper className={c.pageWrapper}>
         <Leaderboard rows={rows} className={c.leaderboard} />
