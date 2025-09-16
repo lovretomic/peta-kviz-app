@@ -35,6 +35,13 @@ const CodeModal: React.FC<CodeModalProps> = ({
           <h2>Kviz općeg znanja</h2>
           <h3>{formatDate(date)}</h3>
         </header>
+        <div className={c.inputContainer}>
+          <Input />
+          <Input />
+          <Input />
+          <Input />
+          <Input />
+        </div>
       </div>
     </div>
   );
