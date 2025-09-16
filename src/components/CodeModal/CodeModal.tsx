@@ -24,7 +24,7 @@ function formatDate(date: Date | string): string {
 const CodeModal: React.FC<CodeModalProps> = ({
   date,
   code,
-  isOpen = true,
+  isOpen,
   setIsOpen,
 }) => {
   return (
