@@ -20,6 +20,17 @@
     border: 1px solid rgba(white, 0.2);
     padding: 16px;
     gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
 
     .inputContainer {
       display: flex;
@@ -27,7 +38,7 @@
       gap: 8px;
 
       input {
-        height: 46px;
+        height: 80px;
         width: 100%;
         border: 1px solid rgba(white, 0.2);
         border-radius: 8px;

@@ -1,6 +1,7 @@
 import c from "./CodeModal.module.scss";
 import clsx from "clsx";
 import Input from "../Input";
+import Button from "../Button/Button";
 
 type CodeModalProps = {
   date: Date | string;
@@ -35,12 +36,17 @@ const CodeModal: React.FC<CodeModalProps> = ({
           <h2>Kviz općeg znanja</h2>
           <h3>{formatDate(date)}</h3>
         </header>
-        <div className={c.inputContainer}>
-          <Input />
-          <Input />
-          <Input />
-          <Input />
-          <Input />
+        <div className={c.content}>
+          <div className={c.inputContainer}>
+            <Input />
+            <Input />
+            <Input />
+            <Input />
+            <Input />
+          </div>
+          <Button variant="primary" className={c.button}>
+            Unesi
+          </Button>
         </div>
       </div>
     </div>
