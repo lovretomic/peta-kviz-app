@@ -1,12 +1,12 @@
 .adminTable {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   * {
     color: $grey-dark;
     font-size: 16px;
   }
-
-  display: flex;
-  flex-direction: column;
-  height: 100%;
 
   .options {
     display: flex;
@@ -31,6 +31,7 @@
       .icon {
         fill: $grey-dark;
       }
+
       transition: 100ms ease-in-out;
 
       color: $grey-dark;
