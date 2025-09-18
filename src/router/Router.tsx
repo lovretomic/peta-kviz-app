@@ -28,10 +28,10 @@ const router = createBrowserRouter(
         <Route path="/" element={<QuizzesPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/application" element={<ApplicationPage />} />
-        <Route path="/application/apply" element={<ApplicationForm />} />
 
         <Route path="/test" element={<TestPage />} />
       </Route>
+      <Route path="/application/apply" element={<ApplicationForm />} />
       <Route path="/admin">
         <Route path="login" element={<AdminLoginPage />} />
         <Route element={<AdminLayout />}>
