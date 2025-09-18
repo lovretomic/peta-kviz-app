@@ -2,7 +2,7 @@ import c from "./CodeModal.module.scss";
 import clsx from "clsx";
 import Input from "../Input";
 import Button from "../Button/Button";
-import ArrowIcon from "../../assets/icons/arrow-right.svg";
+import ArrowIcon from "../../assets/icons/arrow-right.svg?react";
 
 type CodeModalProps = {
   date: Date | string;
@@ -45,7 +45,7 @@ const CodeModal: React.FC<CodeModalProps> = ({
             <Input />
             <Input />
           </div>
-          <Button variant="primary" icon={ArrowIcon}>
+          <Button variant="primary" icon={<ArrowIcon />}>
             Unesi
           </Button>
         </div>
