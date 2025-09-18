@@ -3,6 +3,7 @@ import clsx from "clsx";
 import Input from "../Input";
 import Button from "../Button/Button";
 import ArrowIcon from "../../assets/icons/arrow-right.svg?react";
+import CodeInputs from "./CodeInputs";
 
 type CodeModalProps = {
   date: Date | string;
@@ -39,11 +40,7 @@ const CodeModal: React.FC<CodeModalProps> = ({
         </header>
         <div className={c.content}>
           <div className={c.inputContainer}>
-            <Input />
-            <Input />
-            <Input />
-            <Input />
-            <Input />
+            <CodeInputs length={5} />
           </div>
           <Button variant="primary" icon={<ArrowIcon />}>
             Unesi

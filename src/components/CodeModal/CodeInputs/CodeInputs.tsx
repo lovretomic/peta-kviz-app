@@ -36,11 +36,13 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
       {Array.from({ length }).map((_, idx) => (
         <Input
           key={idx}
-          ref={(el) => (inputsRef.current[idx] = el!)}
+          ref={(el) => {
+            inputsRef.current[idx] = el!;
+          }}
           maxLength={1}
           onChange={(e) => handleChange(e, idx)}
           onKeyDown={(e) => handleKeyDown(e, idx)}
-          style={{ textAlign: "center", width: "40px" }} // optional styling
+          style={{ textAlign: "center", width: "40px" }}
         />
       ))}
     </div>
