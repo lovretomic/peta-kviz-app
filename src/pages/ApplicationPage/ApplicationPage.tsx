@@ -23,8 +23,22 @@ type WaitingTime = "long" | "short" | "none";
 
 const ApplicationPage = () => {
   const navigate = useNavigate();
-  const waitingTime: WaitingTime = "long";
+  const waitingTime: WaitingTime = "none";
   const isDesktop = useIsDesktop();
+
+  if (waitingTime === "none")
+    return (
+      <PageWrapper className={c.page}>
+        <ProgressBar percentage={50} label="Prijava ekipe" date={new Date()} />
+        <ApplicationCard team={team} action="reapply" />
+        <Button
+          icon={<AddIcon />}
+          onClick={() => navigate("/application/apply")}
+        >
+          Prijavi novu ekipu
+        </Button>
+      </PageWrapper>
+    );
 
   if (waitingTime === "long")
     return (
@@ -54,16 +68,6 @@ const ApplicationPage = () => {
         </p>
       </PageWrapper>
     );
-
-  return (
-    <PageWrapper className={c.page}>
-      <ProgressBar percentage={50} label="Prijava ekipe" date={new Date()} />
-      <ApplicationCard team={team} action="reapply" />
-      <Button icon={<AddIcon />} onClick={() => navigate("/application/apply")}>
-        Prijavi novu ekipu
-      </Button>
-    </PageWrapper>
-  );
 };
 
 export default ApplicationPage;
