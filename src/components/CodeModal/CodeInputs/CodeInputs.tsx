@@ -41,7 +41,10 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
             inputsRef.current[idx] = el!;
           }}
           maxLength={1}
-          onChange={(e) => handleChange(e, idx)}
+          onChange={(e) => {
+            e.target.value = e.target.value.toUpperCase();
+            handleChange(e, idx);
+          }}
           onKeyDown={(e) => handleKeyDown(e, idx)}
           className={c.input}
         />
