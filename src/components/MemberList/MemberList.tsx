@@ -6,6 +6,7 @@ import PlusIcon from "../../assets/icons/person-with-plus.svg";
 import type React from "react";
 import MemberNumberIndicator from "../MemberNumberIndicator";
 import { useState } from "react";
+import clsx from "clsx";
 
 type MemberListProps = {
   captainName: string;
@@ -13,7 +14,8 @@ type MemberListProps = {
   addMember?: (name: string) => void;
   removeMember?: (name: string) => void;
   maxMembers?: number;
-};
+  disabled?: boolean;
+} & React.HTMLAttributes<HTMLDivElement>;
 
 const MemberList: React.FC<MemberListProps> = ({
   captainName,
@@ -21,11 +23,13 @@ const MemberList: React.FC<MemberListProps> = ({
   maxMembers = 5,
   addMember,
   removeMember,
+  disabled = false,
+  ...props
 }) => {
   const [newMember, setNewMember] = useState("");
   const hasMaxMembers = members.length + 1 >= maxMembers;
   return (
-    <div className={c.memberList}>
+    <div {...props} className={clsx(c.memberList, props.className)}>
       <div className={c.header}>
         <span>Popis članova</span>
         <div className={c.divider} />
@@ -40,12 +44,20 @@ const MemberList: React.FC<MemberListProps> = ({
           }
           value={newMember}
           onChange={(e) => setNewMember(e.target.value)}
-          disabled={hasMaxMembers}
+          disabled={hasMaxMembers || disabled}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              if (addMember && newMember.trim() !== "" && !hasMaxMembers) {
+                addMember(newMember);
+                setNewMember("");
+              }
+            }
+          }}
         />
         <Button
           variant="primary"
           icon={PlusIcon}
-          disabled={hasMaxMembers || newMember.trim() === ""}
+          disabled={hasMaxMembers || newMember.trim() === "" || disabled}
           onClick={() => {
             if (addMember) {
               addMember(newMember);
@@ -58,7 +70,11 @@ const MemberList: React.FC<MemberListProps> = ({
       {captainName && <PillButton variant="captain">{captainName}</PillButton>}
 
       {members.map((member) => (
-        <PillButton key={member} removeMember={removeMember}>
+        <PillButton
+          key={member}
+          removeMember={removeMember}
+          disabled={disabled}
+        >
           {member}
         </PillButton>
       ))}
