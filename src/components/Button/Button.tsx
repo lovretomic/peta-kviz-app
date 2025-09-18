@@ -2,9 +2,11 @@ import { isValidElement } from "react";
 import c from "./Button.module.scss";
 import clsx from "clsx";
 
+export type ButtonVariant = "primary" | "secondary" | "outlined";
+
 type ButtonProps = {
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "outlined";
+  variant?: ButtonVariant;
   icon?: string | React.ReactElement;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 

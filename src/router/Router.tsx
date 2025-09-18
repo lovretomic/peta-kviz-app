@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import QuizzesPage from "../pages/QuizzesPage";
-import LeaderboardPage from "../pages/LeaderboardPage";
+import ResultsPage from "../pages/ResultsPage";
 import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
     <>
       <Route element={<Layout />}>
         <Route path="/" element={<QuizzesPage />} />
-        <Route path="/leaderboard" element={<LeaderboardPage />} />
+        <Route path="/results" element={<ResultsPage />} />
         <Route path="/application" element={<ApplicationPage />} />
         <Route path="/application/apply" element={<ApplicationForm />} />
 

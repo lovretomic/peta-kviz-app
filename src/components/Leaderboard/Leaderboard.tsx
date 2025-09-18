@@ -1,9 +1,15 @@
 import c from "./Leaderboard.module.scss";
 import clsx from "clsx";
 import LeaderboardEntry from "../LeaderboardEntry";
+import { getRankedRows } from "../../leaderboardHelpers";
+
+export type LeaderboardRow = {
+  name: string;
+  score: number;
+};
 
 type LeaderboardProps = {
-  rows: { name: string; score: number }[];
+  rows: LeaderboardRow[];
   className?: string;
 } & React.HTMLAttributes<HTMLTableElement>;
 
@@ -12,21 +18,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({
   className,
   ...handlers
 }) => {
-  const sortedRows = [...rows].sort((a, b) => b.score - a.score);
-
-  let lastScore: number | null = null;
-  let lastRank = 0;
-
-  const rankedRows = sortedRows.map((row, index) => {
-    if (lastScore === row.score) {
-      return { ...row, rank: lastRank };
-    } else {
-      const rank = index + 1;
-      lastRank = rank;
-      lastScore = row.score;
-      return { ...row, rank };
-    }
-  });
+  const rankedRows = getRankedRows(rows);
 
   return (
     <div className={c.leaderboardContainer}>

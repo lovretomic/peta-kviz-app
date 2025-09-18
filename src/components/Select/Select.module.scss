@@ -1,0 +1,37 @@
+.selectedOption {
+  cursor: pointer;
+  transition: 200ms ease;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}
+
+.options {
+  position: absolute;
+  background-color: rgb(237, 237, 237);
+  box-sizing: border-box;
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  z-index: 5;
+
+  * {
+    color: $green-dark;
+  }
+
+  .option {
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      box-sizing: border-box;
+      background-color: $green-dark;
+      color: white;
+    }
+  }
+}

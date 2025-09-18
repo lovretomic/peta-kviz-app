@@ -3,11 +3,17 @@ import c from "./PageWrapper.module.scss";
 
 type PageWrapperProps = {
   children?: React.ReactNode;
+  ref?: React.Ref<HTMLDivElement>;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const PageWrapper = ({ children, className, ...rest }: PageWrapperProps) => {
+const PageWrapper = ({
+  children,
+  className,
+  ref,
+  ...rest
+}: PageWrapperProps) => {
   return (
-    <div className={clsx(c.pageWrapper, className)} {...rest}>
+    <div className={clsx(c.pageWrapper, className)} {...rest} ref={ref}>
       {children}
     </div>
   );

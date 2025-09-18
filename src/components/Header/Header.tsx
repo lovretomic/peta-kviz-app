@@ -9,6 +9,8 @@ const Header = () => {
   const location = useLocation();
   const isDesktop = useIsDesktop();
 
+  if (isDesktop) return null;
+
   if (location.pathname === "/test") {
     return null;
   }
@@ -20,13 +22,10 @@ const Header = () => {
   return (
     <header className={clsx(c.header, { [c.isDesktop]: isDesktop })}>
       <h1 className={c.title}>{title}</h1>
-
-      {!isDesktop && (
-        <div className={c.logos}>
-          <ClickableLogo className={c.logo} />
-          <ClickableLogo Meshgrid className={c.logo} />
-        </div>
-      )}
+      <div className={c.logos}>
+        <ClickableLogo className={c.logo} />
+        <ClickableLogo Meshgrid className={c.logo} />
+      </div>
     </header>
   );
 };

@@ -1,0 +1,54 @@
+.quizCard {
+  border-radius: 8px;
+  border: 1px solid rgba(white, 0.2);
+  box-sizing: border-box;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  &:not(&.isOpen) {
+    cursor: pointer;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .rightWrapper {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.5;
+
+      .icon {
+        cursor: pointer;
+        transition: transform 0.2s ease;
+
+        &.isOpen {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+
+  .leaderboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+
+    transition: max-height 0.5s ease, margin-top 0.5s ease;
+
+    &.isOpen {
+      margin-top: 8px;
+      max-height: 500px;
+    }
+
+    .button {
+      margin-top: 8px;
+    }
+  }
+}
