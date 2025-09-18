@@ -9,7 +9,6 @@ import ResultsPage from "../pages/ResultsPage";
 import ApplicationPage from "../pages/ApplicationPage";
 import TestPage from "../pages/TestPage";
 import Layout from "./Layout";
-import ApplicationForm from "../pages/ApplicationForm";
 import AdminLayout from "./AdminLayout";
 import AdminLoginPage from "../pages/AdminLoginPage";
 import AdminHomePage from "../pages/AdminHomePage";
@@ -20,6 +19,7 @@ import AdminLeagueQuizzesPage from "../pages/AdminLeagueQuizzesPage";
 import AdminQuizPage from "../pages/AdminQuizPage";
 import AdminQuizApplicationsPage from "../pages/AdminQuizApplicationsPage";
 import AdminQuizSettingsPage from "../pages/AdminQuizSettingsPage";
+import ApplicationForm from "../pages/ApplicationForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
