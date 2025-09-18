@@ -1,9 +1,10 @@
 import { useRef } from "react";
 import Input from "../../Input";
+import c from "./CodeInputs.module.scss";
 
 type CodeInputsProps = {
   length?: number;
-};
+} & React.HTMLAttributes<HTMLInputElement>;
 
 const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
   const inputsRef = useRef<HTMLInputElement[]>([]);
@@ -32,7 +33,7 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
   };
 
   return (
-    <div style={{ display: "flex", gap: "8px" }}>
+    <div className={c.inputContainer}>
       {Array.from({ length }).map((_, idx) => (
         <Input
           key={idx}
@@ -42,7 +43,7 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
           maxLength={1}
           onChange={(e) => handleChange(e, idx)}
           onKeyDown={(e) => handleKeyDown(e, idx)}
-          style={{ textAlign: "center", width: "40px" }}
+          className={c.input}
         />
       ))}
     </div>
