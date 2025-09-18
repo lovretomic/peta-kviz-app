@@ -1,0 +1,20 @@
+.number {
+  font-family: monospace;
+  color: rgba($grey-dark, 0.5);
+}
+
+.stringArray {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  p {
+    background-color: rgba($grey-dark, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
