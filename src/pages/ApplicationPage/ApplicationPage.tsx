@@ -32,8 +32,9 @@ const ApplicationPage = () => {
         <HourglassEmptyIcon className={c.icon} />
         <h2 className={c.title}>Ima još vremena</h2>
         <p className={c.text}>
-          Kvizevi se održavaju svakog posljednjeg petka u mjesecu. Prijave se
-          otvaraju nekoliko dana prije kviza.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam facere
+          quas ipsa eius cupiditate. Quam, non? Ut in deleniti tempora eius sint
+          hic nesciunt pariatur consequatur adipisci? Delectus, vel nemo!
         </p>
       </PageWrapper>
     );
@@ -46,8 +47,10 @@ const ApplicationPage = () => {
         <HourglassEmptyIcon className={c.icon} />
         <h2 className={c.title}>Prijave se uskoro otvaraju</h2>
         <p className={c.text}>
-          Prijave za sljedeći kviz još nisu otvorene. Pratite naš Instagram
-          profil za obavijesti.
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque
+          debitis velit, quidem fugiat voluptas sapiente quibusdam adipisci quis
+          esse magni quas deserunt odio mollitia enim rem ab molestias.
+          Excepturi, voluptatum.
         </p>
       </PageWrapper>
     );
