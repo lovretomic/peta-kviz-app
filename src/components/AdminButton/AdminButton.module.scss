@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .adminButton {
   border: none;
   outline: none;
@@ -23,7 +25,7 @@
     box-shadow: 0 0 5px 0px rgba($grey-dark, 0.15);
 
     &:hover {
-      background-color: lighten($grey-dark, 10%);
+      background-color: color.adjust($grey-dark, $lightness: 10%);
     }
 
     .icon {
