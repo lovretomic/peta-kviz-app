@@ -4,32 +4,10 @@ import ProgressBar from "../../components/ProgressBar";
 import trashIcon from "../../assets/icons/trash.svg";
 //import Leaderboard from "../../components/Leaderboard";
 //import LeaderboardEntry from "../../components/LeaderboardEntry";
-import { useState } from "react";
 import CodeModal from "../../components/CodeModal";
 //import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
-  const [formData, setFormData] = useState({
-    teamName: "Moja ekipa",
-    captainName: "Mak Terbovc",
-    captainEmail: "example@example.com",
-    members: ["Sahu mra", "Lovre Thomic"],
-  });
-
-  function addMember(name: string) {
-    setFormData((prevData) => ({
-      ...prevData,
-      members: [...prevData.members, name],
-    }));
-  }
-
-  function removeMember(name: string) {
-    setFormData((prevData) => ({
-      ...prevData,
-      members: prevData.members.filter((member) => member !== name),
-    }));
-  }
-
   return (
     <div
       style={{
