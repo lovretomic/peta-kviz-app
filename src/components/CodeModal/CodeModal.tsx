@@ -3,23 +3,12 @@ import Button from "../Button/Button";
 import ArrowIcon from "../../assets/icons/arrow-right.svg?react";
 import CodeInputs from "./CodeInputs";
 import { useState } from "react";
+import { formatDate } from "../../dateHelpers";
 
 type CodeModalProps = {
   date: Date | string;
   isOpen: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
-
-function formatDate(date: Date | string): string {
-  if (typeof date === "string") {
-    return Date.parse(date) ? date : "Neispravan datum";
-  }
-  return date.toLocaleDateString("hr-HR", {
-    weekday: "long",
-    year: "numeric",
-    month: "narrow",
-    day: "numeric",
-  });
-}
 
 const CodeModal: React.FC<CodeModalProps> = ({ date, isOpen }) => {
   const [code, setCode] = useState("");

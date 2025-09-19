@@ -1,11 +1,8 @@
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ProgressBar from "../../components/ProgressBar";
-import trashIcon from "../../assets/icons/trash.svg";
-//import Leaderboard from "../../components/Leaderboard";
-//import LeaderboardEntry from "../../components/LeaderboardEntry";
+import TrashIcon from "../../assets/icons/trash.svg";
 import CodeModal from "../../components/CodeModal";
-//import MemberList from "../../components/MemberList";
 
 const TestPage = () => {
   return (
@@ -20,10 +17,10 @@ const TestPage = () => {
     >
       <div style={{ display: "flex", gap: "10px" }}>
         <Button variant="primary">Button with text</Button>
-        <Button variant="outlined" icon={trashIcon}>
+        <Button variant="outlined" icon={TrashIcon}>
           Button with icon + text
         </Button>
-        <Button variant="secondary" icon={trashIcon} />
+        <Button variant="secondary" icon={TrashIcon} />
       </div>
       <div style={{ display: "flex", gap: "10px" }}>
         <Input placeholder="upiši" />
@@ -40,7 +37,7 @@ const TestPage = () => {
           percentage={70}
         />
       </div>
-      <CodeModal isOpen={true} date={new Date()} />
+      <CodeModal isOpen={false} date={new Date()} />
     </div>
   );
 };
