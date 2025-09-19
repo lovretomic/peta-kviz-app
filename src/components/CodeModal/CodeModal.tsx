@@ -40,7 +40,11 @@ const CodeModal: React.FC<CodeModalProps> = ({ date, isOpen }) => {
           <div className={c.inputContainer}>
             <CodeInputs length={5} onCodeChange={onCodeChange} />
           </div>
-          <Button variant="primary" icon={<ArrowIcon />}>
+          <Button
+            variant="primary"
+            icon={<ArrowIcon />}
+            onClick={() => console.log("Submitted code:", code)}
+          >
             Unesi
           </Button>
         </div>
