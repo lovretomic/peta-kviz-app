@@ -1,0 +1,16 @@
+.inputContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.codeInput {
+  text-align: center;
+  font-weight: 400;
+  font-size: 40px;
+  background: #1d2f31;
+  caret-color: transparent;
+
+  &:focus {
+    border: 1px solid rgba(white, 0.8) !important;
+  }
+}

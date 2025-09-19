@@ -6,7 +6,9 @@ export type ButtonVariant = "primary" | "secondary" | "outlined";
 
 type ButtonProps = {
   children?: React.ReactNode;
+
   variant?: ButtonVariant;
+
   icon?: string | React.ReactElement;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 

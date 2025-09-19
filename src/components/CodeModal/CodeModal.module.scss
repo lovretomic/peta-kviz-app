@@ -1,0 +1,77 @@
+.background {
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: #00000080;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal {
+    background: #1d2f31;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 345px;
+    height: 295px;
+    margin-left: 24px;
+    margin-right: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(white, 0.2);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .inputContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+
+      input {
+        height: 80px;
+        width: 100%;
+        border: 1px solid rgba(white, 0.2);
+        border-radius: 8px;
+        padding: 8px;
+        color: white;
+      }
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      h1 {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 32px;
+        padding: 4px;
+      }
+
+      h2 {
+        font-weight: 400;
+        font-size: 16px;
+      }
+
+      h3 {
+        font-weight: 400;
+        font-size: 16px;
+        color: rgba(white, 0.5);
+      }
+    }
+  }
+}
