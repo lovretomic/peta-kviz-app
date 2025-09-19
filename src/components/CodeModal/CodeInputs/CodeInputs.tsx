@@ -46,7 +46,7 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
             handleChange(e, idx);
           }}
           onKeyDown={(e) => handleKeyDown(e, idx)}
-          className={c.input}
+          className={c.codeInput}
         />
       ))}
     </div>
