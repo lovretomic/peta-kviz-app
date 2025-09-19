@@ -38,7 +38,6 @@ const TestPage = () => {
           label="Kviz općeg znanja"
           date={new Date()}
           percentage={70}
-          variant="withButtons"
         />
       </div>
       <CodeModal isOpen={true} date={new Date()} />
