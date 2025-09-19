@@ -2,9 +2,13 @@ import { isValidElement } from "react";
 import c from "./Button.module.scss";
 import clsx from "clsx";
 
+export type ButtonVariant = "primary" | "secondary" | "outlined";
+
 type ButtonProps = {
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "outlined";
+
+  variant?: ButtonVariant;
+
   icon?: string | React.ReactElement;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
@@ -23,6 +27,7 @@ const Button: React.FC<ButtonProps> = ({
         [c.secondary]: variant === "secondary",
         [c.outlined]: variant === "outlined",
         [c.iconOnly]: isIconOnly,
+        [c.disabled]: handlers.disabled,
       })}
       {...handlers}
     >

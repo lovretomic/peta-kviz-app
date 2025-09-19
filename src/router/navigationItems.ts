@@ -10,6 +10,6 @@ export type NavigationItem = {
 
 export const navigationItems: NavigationItem[] = [
   { name: "Kvizovi", path: "/", icon: QuizzesIcon },
-  { name: "Ljestvica", path: "/leaderboard", icon: LeaderboardIcon },
-  { name: "Prijava", path: "/apply", icon: ApplicationIcon },
+  { name: "Rezultati", path: "/results", icon: LeaderboardIcon },
+  { name: "Prijava", path: "/application", icon: ApplicationIcon },
 ];

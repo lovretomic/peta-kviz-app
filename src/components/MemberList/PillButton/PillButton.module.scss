@@ -1,0 +1,61 @@
+.pillButton {
+  border-radius: 32px;
+  padding: 8px 12px;
+  gap: 8px;
+  font-size: 16px;
+  transition: 0.3s ease;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+
+  &:enabled {
+    cursor: pointer;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
+  }
+}
+
+.default {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+}
+
+.default:not(:disabled):hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.default:enabled:active {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.captain {
+  border: 2px solid rgba(white, 0.2);
+  background-color: #52c42b54;
+  color: #52c42b;
+  cursor: default;
+
+  span {
+    color: #52c42b;
+  }
+}
+
+.close {
+  font-weight: bold;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 14px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}

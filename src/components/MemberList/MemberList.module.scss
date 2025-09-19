@@ -1,0 +1,24 @@
+.memberList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.divider {
+  align-self: stretch;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}

@@ -6,10 +6,15 @@ import ClickableLogo from "../ClickableLogo";
 const DesktopNavigation = () => {
   return (
     <nav className={c.desktopNavigation}>
-      <ClickableLogo className={c.logo} />
-      {navigationItems.map((item) => (
-        <NavigationButton key={item.name} item={item} isDesktop />
-      ))}
+      <div className={c.logos}>
+        <ClickableLogo className={c.logo} />
+        <ClickableLogo Meshgrid className={c.logo} />
+      </div>
+      <div className={c.navigationItems}>
+        {navigationItems.map((item) => (
+          <NavigationButton key={item.name} item={item} isDesktop />
+        ))}
+      </div>
     </nav>
   );
 };
