@@ -1,15 +1,12 @@
 import c from "./CodeModal.module.scss";
-import clsx from "clsx";
-import Input from "../Input";
 import Button from "../Button/Button";
 import ArrowIcon from "../../assets/icons/arrow-right.svg?react";
 import CodeInputs from "./CodeInputs";
+import { useState } from "react";
 
 type CodeModalProps = {
   date: Date | string;
-  code?: string;
   isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 function formatDate(date: Date | string): string {
@@ -24,21 +21,18 @@ function formatDate(date: Date | string): string {
   });
 }
 
-function onCodeChange(code: string) {
-  console.log(code);
-}
+const CodeModal: React.FC<CodeModalProps> = ({ date, isOpen }) => {
+  const [code, setCode] = useState("");
+  function onCodeChange(code: string) {
+    setCode(code);
+    console.log(code);
+  }
 
-const CodeModal: React.FC<CodeModalProps> = ({
-  date,
-  code,
-  isOpen,
-  setIsOpen,
-}) => {
   return (
     <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
       <div className={c.modal}>
         <header className={c.header}>
-          <h1>Unos kȏda {code}</h1>
+          <h1>Unos kȏda</h1>
           <h2>Kviz općeg znanja</h2>
           <h3>{formatDate(date)}</h3>
         </header>
