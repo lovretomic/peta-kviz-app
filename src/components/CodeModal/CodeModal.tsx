@@ -24,6 +24,10 @@ function formatDate(date: Date | string): string {
   });
 }
 
+function onCodeChange(code: string) {
+  console.log(code);
+}
+
 const CodeModal: React.FC<CodeModalProps> = ({
   date,
   code,
@@ -34,13 +38,13 @@ const CodeModal: React.FC<CodeModalProps> = ({
     <div className={c.background} style={{ display: isOpen ? "flex" : "none" }}>
       <div className={c.modal}>
         <header className={c.header}>
-          <h1>Unos kȏda</h1>
+          <h1>Unos kȏda {code}</h1>
           <h2>Kviz općeg znanja</h2>
           <h3>{formatDate(date)}</h3>
         </header>
         <div className={c.content}>
           <div className={c.inputContainer}>
-            <CodeInputs length={5} />
+            <CodeInputs length={5} onCodeChange={onCodeChange} />
           </div>
           <Button variant="primary" icon={<ArrowIcon />}>
             Unesi

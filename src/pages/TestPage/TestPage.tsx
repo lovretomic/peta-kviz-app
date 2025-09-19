@@ -63,12 +63,7 @@ const TestPage = () => {
           variant="withButtons"
         />
       </div>
-      <CodeModal
-        isOpen={true}
-        setIsOpen={() => {}}
-        date={new Date()}
-        code="ABC123"
-      />
+      <CodeModal isOpen={true} setIsOpen={() => {}} date={new Date()} />
     </div>
   );
 };

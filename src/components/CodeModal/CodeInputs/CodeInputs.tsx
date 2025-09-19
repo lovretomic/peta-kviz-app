@@ -4,9 +4,13 @@ import c from "./CodeInputs.module.scss";
 
 type CodeInputsProps = {
   length?: number;
+  onCodeChange?: (code: string) => void;
 } & React.HTMLAttributes<HTMLInputElement>;
 
-const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
+const CodeInputs: React.FC<CodeInputsProps> = ({
+  length = 5,
+  onCodeChange,
+}) => {
   const inputsRef = useRef<HTMLInputElement[]>([]);
 
   const handleChange = (
@@ -21,6 +25,7 @@ const CodeInputs: React.FC<CodeInputsProps> = ({ length = 5 }) => {
     }
 
     const code = inputsRef.current.map((i) => i?.value ?? "").join("");
+    onCodeChange?.(code);
   };
 
   const handleKeyDown = (
