@@ -1,6 +1,10 @@
-# Preview channel deploys on pull requests
-name: Deploy to Firebase Hosting on PR
-on: pull_request
+# Deploy to Firebase Hosting on pull requests
+name: Deploy to Firebase Hosting (Preview)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
 permissions:
   checks: write
   contents: read
@@ -8,7 +12,7 @@ permissions:
 
 jobs:
   build_and_preview:
-    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,5 +28,21 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ}}
+
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
           projectId: peta-kviz
+          channelId: pr-${{ github.event.pull_request.number }}
+          expire: 7d
+
+  close_preview_channel:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
+
+          projectId: peta-kviz
+          channelId: pr-${{ github.event.pull_request.number }}
+          expire: 1s
