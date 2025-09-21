@@ -25,11 +25,11 @@ import UmraPage from "../pages/UmraPage";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      <Route path="/umra" element={<UmraPage />} />
       <Route element={<Layout />}>
         <Route path="/" element={<QuizzesPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/application" element={<ApplicationPage />} />
-        <Route path="/umra" element={<UmraPage />} />
 
         <Route path="/test" element={<TestPage />} />
       </Route>
