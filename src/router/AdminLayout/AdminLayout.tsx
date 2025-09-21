@@ -5,7 +5,7 @@ import { adminNavigationItems } from "../adminNavigationItems";
 import AdminPathLocator from "../../components/AdminPathLocator";
 import useViewport from "../../hooks/useViewport";
 import AdminButton from "../../components/AdminButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../providers/useAuth";
 
 const AdminLayout = () => {
@@ -13,26 +13,17 @@ const AdminLayout = () => {
   const navigate = useNavigate();
 
   const [warningAccepted, setWarningAccepted] = useState(false);
-  const auth = useAuth();
+  const authContext = useAuth();
 
-  console.log(auth);
-
-  useEffect(() => {
-    if (!auth.user && !auth.loading) {
-      auth.loginWithGoogle();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth.user, auth.loading]);
-
-  if (!auth.user || auth.user.fullName === "") {
-    return <div className={c.adminLayout}>Učitavanje...</div>;
+  if (authContext.loading) {
+    return null;
   }
 
-  if (auth.loading) {
-    return <div className={c.adminLayout}>Učitavanje...</div>;
+  if (!authContext.user) {
+    navigate("/admin/login");
   }
 
-  if (!auth.isAdmin) {
+  if (!authContext.isAdmin) {
     return (
       <div className={c.adminLayout}>
         Nemate ovlasti za pristup ovoj stranici.
@@ -79,7 +70,7 @@ const AdminLayout = () => {
             {item.name}
           </AdminNavButton>
         ))}
-        <button onClick={() => auth.logout()}>Odjava</button>
+        <button onClick={() => authContext.logout()}>Odjava</button>
       </nav>
       <main className={c.main}>
         <AdminPathLocator />

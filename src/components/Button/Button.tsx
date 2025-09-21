@@ -6,10 +6,9 @@ export type ButtonVariant = "primary" | "secondary" | "outlined";
 
 type ButtonProps = {
   children?: React.ReactNode;
-
   variant?: ButtonVariant;
-
   icon?: string | React.ReactElement;
+  iconPosition?: "left" | "right";
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
   className,
   icon,
+  iconPosition = "right",
   ...handlers
 }) => {
   const isIconOnly = !!icon && !children;
@@ -32,9 +32,23 @@ const Button: React.FC<ButtonProps> = ({
       {...handlers}
     >
       <div className={c.content}>
+        {iconPosition === "left" && icon ? (
+          typeof icon === "string" ? (
+            <img src={icon} alt="button icon" />
+          ) : isValidElement(icon) ? (
+            icon
+          ) : null
+        ) : null}
+
         {children ? <span>{children}</span> : null}
-        {typeof icon === "string" && <img src={icon} alt="button icon" />}
-        {isValidElement(icon) && icon}
+
+        {iconPosition === "right" && icon ? (
+          typeof icon === "string" ? (
+            <img src={icon} alt="button icon" />
+          ) : isValidElement(icon) ? (
+            icon
+          ) : null
+        ) : null}
       </div>
     </button>
   );

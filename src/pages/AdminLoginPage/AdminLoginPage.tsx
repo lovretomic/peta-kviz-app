@@ -1,9 +1,21 @@
 import Button from "../../components/Button";
 import ClickableLogo from "../../components/ClickableLogo";
-import Input from "../../components/Input";
+import GoogleLogoIcon from "../../assets/icons/google-logo.svg";
 import c from "./AdminLoginPage.module.scss";
+import { useAuth } from "../../providers/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const AdminLoginPage = () => {
+  const auth = useAuth();
+  const navigate = useNavigate();
+
+  if (auth.user && auth.isAdmin) {
+    navigate("/admin");
+    return null;
+  }
+
+  if (!auth || auth.loading) return null;
+
   return (
     <div className={c.pageWrapper}>
       <div className={c.contentWrapper}>
@@ -13,9 +25,15 @@ const AdminLoginPage = () => {
           <h2>Prijava voditelja</h2>
         </div>
         <div className={c.formWrapper}>
-          <Input placeholder="Upiši oznaku voditelja" />
-          <Input placeholder="Upiši lozinku" type="password" />
-          <Button>Prijavi se</Button>
+          <Button
+            icon={GoogleLogoIcon}
+            iconPosition="left"
+            onClick={() => {
+              auth.loginWithGoogle();
+            }}
+          >
+            Prijavi se s Googleom
+          </Button>
         </div>
       </div>
     </div>

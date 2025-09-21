@@ -7,6 +7,9 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signInWithPopup,
+  setPersistence,
+  browserLocalPersistence,
+  getRedirectResult,
 } from "firebase/auth";
 import type { User } from "../types";
 import { AuthContext } from "./AuthContext";
@@ -30,6 +33,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
+    await setPersistence(auth, browserLocalPersistence);
+
     try {
       await signInWithPopup(auth, provider);
     } catch (err: any) {
@@ -37,7 +42,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         err.code === "auth/popup-blocked" ||
         err.code === "auth/operation-not-supported-in-this-environment"
       ) {
-        await signInWithRedirect(auth, provider);
+        signInWithRedirect(auth, provider);
       } else {
         throw err;
       }
@@ -58,10 +63,25 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         setUser(null);
         setIsAdmin(false);
       }
+
       setLoading(false);
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then((result) => {
+        if (result?.user) {
+          alert("Prijava uspješna!");
+          console.log("Signed in user:", result.user);
+          // user state already handled by onAuthStateChanged
+        }
+      })
+      .catch((error) => {
+        console.error("Redirect error:", error);
+      });
   }, []);
 
   return (
