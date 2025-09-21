@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../../firebase";
 
 import {
@@ -8,6 +8,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import type { User } from "../types";
+import { AuthContext } from "./AuthContext";
 
 export type AuthContextType = {
   user: User | null;
@@ -16,14 +17,6 @@ export type AuthContextType = {
   loginWithGoogle: () => void;
   logout: () => void;
 };
-
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  isAdmin: false,
-  loading: true,
-  loginWithGoogle: () => {},
-  logout: () => {},
-});
 
 type AuthProviderProps = {
   children: React.ReactNode;
@@ -59,7 +52,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => unsubscribe();
   }, []);
 
-  return;
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAdmin,
+        loading,
+        loginWithGoogle,
+        logout: () => auth.signOut(),
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 };
-
-export const useAuth = () => useContext(AuthContext);

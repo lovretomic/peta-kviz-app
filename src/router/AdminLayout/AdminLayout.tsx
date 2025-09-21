@@ -6,12 +6,26 @@ import AdminPathLocator from "../../components/AdminPathLocator";
 import useViewport from "../../hooks/useViewport";
 import AdminButton from "../../components/AdminButton";
 import { useState } from "react";
+import { useAuth } from "../../providers/useAuth";
 
 const AdminLayout = () => {
   const viewport = useViewport();
   const navigate = useNavigate();
 
   const [warningAccepted, setWarningAccepted] = useState(false);
+  const auth = useAuth();
+
+  if (auth.loading) {
+    return <div className={c.adminLayout}>Učitavanje...</div>;
+  }
+
+  if (!auth.isAdmin || !auth.user) {
+    return (
+      <div className={c.adminLayout}>
+        Nemate ovlasti za pristup ovoj stranici.
+      </div>
+    );
+  }
 
   if ((viewport.width < 768 || viewport.height < 600) && !warningAccepted) {
     return (
