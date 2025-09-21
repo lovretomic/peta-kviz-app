@@ -5,6 +5,7 @@ import {
   onAuthStateChanged,
   getIdTokenResult,
   GoogleAuthProvider,
+  signInWithRedirect,
   signInWithPopup,
 } from "firebase/auth";
 import type { User } from "../types";
@@ -29,23 +30,34 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const loginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (err: any) {
+      if (
+        err.code === "auth/popup-blocked" ||
+        err.code === "auth/operation-not-supported-in-this-environment"
+      ) {
+        await signInWithRedirect(auth, provider);
+      } else {
+        throw err;
+      }
+    }
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser({
-        fullName: currentUser?.displayName || "",
-        email: currentUser?.email || "",
-      });
-
       if (currentUser) {
+        setUser({
+          fullName: currentUser.displayName || "",
+          email: currentUser.email || "",
+        });
+
         const tokenResult = await getIdTokenResult(currentUser, true);
         setIsAdmin(!!tokenResult.claims.admin);
       } else {
+        setUser(null);
         setIsAdmin(false);
       }
-
       setLoading(false);
     });
 
