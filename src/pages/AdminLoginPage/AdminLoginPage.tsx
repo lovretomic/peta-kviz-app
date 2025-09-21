@@ -4,15 +4,17 @@ import GoogleLogoIcon from "../../assets/icons/google-logo.svg";
 import c from "./AdminLoginPage.module.scss";
 import { useAuth } from "../../providers/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const AdminLoginPage = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  if (auth.user && auth.isAdmin) {
-    navigate("/admin");
-    return null;
-  }
+  useEffect(() => {
+    if (auth.user && auth.isAdmin) {
+      navigate("/admin");
+    }
+  }, [auth.user, auth.isAdmin, navigate]);
 
   if (!auth || auth.loading) return null;
 

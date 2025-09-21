@@ -5,7 +5,7 @@ import { adminNavigationItems } from "../adminNavigationItems";
 import AdminPathLocator from "../../components/AdminPathLocator";
 import useViewport from "../../hooks/useViewport";
 import AdminButton from "../../components/AdminButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../providers/useAuth";
 
 const AdminLayout = () => {
@@ -15,12 +15,14 @@ const AdminLayout = () => {
   const [warningAccepted, setWarningAccepted] = useState(false);
   const authContext = useAuth();
 
+  useEffect(() => {
+    if (!authContext.user) {
+      navigate("/admin/login");
+    }
+  }, [authContext.user, navigate]);
+
   if (authContext.loading) {
     return null;
-  }
-
-  if (!authContext.user) {
-    navigate("/admin/login");
   }
 
   if (!authContext.isAdmin) {
