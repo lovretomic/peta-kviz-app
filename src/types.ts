@@ -1,3 +1,8 @@
+export type User = {
+  fullName: string;
+  email: string;
+};
+
 export type Team = {
   id: number;
   name: string;
