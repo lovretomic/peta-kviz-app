@@ -1,5 +1,6 @@
 # Deploy to Firebase Hosting on merge to main
-name: Deploy to Firebase Hosting on merge
+name: Deploy to Firebase Hosting (Live)
+
 on:
   push:
     branches: [main]
@@ -21,6 +22,6 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ_APP }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
+          projectId: peta-kviz
           channelId: live
-          projectId: peta-kviz-app
