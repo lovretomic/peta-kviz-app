@@ -79,6 +79,7 @@ const AdminLayout = () => {
             {item.name}
           </AdminNavButton>
         ))}
+        <button onClick={() => auth.logout()}>Odjava</button>
       </nav>
       <main className={c.main}>
         <AdminPathLocator />
