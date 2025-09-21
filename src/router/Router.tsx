@@ -20,6 +20,7 @@ import AdminQuizPage from "../pages/AdminQuizPage";
 import AdminQuizApplicationsPage from "../pages/AdminQuizApplicationsPage";
 import AdminQuizSettingsPage from "../pages/AdminQuizSettingsPage";
 import ApplicationForm from "../pages/ApplicationForm";
+import UmraPage from "../pages/UmraPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/" element={<QuizzesPage />} />
         <Route path="/results" element={<ResultsPage />} />
         <Route path="/application" element={<ApplicationPage />} />
+        <Route path="/umra" element={<UmraPage />} />
 
         <Route path="/test" element={<TestPage />} />
       </Route>
