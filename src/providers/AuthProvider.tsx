@@ -74,9 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     getRedirectResult(auth)
       .then((result) => {
         if (result?.user) {
-          alert("Prijava uspješna!");
-          console.log("Signed in user:", result.user);
-          // user state already handled by onAuthStateChanged
+          console.log("Redirect success:", result.user);
         }
       })
       .catch((error) => {

@@ -5,8 +5,9 @@ import { adminNavigationItems } from "../adminNavigationItems";
 import AdminPathLocator from "../../components/AdminPathLocator";
 import useViewport from "../../hooks/useViewport";
 import AdminButton from "../../components/AdminButton";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../../providers/useAuth";
+import AdminLoginPage from "../../pages/AdminLoginPage";
 
 const AdminLayout = () => {
   const viewport = useViewport();
@@ -15,22 +16,20 @@ const AdminLayout = () => {
   const [warningAccepted, setWarningAccepted] = useState(false);
   const authContext = useAuth();
 
-  useEffect(() => {
-    if (!authContext.user) {
-      navigate("/admin/login");
-    }
-  }, [authContext.user, navigate]);
-
   if (authContext.loading) {
     return null;
   }
 
   if (!authContext.isAdmin) {
-    return (
-      <div className={c.adminLayout}>
-        Nemate ovlasti za pristup ovoj stranici.
-      </div>
-    );
+    if (authContext.user) {
+      return (
+        <div className={c.adminLayout}>
+          Nemate ovlasti za pristup ovoj stranici.
+        </div>
+      );
+    } else {
+      return <AdminLoginPage />;
+    }
   }
 
   if ((viewport.width < 768 || viewport.height < 600) && !warningAccepted) {
@@ -72,7 +71,14 @@ const AdminLayout = () => {
             {item.name}
           </AdminNavButton>
         ))}
-        <button onClick={() => authContext.logout()}>Odjava</button>
+        <button
+          onClick={() => {
+            authContext.logout();
+            navigate("/admin/login");
+          }}
+        >
+          Odjava
+        </button>
       </nav>
       <main className={c.main}>
         <AdminPathLocator />
