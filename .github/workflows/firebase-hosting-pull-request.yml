@@ -59,4 +59,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
           projectId: peta-kviz
           channelId: pr-${{ github.event.pull_request.number }}
-          expire: 7d
+          expires: 7d
