@@ -57,10 +57,12 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   });
 
   const [customization, setCustomization] = useState<CustomizationState>(() => {
-    const saved = localStorage.getItem(`adminTableCustomization-${title}`);
-    if (saved) {
+    const savedCustomization = localStorage.getItem(
+      `adminTableCustomization-${title}`
+    );
+    if (savedCustomization) {
       try {
-        const parsed = JSON.parse(saved) as CustomizationState;
+        const parsed = JSON.parse(savedCustomization) as CustomizationState;
         return {
           searchTerm: "",
           sortKeys: parsed.sortKeys ?? [],
@@ -77,9 +79,21 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     };
   });
 
-  const [displayedColumns, setDisplayedColumns] = useState(
-    columns.filter((c) => !c.hiddenByDefault)
-  );
+  const [displayedColumns, setDisplayedColumns] = useState(() => {
+    const savedColumns = localStorage.getItem(
+      `adminTableDisplayedColumns-${title}`
+    );
+    if (savedColumns) {
+      try {
+        return columns.filter((c) =>
+          (JSON.parse(savedColumns) as string[])?.includes(c.id as string)
+        );
+      } catch {
+        console.warn("Could not parse saved displayed columns");
+      }
+    }
+    return columns.filter((c) => !c.hiddenByDefault);
+  });
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
 
