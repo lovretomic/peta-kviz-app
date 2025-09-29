@@ -8,7 +8,7 @@ console.log(
 );
 console.log(
   "FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ PRESENT?",
-  !!import.meta.env.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ
+  !!import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ
 );
 
 const firebaseConfig = {
