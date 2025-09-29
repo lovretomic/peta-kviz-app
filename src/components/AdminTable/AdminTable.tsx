@@ -119,6 +119,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
+    localStorage.setItem(
+      `adminTableCustomization-${title}`,
+      JSON.stringify(customization)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     customization.searchTerm,
