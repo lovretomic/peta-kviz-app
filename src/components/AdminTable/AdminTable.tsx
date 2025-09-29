@@ -60,7 +60,12 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     const saved = localStorage.getItem(`adminTableCustomization-${title}`);
     if (saved) {
       try {
-        return JSON.parse(saved) as CustomizationState;
+        const parsed = JSON.parse(saved) as CustomizationState;
+        return {
+          searchTerm: "",
+          sortKeys: parsed.sortKeys ?? [],
+          filterDescs: parsed.filterDescs ?? [],
+        };
       } catch {
         console.warn("Could not parse saved customization");
       }
