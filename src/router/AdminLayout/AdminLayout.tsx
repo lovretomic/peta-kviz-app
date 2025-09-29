@@ -10,16 +10,6 @@ import { useAuth } from "../../providers/useAuth";
 import AdminLoginPage from "../../pages/AdminLoginPage";
 
 const AdminLayout = () => {
-  console.log("API KEY PRESENT?", !!import.meta.env.VITE_FIREBASE_API_KEY);
-  console.log(
-    "AUTH DOMAIN PRESENT?",
-    !!import.meta.env.VITE_FIREBASE_AUTH_DOMAIN
-  );
-  console.log(
-    "FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ PRESENT?",
-    !!import.meta.env.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ
-  );
-
   const viewport = useViewport();
   const navigate = useNavigate();
 
