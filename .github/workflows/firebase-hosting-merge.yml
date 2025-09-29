@@ -1,4 +1,3 @@
-# Deploy to Firebase Hosting on merge to main
 name: Deploy to Firebase Hosting (Live)
 
 on:
@@ -17,7 +16,9 @@ jobs:
           cache: "yarn"
 
       - run: yarn install --frozen-lockfile
-      - run: |
+
+      - name: Check VITE_FIREBASE_* secrets
+        run: |
           echo "🔍 Checking VITE_FIREBASE_* secrets…"
 
           for key in VITE_FIREBASE_API_KEY VITE_FIREBASE_AUTH_DOMAIN VITE_FIREBASE_PROJECT_ID VITE_FIREBASE_STORAGE_BUCKET VITE_FIREBASE_MESSAGING_SENDER_ID VITE_FIREBASE_APP_ID; do
@@ -28,8 +29,16 @@ jobs:
               echo "✅ $key exists"
             fi
           done
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
 
-          yarn build
+      - name: Build site with environment variables
+        run: yarn build
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
           VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
@@ -42,6 +51,5 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
-
           projectId: peta-kviz
           channelId: live
