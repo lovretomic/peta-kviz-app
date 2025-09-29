@@ -24,6 +24,11 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
+      - name: Debug environment
+        run: |
+          echo "Mode is $MODE"
+          printenv | grep VITE_FIREBASE
+
       - name: Check VITE_FIREBASE_* secrets
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
