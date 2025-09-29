@@ -1,14 +1,11 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-console.log("API KEY PRESENT?", !!import.meta.env.VITE_FIREBASE_API_KEY);
-console.log(
-  "AUTH DOMAIN PRESENT?",
-  !!import.meta.env.VITE_FIREBASE_AUTH_DOMAIN
-);
+console.log("API KEY PRESENT?", import.meta.env.VITE_FIREBASE_API_KEY);
+console.log("AUTH DOMAIN PRESENT?", import.meta.env.VITE_FIREBASE_AUTH_DOMAIN);
 console.log(
   "FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ PRESENT?",
-  !!import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ
+  import.meta.env.VITE_FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ
 );
 
 const firebaseConfig = {
