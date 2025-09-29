@@ -138,11 +138,16 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
       `adminTableCustomization-${title}`,
       JSON.stringify(customization)
     );
+    localStorage.setItem(
+      `adminTableDisplayedColumns-${title}`,
+      JSON.stringify(displayedColumns.map((c) => c.id))
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     customization.searchTerm,
     customization.sortKeys,
     customization.filterDescs,
+    displayedColumns,
     data,
   ]);
 
