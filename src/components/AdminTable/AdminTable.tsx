@@ -56,10 +56,20 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     visibility: false,
   });
 
-  const [customization, setCustomization] = useState<CustomizationState>({
-    sortKeys: [],
-    filterDescs: [],
-    searchTerm: "",
+  const [customization, setCustomization] = useState<CustomizationState>(() => {
+    const saved = localStorage.getItem(`adminTableCustomization-${title}`);
+    if (saved) {
+      try {
+        return JSON.parse(saved) as CustomizationState;
+      } catch {
+        console.warn("Could not parse saved customization");
+      }
+    }
+    return {
+      sortKeys: [],
+      filterDescs: [],
+      searchTerm: "",
+    };
   });
 
   const [displayedColumns, setDisplayedColumns] = useState(
