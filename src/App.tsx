@@ -1,8 +1,13 @@
 import "./App.scss";
+import { AuthProvider } from "./providers/AuthProvider";
 import Router from "./router/Router";
 
 function App() {
-  return <Router />;
+  return (
+    <AuthProvider>
+      <Router />
+    </AuthProvider>
+  );
 }
 
 export default App;
