@@ -94,6 +94,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     }
     return columns.filter((c) => !c.hiddenByDefault);
   });
+
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
 
