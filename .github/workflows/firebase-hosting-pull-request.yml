@@ -24,11 +24,6 @@ jobs:
 
       - run: yarn install --frozen-lockfile
 
-      - name: Debug environment
-        run: |
-          echo "Mode is $MODE"
-          printenv | grep VITE_FIREBASE
-
       - name: Check VITE_FIREBASE_* secrets
         env:
           VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
@@ -56,8 +51,7 @@ jobs:
           VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
           VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
-          NODE_ENV: production
-        run: yarn build
+        run: yarn build --mode pr
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
