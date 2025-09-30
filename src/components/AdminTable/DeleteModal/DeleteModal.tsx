@@ -35,7 +35,7 @@ const DeleteModal = ({
             Odustani
           </AdminButton>
           <AdminButton
-            variant="primary"
+            variant="danger"
             onClick={() => {
               onDelete();
               setIsOpen(false);
