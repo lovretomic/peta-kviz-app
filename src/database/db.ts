@@ -15,8 +15,11 @@ export const db = {
       queryClient.invalidateQueries({ queryKey: ["leagues"] });
       return result;
     },
-    update: async (id: string, league: Partial<League>) => {
-      await updateLeague(id, league);
+    update: async (league: Partial<League>) => {
+      const { id, ...data } = league;
+      if (!id) throw new Error("ID is required for updating a league");
+
+      await updateLeague(id, data);
       queryClient.invalidateQueries({ queryKey: ["leagues"] });
     },
     delete: async (id: string) => {

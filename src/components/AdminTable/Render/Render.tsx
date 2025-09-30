@@ -14,7 +14,7 @@ type RenderProps = {
 const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
   switch (type) {
     case "string": {
-      if (typeof value !== "string") {
+      if (typeof value !== "string" && value !== "") {
         console.warn("Expected string for string column");
         return null;
       }

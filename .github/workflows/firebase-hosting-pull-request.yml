@@ -31,7 +31,7 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
           projectId: peta-kviz
           channelId: pr-${{ github.event.pull_request.number }}
-          expire: 7d
+          expires: 7d
 
   close_preview_channel:
     if: github.event.action == 'closed'
@@ -43,4 +43,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PETA_KVIZ }}
           projectId: peta-kviz
           channelId: pr-${{ github.event.pull_request.number }}
-          expire: 1s
+          expires: 1s

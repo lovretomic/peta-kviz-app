@@ -25,6 +25,8 @@ type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
   data: T[];
   title: string;
+  addFn?: (item: Omit<T, "id">) => void;
+  editFn?: (item: Partial<T>) => void;
 };
 
 function getWidthStyle(column: AdminTableColumn<any>) {
@@ -49,7 +51,13 @@ type CustomizationState = {
   searchTerm: string;
 };
 
-const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
+const AdminTable = <T,>({
+  columns,
+  data,
+  title,
+  addFn,
+  editFn,
+}: AdminTableProps<T>) => {
   const [modals, setModals] = useState<ModalsState>({
     filterSort: null,
     addEdit: null,
@@ -67,6 +75,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   );
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
+
+  useEffect(() => {
+    if (modals.addEdit === null) setDataToEdit(null);
+  }, [modals.addEdit]);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -164,6 +176,8 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         }}
         columns={columns}
         dataToEdit={dataToEdit}
+        addFn={addFn}
+        editFn={editFn}
       />
       <VisibilityModal
         isOpen={modals.visibility}
@@ -252,18 +266,20 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           >
             Izvezi (.xlsx)
           </AdminButton>
-          <AdminButton
-            Icon={AddIcon}
-            onClick={() => {
-              setDataToEdit(null);
-              setModals((prev) => ({
-                ...prev,
-                addEdit: "add",
-              }));
-            }}
-          >
-            Dodaj
-          </AdminButton>
+          {addFn && (
+            <AdminButton
+              Icon={AddIcon}
+              onClick={() => {
+                setDataToEdit(null);
+                setModals((prev) => ({
+                  ...prev,
+                  addEdit: "add",
+                }));
+              }}
+            >
+              Dodaj
+            </AdminButton>
+          )}
         </div>
       </div>
       <div className={c.tableWrapper}>
@@ -301,17 +317,19 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                   ))}
                   <td className={c.actions}>
                     <DeleteIcon className={c.actionIcon} title="Obriši" />
-                    <EditIcon
-                      className={c.actionIcon}
-                      title="Uredi"
-                      onClick={() => {
-                        setDataToEdit(item);
-                        setModals((prev) => ({
-                          ...prev,
-                          addEdit: "edit",
-                        }));
-                      }}
-                    />
+                    {editFn && (
+                      <EditIcon
+                        className={c.actionIcon}
+                        title="Uredi"
+                        onClick={() => {
+                          setDataToEdit(item);
+                          setModals((prev) => ({
+                            ...prev,
+                            addEdit: "edit",
+                          }));
+                        }}
+                      />
+                    )}
                   </td>
                 </tr>
               ))}

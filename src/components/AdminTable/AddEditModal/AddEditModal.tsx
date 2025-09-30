@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
@@ -10,14 +11,51 @@ type AddEditModalProps<T> = {
   setIsOpen: (isOpen: boolean) => void;
   columns: AdminTableColumn<T>[];
   dataToEdit?: T;
+  addFn?: (item: Omit<T, "id">) => void;
+  editFn?: (item: Partial<T>) => void;
 };
 
-const AddEditModal = ({
+const AddEditModal = <T extends { id?: string }>({
   isOpen,
   setIsOpen,
   columns,
   dataToEdit,
+  addFn,
+  editFn,
 }: AddEditModalProps<any>) => {
+  const [formState, setFormState] = useState<Partial<T>>(dataToEdit || {});
+
+  useEffect(() => {
+    if (dataToEdit) {
+      setFormState(dataToEdit);
+    }
+  }, [dataToEdit]);
+
+  const close = () => {
+    setIsOpen(false);
+    setFormState({});
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleAdd = () => {
+    if (addFn) {
+      addFn(formState as Omit<T, "id">);
+    }
+  };
+
+  const handleEdit = () => {
+    if (editFn && dataToEdit) {
+      editFn({ ...formState, id: dataToEdit.id } as Partial<T>);
+    }
+  };
+
   return (
     <AdminModal
       isOpen={isOpen}
@@ -26,7 +64,7 @@ const AddEditModal = ({
     >
       <div className={c.content}>
         {columns.map((column) => {
-          if (column.inputHidden) return null;
+          if (column.notAddable) return null;
           switch (column.type) {
             case "string":
               return (
@@ -35,9 +73,13 @@ const AddEditModal = ({
                   <input
                     type="text"
                     id={column.id as string}
-                    defaultValue={
-                      dataToEdit?.[column.id as keyof typeof dataToEdit]
+                    name={column.id as string}
+                    value={
+                      (formState[
+                        column.id as keyof typeof formState
+                      ] as string) || ""
                     }
+                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
@@ -49,9 +91,13 @@ const AddEditModal = ({
                   <input
                     type="number"
                     id={column.id as string}
-                    defaultValue={
-                      dataToEdit?.[column.id as keyof typeof dataToEdit]
+                    name={column.id as string}
+                    value={
+                      (formState[
+                        column.id as keyof typeof formState
+                      ] as number) || 0
                     }
+                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
@@ -63,9 +109,11 @@ const AddEditModal = ({
                   <input
                     type="datetime-local"
                     id={column.id as string}
-                    defaultValue={toLocalInputValue(
-                      dataToEdit?.[column.id as keyof typeof dataToEdit] as Date
+                    name={column.id as string}
+                    value={toLocalInputValue(
+                      formState?.[column.id as keyof typeof formState] as Date
                     )}
+                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
@@ -106,7 +154,9 @@ const AddEditModal = ({
           </AdminButton>
           <AdminButton
             onClick={() => {
-              setIsOpen(false);
+              if (!dataToEdit) handleAdd();
+              else handleEdit();
+              close();
             }}
           >
             {dataToEdit ? "Spremi" : "Dodaj"}

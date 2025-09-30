@@ -9,9 +9,9 @@ export type AdminTableColumn<T> = {
   id: string | keyof T;
   label: string;
   actionName?: string;
+  notAddable?: boolean;
   notSortable?: boolean;
   notEditable?: boolean;
-  inputHidden?: boolean;
   labelHidden?: boolean;
   hiddenByDefault?: boolean;
   type: ColumnType;

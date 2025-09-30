@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeaguesPage.module.scss";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { db } from "../../database/db";
 import type { League } from "../../database/services/leagueService";
 
@@ -14,6 +14,14 @@ const AdminLeaguesPage = () => {
     queryFn: db.leagues.getAll,
   });
 
+  const { mutate: addLeague } = useMutation({
+    mutationFn: db.leagues.add,
+  });
+
+  const { mutate: editLeague } = useMutation({
+    mutationFn: db.leagues.update,
+  });
+
   const columns: AdminTableColumn<League>[] = [
     {
       id: "id",
@@ -23,6 +31,7 @@ const AdminLeaguesPage = () => {
       accessor: (item) => item.id,
       getSearchValue: (item) => item.id || "",
       notEditable: true,
+      notAddable: true,
     },
     {
       id: "name",
@@ -45,8 +54,13 @@ const AdminLeaguesPage = () => {
   ];
   return (
     <div className={c.page}>
-      <button onClick={() => console.log(leagues)}>log data</button>
-      <AdminTable columns={columns} data={leagues || []} title="Sve Lige" />
+      <AdminTable
+        columns={columns}
+        data={leagues || []}
+        title="Sve Lige"
+        addFn={addLeague}
+        editFn={editLeague}
+      />
     </div>
   );
 };
