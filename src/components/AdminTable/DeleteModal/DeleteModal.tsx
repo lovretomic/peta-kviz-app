@@ -4,11 +4,24 @@ import c from "./DeleteModal.module.scss";
 
 type DeleteModalProps = {
   isOpen: boolean;
+  itemLabel?: string;
   setIsOpen: (isOpen: boolean) => void;
   onDelete: () => void;
 };
 
-const DeleteModal = ({ isOpen, setIsOpen, onDelete }: DeleteModalProps) => {
+const DeleteModal = ({
+  isOpen,
+  itemLabel,
+  setIsOpen,
+  onDelete,
+}: DeleteModalProps) => {
+  const getMessage = () => {
+    if (itemLabel) {
+      return `Jesi li siguran da želiš obrisati stavku "${itemLabel}"?`;
+    }
+    return "Jesi li siguran da želiš obrisati ovu stavku?";
+  };
+
   return (
     <AdminModal
       title="Potvrda o brisanju"
@@ -16,7 +29,7 @@ const DeleteModal = ({ isOpen, setIsOpen, onDelete }: DeleteModalProps) => {
       setIsOpen={setIsOpen}
     >
       <div className={c.content}>
-        <p>Jesi li siguran da želiš obrisati ovu stavku?</p>
+        <p>{getMessage()}</p>
         <div className={c.buttons}>
           <AdminButton variant="secondary" onClick={() => setIsOpen(false)}>
             Odustani

@@ -225,6 +225,13 @@ const AdminTable = <T,>({
           }));
         }}
         onDelete={handleDelete}
+        itemLabel={
+          dataToDelete && columns.find((c) => c.isDeletionItemLabel)
+            ? columns
+                .find((c) => c.isDeletionItemLabel)
+                ?.accessor?.(dataToDelete) ?? ""
+            : undefined
+        }
       />
 
       <div className={c.options}>

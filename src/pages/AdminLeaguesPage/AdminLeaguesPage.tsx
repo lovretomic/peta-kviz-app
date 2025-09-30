@@ -43,6 +43,7 @@ const AdminLeaguesPage = () => {
       type: "string",
       accessor: (item) => item.name,
       getSearchValue: (item) => item.name,
+      isDeletionItemLabel: true,
       width: 200,
     },
     {

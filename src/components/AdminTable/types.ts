@@ -16,6 +16,7 @@ export type AdminTableColumn<T> = {
   hiddenByDefault?: boolean;
   type: ColumnType;
   width?: number | string;
+  isDeletionItemLabel?: boolean;
   getSearchValue?: (item: T) => string;
   render?: (item: T) => React.ReactNode;
   accessor?: (item: T) => any;
