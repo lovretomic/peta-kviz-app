@@ -3,8 +3,10 @@ import {
   collection,
   deleteDoc,
   doc,
+  FieldValue,
   getDocs,
   query,
+  Timestamp,
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
@@ -12,6 +14,7 @@ import { db } from "../../../firebase";
 export type League = {
   id?: string;
   name: string;
+  updatedAt: FieldValue | Date | Timestamp;
 };
 
 const leaguesRef = collection(db, "leagues");

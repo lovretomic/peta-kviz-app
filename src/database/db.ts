@@ -1,3 +1,4 @@
+import { serverTimestamp } from "firebase/firestore";
 import { queryClient } from "../queryClient";
 import {
   createLeague,
@@ -11,7 +12,10 @@ export const db = {
   leagues: {
     getAll: () => getLeagues(),
     add: async (league: Omit<League, "id">) => {
-      const result = await createLeague(league);
+      const result = await createLeague({
+        ...league,
+        updatedAt: serverTimestamp(),
+      });
       queryClient.invalidateQueries({ queryKey: ["leagues"] });
       return result;
     },
@@ -19,7 +23,7 @@ export const db = {
       const { id, ...data } = league;
       if (!id) throw new Error("ID is required for updating a league");
 
-      await updateLeague(id, data);
+      await updateLeague(id, { ...data, updatedAt: serverTimestamp() });
       queryClient.invalidateQueries({ queryKey: ["leagues"] });
     },
     delete: async (id: string) => {

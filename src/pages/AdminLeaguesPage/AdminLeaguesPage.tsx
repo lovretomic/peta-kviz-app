@@ -47,6 +47,16 @@ const AdminLeaguesPage = () => {
       width: 200,
     },
     {
+      id: "updatedAt",
+      label: "Ažurirano",
+      type: "timestamp",
+      accessor: (item) => item.updatedAt,
+      getSearchValue: (item) => item.updatedAt?.toString() || "",
+      notAddable: true,
+      notEditable: true,
+      width: 200,
+    },
+    {
       id: "quizzes",
       label: "Kvizevi",
       type: "action",

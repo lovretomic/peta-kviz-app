@@ -156,6 +156,7 @@ const AddEditModal = <T extends { id?: string }>({
             onClick={() => {
               if (!dataToEdit) handleAdd();
               else handleEdit();
+
               close();
             }}
           >

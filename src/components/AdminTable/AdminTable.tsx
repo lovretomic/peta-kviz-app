@@ -83,6 +83,13 @@ const AdminTable = <T,>({
   const [dataToDelete, setDataToDelete] = useState<T | null>(null);
 
   useEffect(() => {
+    if (modals.addEdit === null && modals.delete === false) {
+      setDataToDelete(null);
+      setDataToEdit(null);
+    }
+  }, [modals.addEdit, modals.delete]);
+
+  useEffect(() => {
     if (modals.addEdit === null) setDataToEdit(null);
   }, [modals.addEdit]);
 
