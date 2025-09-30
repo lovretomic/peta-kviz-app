@@ -22,6 +22,10 @@ const AdminLeaguesPage = () => {
     mutationFn: db.leagues.update,
   });
 
+  const { mutate: deleteLeague } = useMutation({
+    mutationFn: db.leagues.delete,
+  });
+
   const columns: AdminTableColumn<League>[] = [
     {
       id: "id",
@@ -60,6 +64,7 @@ const AdminLeaguesPage = () => {
         title="Sve Lige"
         addFn={addLeague}
         editFn={editLeague}
+        deleteFn={deleteLeague}
       />
     </div>
   );
