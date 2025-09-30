@@ -335,7 +335,7 @@ const AdminTable = <T,>({
                     {column.labelHidden ? "" : column.label}
                   </th>
                 ))}
-                <th className={c.actions}>Radnje</th>
+                {(editFn || deleteFn) && <th className={c.actions}>Radnje</th>}
               </tr>
             </thead>
             <tbody>
@@ -358,31 +358,33 @@ const AdminTable = <T,>({
                       )}
                     </td>
                   ))}
-                  <td className={c.actions}>
-                    {deleteFn && (
-                      <DeleteIcon
-                        className={c.actionIcon}
-                        title="Obriši"
-                        onClick={() => {
-                          setDataToDelete(item);
-                          setModals((prev) => ({ ...prev, delete: true }));
-                        }}
-                      />
-                    )}
-                    {editFn && (
-                      <EditIcon
-                        className={c.actionIcon}
-                        title="Uredi"
-                        onClick={() => {
-                          setDataToEdit(item);
-                          setModals((prev) => ({
-                            ...prev,
-                            addEdit: "edit",
-                          }));
-                        }}
-                      />
-                    )}
-                  </td>
+                  {(editFn || deleteFn) && (
+                    <td className={c.actions}>
+                      {deleteFn && (
+                        <DeleteIcon
+                          className={c.actionIcon}
+                          title="Obriši"
+                          onClick={() => {
+                            setDataToDelete(item);
+                            setModals((prev) => ({ ...prev, delete: true }));
+                          }}
+                        />
+                      )}
+                      {editFn && (
+                        <EditIcon
+                          className={c.actionIcon}
+                          title="Uredi"
+                          onClick={() => {
+                            setDataToEdit(item);
+                            setModals((prev) => ({
+                              ...prev,
+                              addEdit: "edit",
+                            }));
+                          }}
+                        />
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
