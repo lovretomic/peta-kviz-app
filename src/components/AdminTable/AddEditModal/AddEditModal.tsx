@@ -5,6 +5,7 @@ import AdminModal from "../../AdminModal";
 import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
+import AdminInput from "../../AdminInput";
 
 type AddEditModalProps<T> = {
   isOpen: boolean;
@@ -71,10 +72,11 @@ const AddEditModal = <T extends { id?: string }>({
           switch (column.type) {
             case "string":
               return (
-                <div key={column.id as string}>
+                <div key={column.id as string} className={c.inputGroup}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <input
+                  <AdminInput
                     type="text"
+                    variant="small"
                     id={column.id as string}
                     name={column.id as string}
                     value={
@@ -89,10 +91,11 @@ const AddEditModal = <T extends { id?: string }>({
               );
             case "number":
               return (
-                <div key={column.id as string}>
+                <div key={column.id as string} className={c.inputGroup}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <input
+                  <AdminInput
                     type="number"
+                    variant="small"
                     id={column.id as string}
                     name={column.id as string}
                     value={
@@ -107,9 +110,10 @@ const AddEditModal = <T extends { id?: string }>({
               );
             case "timestamp":
               return (
-                <div key={column.id as string}>
+                <div key={column.id as string} className={c.inputGroup}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <input
+                  <AdminInput
+                    variant="small"
                     type="datetime-local"
                     id={column.id as string}
                     name={column.id as string}

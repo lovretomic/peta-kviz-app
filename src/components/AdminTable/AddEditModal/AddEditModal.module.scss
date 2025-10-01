@@ -4,6 +4,12 @@
   flex-direction: column;
   gap: 8px;
 
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   .stringArray {
     display: flex;
     flex-direction: column;
