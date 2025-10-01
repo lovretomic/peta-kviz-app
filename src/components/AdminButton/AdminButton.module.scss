@@ -59,6 +59,11 @@
     }
   }
 
+  &.white {
+    background-color: white;
+    color: $grey-dark;
+  }
+
   &:active {
     box-shadow: none;
   }

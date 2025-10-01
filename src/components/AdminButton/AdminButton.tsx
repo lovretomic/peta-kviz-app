@@ -3,7 +3,7 @@ import c from "./AdminButton.module.scss";
 import type { SVGProps } from "react";
 
 type AdminButtonProps = {
-  variant?: "primary" | "secondary" | "danger";
+  variant?: "primary" | "secondary" | "danger" | "white";
   Icon?: React.ComponentType<SVGProps<SVGSVGElement>>;
   iconPosition?: "left" | "right";
 } & React.HTMLAttributes<HTMLButtonElement>;
