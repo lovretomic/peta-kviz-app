@@ -29,7 +29,10 @@ const AddEditModal = <T extends { id?: string }>({
     if (dataToEdit) {
       setFormState(dataToEdit);
     }
-  }, [dataToEdit]);
+    if (!isOpen) {
+      setFormState({});
+    }
+  }, [dataToEdit, isOpen]);
 
   const close = () => {
     setIsOpen(false);

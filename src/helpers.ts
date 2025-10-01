@@ -54,5 +54,10 @@ export function getTimestampMs(v: unknown): number | undefined {
     return Number.isFinite(ms) ? ms : undefined;
   }
 
+  if (v instanceof Timestamp) {
+    const ms = v.toMillis();
+    return Number.isFinite(ms) ? ms : undefined;
+  }
+
   return undefined;
 }
