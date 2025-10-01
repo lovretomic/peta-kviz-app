@@ -62,7 +62,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     );
     if (savedCustomization) {
       try {
-        const parsed = JSON.parse(savedCustomization) as CustomizationState;
+        const parsed = JSON.parse(savedCustomization) as Omit<
+          CustomizationState,
+          "searchTerm"
+        >;
         return {
           searchTerm: "",
           sortKeys: parsed.sortKeys ?? [],
