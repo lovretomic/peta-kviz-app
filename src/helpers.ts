@@ -1,12 +1,17 @@
+import { Timestamp } from "firebase/firestore";
+
 export function formatDate(
-  input: Date | string | number | null | undefined
+  input: Date | Timestamp | string | number | null | undefined
 ): string {
-  const d =
-    input instanceof Date
-      ? input
-      : typeof input === "string" || typeof input === "number"
-      ? new Date(input)
-      : null;
+  let d;
+
+  if (input instanceof Date) {
+    d = input;
+  } else if (typeof input === "string" || typeof input === "number") {
+    d = new Date(input);
+  } else if (input instanceof Timestamp) {
+    d = input.toDate();
+  }
 
   if (!d || Number.isNaN(d.getTime())) return "N/A";
 
@@ -46,6 +51,11 @@ export function getTimestampMs(v: unknown): number | undefined {
     const asNum = Number(v);
     if (Number.isFinite(asNum)) return normalizeEpochMs(asNum);
     const ms = Date.parse(v);
+    return Number.isFinite(ms) ? ms : undefined;
+  }
+
+  if (v instanceof Timestamp) {
+    const ms = v.toMillis();
     return Number.isFinite(ms) ? ms : undefined;
   }
 

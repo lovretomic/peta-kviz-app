@@ -9,13 +9,14 @@ export type AdminTableColumn<T> = {
   id: string | keyof T;
   label: string;
   actionName?: string;
+  notAddable?: boolean;
   notSortable?: boolean;
   notEditable?: boolean;
-  inputHidden?: boolean;
   labelHidden?: boolean;
   hiddenByDefault?: boolean;
   type: ColumnType;
   width?: number | string;
+  isDeletionItemLabel?: boolean;
   getSearchValue?: (item: T) => string;
   render?: (item: T) => React.ReactNode;
   accessor?: (item: T) => any;

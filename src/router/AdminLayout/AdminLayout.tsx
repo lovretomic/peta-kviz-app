@@ -61,24 +61,31 @@ const AdminLayout = () => {
   return (
     <div className={c.adminLayout}>
       <nav className={c.navigation}>
-        {adminNavigationItems.map((item) => (
-          <AdminNavButton
-            key={item.name}
-            Icon={item.Icon}
-            path={item.path}
-            disabled={item.disabled}
+        <div className={c.navigationItems}>
+          {adminNavigationItems.map((item) => (
+            <AdminNavButton
+              key={item.name}
+              Icon={item.Icon}
+              path={item.path}
+              disabled={item.disabled}
+            >
+              {item.name}
+            </AdminNavButton>
+          ))}
+        </div>
+        <div className={c.userInfo}>
+          <h3>{authContext.user?.fullName}</h3>
+          <p>{authContext.user?.email}</p>
+          <AdminButton
+            variant="white"
+            onClick={() => {
+              authContext.logout();
+              navigate("/admin/login");
+            }}
           >
-            {item.name}
-          </AdminNavButton>
-        ))}
-        <button
-          onClick={() => {
-            authContext.logout();
-            navigate("/admin/login");
-          }}
-        >
-          Odjava
-        </button>
+            Odjava
+          </AdminButton>
+        </div>
       </nav>
       <main className={c.main}>
         <AdminPathLocator />
