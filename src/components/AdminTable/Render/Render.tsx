@@ -15,7 +15,10 @@ type RenderProps = {
 const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
   switch (type) {
     case "string": {
-      if (typeof value !== "string" && value !== "") {
+      if (value === "" || value === null || value === undefined) {
+        return <p className={c.emptyString}>prazan string</p>;
+      }
+      if (typeof value !== "string") {
         console.warn("Expected string for string column");
         return null;
       }
