@@ -34,3 +34,14 @@ export const getDefaultFilterDesc = (column: AdminTableColumn<any>) => {
       throw new Error("Unsupported column type");
   }
 };
+
+export const loadFromLocalStorage = <T>(key: string): T | undefined => {
+  const saved = localStorage.getItem(key);
+  if (!saved) return undefined;
+  try {
+    return JSON.parse(saved) as T;
+  } catch {
+    console.warn(`Could not parse localStorage key: ${key}`);
+    return undefined;
+  }
+};

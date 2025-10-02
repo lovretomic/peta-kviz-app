@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
+import { loadFromLocalStorage } from "./helpers";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
@@ -57,45 +58,24 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   });
 
   const [customization, setCustomization] = useState<CustomizationState>(() => {
-    const savedCustomization = localStorage.getItem(
-      `adminTableCustomization-${title}`
-    );
-    if (savedCustomization) {
-      try {
-        const parsed = JSON.parse(savedCustomization) as Omit<
-          CustomizationState,
-          "searchTerm"
-        >;
-        return {
-          searchTerm: "",
-          sortKeys: parsed.sortKeys ?? [],
-          filterDescs: parsed.filterDescs ?? [],
-        };
-      } catch {
-        console.warn("Could not parse saved customization");
+    return (
+      loadFromLocalStorage<CustomizationState>(
+        `adminTableCustomization-${title}`
+      ) ?? {
+        sortKeys: [],
+        filterDescs: [],
+        searchTerm: "",
       }
-    }
-    return {
-      sortKeys: [],
-      filterDescs: [],
-      searchTerm: "",
-    };
+    );
   });
 
   const [displayedColumns, setDisplayedColumns] = useState(() => {
-    const savedColumns = localStorage.getItem(
+    const saved = loadFromLocalStorage<any[]>(
       `adminTableDisplayedColumns-${title}`
     );
-    if (savedColumns) {
-      try {
-        return columns.filter((c) =>
-          (JSON.parse(savedColumns) as string[])?.includes(c.id as string)
-        );
-      } catch {
-        console.warn("Could not parse saved displayed columns");
-      }
-    }
-    return columns.filter((c) => !c.hiddenByDefault);
+    return saved
+      ? columns.filter((c) => saved.includes(c.id as string))
+      : columns.filter((c) => !c.hiddenByDefault);
   });
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
