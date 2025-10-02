@@ -39,7 +39,35 @@ export const loadFromLocalStorage = <T>(key: string): T | undefined => {
   const saved = localStorage.getItem(key);
   if (!saved) return undefined;
   try {
-    return JSON.parse(saved) as T;
+    const parsed = JSON.parse(saved);
+
+    const reviveDates = (obj: any): any => {
+      if (obj === null || obj === undefined) return obj;
+
+      if (typeof obj === "string") {
+        const isoDateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z$/;
+        if (isoDateRegex.test(obj)) {
+          return new Date(obj);
+        }
+        return obj;
+      }
+
+      if (Array.isArray(obj)) {
+        return obj.map(reviveDates);
+      }
+
+      if (typeof obj === "object") {
+        const revived: any = {};
+        for (const [key, value] of Object.entries(obj)) {
+          revived[key] = reviveDates(value);
+        }
+        return revived;
+      }
+
+      return obj;
+    };
+
+    return reviveDates(parsed) as T;
   } catch {
     console.warn(`Could not parse localStorage key: ${key}`);
     return undefined;

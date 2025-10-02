@@ -58,19 +58,27 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   });
 
   const [customization, setCustomization] = useState<CustomizationState>(() => {
-    return (
-      loadFromLocalStorage<CustomizationState>(
-        `adminTableCustomization-${title}`
-      ) ?? {
-        sortKeys: [],
-        filterDescs: [],
-        searchTerm: "",
-      }
+    const saved = loadFromLocalStorage<Omit<CustomizationState, "searchTerm">>(
+      `adminTableCustomization-${title}`
     );
+
+    if (saved) {
+      return {
+        sortKeys: saved.sortKeys || [],
+        filterDescs: saved.filterDescs || [],
+        searchTerm: "",
+      };
+    }
+
+    return {
+      sortKeys: [],
+      filterDescs: [],
+      searchTerm: "",
+    };
   });
 
   const [displayedColumns, setDisplayedColumns] = useState(() => {
-    const saved = loadFromLocalStorage<any[]>(
+    const saved = loadFromLocalStorage<string[]>(
       `adminTableDisplayedColumns-${title}`
     );
     return saved
