@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
-import { loadFromLocalStorage } from "./helpers";
+import { loadFromLocalStorage, saveToLocalStorage } from "./helpers";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
@@ -140,13 +140,10 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
-    localStorage.setItem(
-      `adminTableCustomization-${title}`,
-      JSON.stringify(customization)
-    );
-    localStorage.setItem(
+    saveToLocalStorage(`adminTableCustomization-${title}`, customization);
+    saveToLocalStorage(
       `adminTableDisplayedColumns-${title}`,
-      JSON.stringify(displayedColumns.map((c) => c.id))
+      displayedColumns.map((c) => c.id as string)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
