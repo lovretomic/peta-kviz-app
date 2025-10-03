@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 import c from "./AdminQuizPage.module.scss";
 import HandWithCheckIcon from "../../assets/icons/hand-with-check.svg?react";
 import SettingsIcon from "../../assets/icons/settings.svg?react";
+import ContractEditIcon from "../../assets/icons/contract-edit.svg?react";
 import { useNavigate } from "react-router-dom";
 
 type CardDefinition = {
   title: string;
   Icon: ReactNode;
-  message: string;
   href: string;
 };
 
@@ -18,14 +18,17 @@ const AdminQuizPage = () => {
     {
       title: "Postavke",
       Icon: <SettingsIcon />,
-      message: "Uređivanje naslova, datuma. Ostale postavke.",
       href: `settings`,
     },
     {
       title: "Prijave",
       Icon: <HandWithCheckIcon />,
-      message: "Pregled i upravljanje prijavama.",
       href: `applications`,
+    },
+    {
+      title: "Bodovi",
+      Icon: <ContractEditIcon />,
+      href: `points`,
     },
   ];
 
@@ -49,7 +52,6 @@ const AdminQuizPage = () => {
           >
             <div className={c.icon}>{card.Icon}</div>
             <h2 className={c.title}>{card.title}</h2>
-            <p className={c.message}>{card.message}</p>
           </div>
         ))}
       </div>
