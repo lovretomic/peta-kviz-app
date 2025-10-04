@@ -10,7 +10,7 @@ import DeleteIcon from "../../assets/icons/delete.svg?react";
 import VisibilityIcon from "../../assets/icons/visibility.svg?react";
 
 import { useEffect, useRef, useState } from "react";
-import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
+import type { AdminTableColumn, CustomizationState } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
 import { loadFromLocalStorage, saveToLocalStorage } from "./helpers";
@@ -42,12 +42,6 @@ type ModalsState = {
   filterSort: "filter" | "sort" | null;
   addEdit: "add" | "edit" | null;
   visibility: boolean;
-};
-
-type CustomizationState = {
-  sortKeys: SortKey<any>[];
-  filterDescs: FilterDesc<any>[];
-  searchTerm: string;
 };
 
 const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {

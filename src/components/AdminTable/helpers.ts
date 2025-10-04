@@ -1,4 +1,4 @@
-import type { AdminTableColumn, FilterDesc } from "./types";
+import type { AdminTableColumn, FilterDesc, CustomizationState } from "./types";
 
 export const getDefaultFilterDesc = (column: AdminTableColumn<any>) => {
   switch (column.type) {
