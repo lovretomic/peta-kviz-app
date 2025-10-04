@@ -77,3 +77,29 @@ export const loadFromLocalStorage = <T>(key: string): T | undefined => {
 export const saveToLocalStorage = <T>(key: string, value: T) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
+
+export const loadCustomization = (
+  title: string
+): CustomizationState | undefined => {
+  return loadFromLocalStorage<CustomizationState>(
+    `adminTableCustomization-${title}`
+  );
+};
+
+export const loadDisplayedColumns = (title: string): string[] | undefined => {
+  return loadFromLocalStorage<string[]>(`adminTableDisplayedColumns-${title}`);
+};
+
+export const saveCustomization = (
+  title: string,
+  customization: CustomizationState
+) => {
+  saveToLocalStorage(`adminTableCustomization-${title}`, customization);
+};
+
+export const saveDisplayedColumns = (
+  title: string,
+  displayedColumns: string[]
+) => {
+  saveToLocalStorage(`adminTableDisplayedColumns-${title}`, displayedColumns);
+};
