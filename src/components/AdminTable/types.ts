@@ -29,6 +29,12 @@ export type StringFilterDesc<T> = {
   value: string;
 };
 
+export type CustomizationState = {
+  sortKeys: SortKey<any>[];
+  filterDescs: FilterDesc<any>[];
+  searchTerm: string;
+};
+
 export const StringFilterOps = [
   { value: "contains", label: "sadrži" },
   { value: "equals", label: "jednako" },

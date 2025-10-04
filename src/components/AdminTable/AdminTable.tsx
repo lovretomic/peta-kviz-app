@@ -10,9 +10,15 @@ import DeleteIcon from "../../assets/icons/delete.svg?react";
 import VisibilityIcon from "../../assets/icons/visibility.svg?react";
 
 import { useEffect, useRef, useState } from "react";
-import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
+import type { AdminTableColumn, CustomizationState } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
+import {
+  loadCustomization,
+  saveCustomization,
+  loadDisplayedColumns,
+  saveDisplayedColumns,
+} from "./helpers";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
@@ -43,12 +49,6 @@ type ModalsState = {
   visibility: boolean;
 };
 
-type CustomizationState = {
-  sortKeys: SortKey<any>[];
-  filterDescs: FilterDesc<any>[];
-  searchTerm: string;
-};
-
 const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   const [modals, setModals] = useState<ModalsState>({
     filterSort: null,
@@ -56,15 +56,31 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
     visibility: false,
   });
 
-  const [customization, setCustomization] = useState<CustomizationState>({
-    sortKeys: [],
-    filterDescs: [],
-    searchTerm: "",
+  const [customization, setCustomization] = useState<CustomizationState>(() => {
+    const saved = loadCustomization(title);
+
+    if (saved) {
+      return {
+        sortKeys: saved.sortKeys || [],
+        filterDescs: saved.filterDescs || [],
+        searchTerm: "",
+      };
+    }
+
+    return {
+      sortKeys: [],
+      filterDescs: [],
+      searchTerm: "",
+    };
   });
 
-  const [displayedColumns, setDisplayedColumns] = useState(
-    columns.filter((c) => !c.hiddenByDefault)
-  );
+  const [displayedColumns, setDisplayedColumns] = useState(() => {
+    const saved = loadDisplayedColumns(title);
+    return saved
+      ? columns.filter((c) => saved.includes(c.id as string))
+      : columns.filter((c) => !c.hiddenByDefault);
+  });
+
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
 
@@ -119,11 +135,17 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
+    saveCustomization(title, customization);
+    saveDisplayedColumns(
+      title,
+      displayedColumns.map((c) => c.id as string)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     customization.searchTerm,
     customization.sortKeys,
     customization.filterDescs,
+    displayedColumns,
     data,
   ]);
 
