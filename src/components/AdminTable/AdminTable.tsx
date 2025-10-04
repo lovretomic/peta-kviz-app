@@ -13,7 +13,12 @@ import { useEffect, useRef, useState } from "react";
 import type { AdminTableColumn, CustomizationState } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
-import { loadFromLocalStorage, saveToLocalStorage } from "./helpers";
+import {
+  loadCustomization,
+  saveCustomization,
+  loadDisplayedColumns,
+  saveDisplayedColumns,
+} from "./helpers";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
@@ -52,9 +57,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   });
 
   const [customization, setCustomization] = useState<CustomizationState>(() => {
-    const saved = loadFromLocalStorage<Omit<CustomizationState, "searchTerm">>(
-      `adminTableCustomization-${title}`
-    );
+    const saved = loadCustomization(title);
 
     if (saved) {
       return {
@@ -72,9 +75,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   });
 
   const [displayedColumns, setDisplayedColumns] = useState(() => {
-    const saved = loadFromLocalStorage<string[]>(
-      `adminTableDisplayedColumns-${title}`
-    );
+    const saved = loadDisplayedColumns(title);
     return saved
       ? columns.filter((c) => saved.includes(c.id as string))
       : columns.filter((c) => !c.hiddenByDefault);
@@ -134,9 +135,9 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
-    saveToLocalStorage(`adminTableCustomization-${title}`, customization);
-    saveToLocalStorage(
-      `adminTableDisplayedColumns-${title}`,
+    saveCustomization(title, customization);
+    saveDisplayedColumns(
+      title,
       displayedColumns.map((c) => c.id as string)
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
