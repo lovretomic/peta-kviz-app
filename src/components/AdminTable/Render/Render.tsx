@@ -38,7 +38,7 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
         !(value instanceof Timestamp)
       ) {
         console.warn(
-          "Expected Date or string or Timestamo for timestamp column"
+          "Expected Date or string or Timestamp for timestamp column"
         );
         return null;
       }
