@@ -1,65 +1,23 @@
-import { useEffect, useState } from "react";
 import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
 import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
-import AdminInput from "../../AdminInput";
 
 type AddEditModalProps<T> = {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   columns: AdminTableColumn<T>[];
   dataToEdit?: T;
-  addFn?: (item: Omit<T, "id">) => void;
-  editFn?: (item: Partial<T>) => void;
 };
 
-const AddEditModal = <T extends { id?: string }>({
+const AddEditModal = ({
   isOpen,
   setIsOpen,
   columns,
   dataToEdit,
-  addFn,
-  editFn,
 }: AddEditModalProps<any>) => {
-  const [formState, setFormState] = useState<Partial<T>>(dataToEdit || {});
-
-  useEffect(() => {
-    if (dataToEdit) {
-      setFormState(dataToEdit);
-    }
-    if (!isOpen) {
-      setFormState({});
-    }
-  }, [dataToEdit, isOpen]);
-
-  const close = () => {
-    setIsOpen(false);
-    setFormState({});
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleAdd = () => {
-    if (addFn) {
-      addFn(formState as Omit<T, "id">);
-    }
-  };
-
-  const handleEdit = () => {
-    if (editFn && dataToEdit) {
-      editFn({ ...formState, id: dataToEdit.id } as Partial<T>);
-    }
-  };
-
   return (
     <AdminModal
       isOpen={isOpen}
@@ -68,59 +26,46 @@ const AddEditModal = <T extends { id?: string }>({
     >
       <div className={c.content}>
         {columns.map((column) => {
-          if (column.notAddable) return null;
+          if (column.inputHidden) return null;
           switch (column.type) {
             case "string":
               return (
-                <div key={column.id as string} className={c.inputGroup}>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <AdminInput
+                  <input
                     type="text"
-                    variant="small"
                     id={column.id as string}
-                    name={column.id as string}
-                    value={
-                      (formState[
-                        column.id as keyof typeof formState
-                      ] as string) || ""
+                    defaultValue={
+                      dataToEdit?.[column.id as keyof typeof dataToEdit]
                     }
-                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
               );
             case "number":
               return (
-                <div key={column.id as string} className={c.inputGroup}>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <AdminInput
+                  <input
                     type="number"
-                    variant="small"
                     id={column.id as string}
-                    name={column.id as string}
-                    value={
-                      (formState[
-                        column.id as keyof typeof formState
-                      ] as number) || 0
+                    defaultValue={
+                      dataToEdit?.[column.id as keyof typeof dataToEdit]
                     }
-                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
               );
             case "timestamp":
               return (
-                <div key={column.id as string} className={c.inputGroup}>
+                <div key={column.id as string}>
                   <label htmlFor={column.id as string}>{column.label}</label>
-                  <AdminInput
-                    variant="small"
+                  <input
                     type="datetime-local"
                     id={column.id as string}
-                    name={column.id as string}
-                    value={toLocalInputValue(
-                      formState?.[column.id as keyof typeof formState] as Date
+                    defaultValue={toLocalInputValue(
+                      dataToEdit?.[column.id as keyof typeof dataToEdit] as Date
                     )}
-                    onChange={handleInputChange}
                     disabled={dataToEdit && column.notEditable}
                   />
                 </div>
@@ -161,10 +106,7 @@ const AddEditModal = <T extends { id?: string }>({
           </AdminButton>
           <AdminButton
             onClick={() => {
-              if (!dataToEdit) handleAdd();
-              else handleEdit();
-
-              close();
+              setIsOpen(false);
             }}
           >
             {dataToEdit ? "Spremi" : "Dodaj"}

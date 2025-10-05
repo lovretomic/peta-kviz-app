@@ -26,15 +26,11 @@ import AddEditModal from "./AddEditModal";
 import Render from "./Render/Render";
 import VisibilityModal from "./VisibilityModal";
 import clsx from "clsx";
-import DeleteModal from "./DeleteModal";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
   data: T[];
   title: string;
-  addFn?: (item: Omit<T, "id">) => void;
-  editFn?: (item: Partial<T>) => void;
-  deleteFn?: (id: string) => void;
 };
 
 function getWidthStyle(column: AdminTableColumn<any>) {
@@ -51,22 +47,13 @@ type ModalsState = {
   filterSort: "filter" | "sort" | null;
   addEdit: "add" | "edit" | null;
   visibility: boolean;
-  delete: boolean;
 };
 
-const AdminTable = <T,>({
-  columns,
-  data,
-  title,
-  addFn,
-  editFn,
-  deleteFn,
-}: AdminTableProps<T>) => {
+const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
   const [modals, setModals] = useState<ModalsState>({
     filterSort: null,
     addEdit: null,
     visibility: false,
-    delete: false,
   });
 
   const [customization, setCustomization] = useState<CustomizationState>(() => {
@@ -96,12 +83,6 @@ const AdminTable = <T,>({
 
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
-  const [dataToDelete, setDataToDelete] = useState<T | null>(null);
-
-  useEffect(() => {
-    if (modals.addEdit === null) setDataToEdit(null);
-    if (modals.delete === false) setDataToDelete(null);
-  }, [modals.addEdit, modals.delete]);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -168,25 +149,6 @@ const AdminTable = <T,>({
     data,
   ]);
 
-  const handleDelete = () => {
-    if (!dataToDelete) {
-      console.warn("No data to delete");
-      return;
-    }
-
-    if (!deleteFn) {
-      console.warn("No delete function provided");
-      return;
-    }
-
-    if (!(dataToDelete as any).id) {
-      console.warn("No valid id found for deletion");
-      return;
-    }
-
-    deleteFn((dataToDelete as any).id as string);
-  };
-
   return (
     <div className={c.adminTable}>
       <FilterSortModal
@@ -224,8 +186,6 @@ const AdminTable = <T,>({
         }}
         columns={columns}
         dataToEdit={dataToEdit}
-        addFn={addFn}
-        editFn={editFn}
       />
       <VisibilityModal
         isOpen={modals.visibility}
@@ -239,24 +199,6 @@ const AdminTable = <T,>({
         displayedColumns={displayedColumns}
         setDisplayedColumns={setDisplayedColumns}
       />
-      <DeleteModal
-        isOpen={modals.delete}
-        setIsOpen={(isOpen) => {
-          setModals((prev) => ({
-            ...prev,
-            delete: isOpen,
-          }));
-        }}
-        onDelete={handleDelete}
-        itemLabel={
-          dataToDelete && columns.find((c) => c.isDeletionItemLabel)
-            ? columns
-                .find((c) => c.isDeletionItemLabel)
-                ?.accessor?.(dataToDelete) ?? ""
-            : undefined
-        }
-      />
-
       <div className={c.options}>
         {displayedData.length !== data.length && (
           <p className={c.rowCount}>
@@ -332,20 +274,18 @@ const AdminTable = <T,>({
           >
             Izvezi (.xlsx)
           </AdminButton>
-          {addFn && (
-            <AdminButton
-              Icon={AddIcon}
-              onClick={() => {
-                setDataToEdit(null);
-                setModals((prev) => ({
-                  ...prev,
-                  addEdit: "add",
-                }));
-              }}
-            >
-              Dodaj
-            </AdminButton>
-          )}
+          <AdminButton
+            Icon={AddIcon}
+            onClick={() => {
+              setDataToEdit(null);
+              setModals((prev) => ({
+                ...prev,
+                addEdit: "add",
+              }));
+            }}
+          >
+            Dodaj
+          </AdminButton>
         </div>
       </div>
       <div className={c.tableWrapper}>
@@ -358,7 +298,7 @@ const AdminTable = <T,>({
                     {column.labelHidden ? "" : column.label}
                   </th>
                 ))}
-                {(editFn || deleteFn) && <th className={c.actions}>Radnje</th>}
+                <th className={c.actions}>Radnje</th>
               </tr>
             </thead>
             <tbody>
@@ -381,33 +321,20 @@ const AdminTable = <T,>({
                       )}
                     </td>
                   ))}
-                  {(editFn || deleteFn) && (
-                    <td className={c.actions}>
-                      {deleteFn && (
-                        <DeleteIcon
-                          className={c.actionIcon}
-                          title="Obriši"
-                          onClick={() => {
-                            setDataToDelete(item);
-                            setModals((prev) => ({ ...prev, delete: true }));
-                          }}
-                        />
-                      )}
-                      {editFn && (
-                        <EditIcon
-                          className={c.actionIcon}
-                          title="Uredi"
-                          onClick={() => {
-                            setDataToEdit(item);
-                            setModals((prev) => ({
-                              ...prev,
-                              addEdit: "edit",
-                            }));
-                          }}
-                        />
-                      )}
-                    </td>
-                  )}
+                  <td className={c.actions}>
+                    <DeleteIcon className={c.actionIcon} title="Obriši" />
+                    <EditIcon
+                      className={c.actionIcon}
+                      title="Uredi"
+                      onClick={() => {
+                        setDataToEdit(item);
+                        setModals((prev) => ({
+                          ...prev,
+                          addEdit: "edit",
+                        }));
+                      }}
+                    />
+                  </td>
                 </tr>
               ))}
             </tbody>

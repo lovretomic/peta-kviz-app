@@ -4,10 +4,6 @@
   border-radius: 8px;
   transition: 100ms ease;
 
-  &.small {
-    padding: 8px;
-  }
-
   &:focus {
     border-color: $grey-dark;
     outline: none;

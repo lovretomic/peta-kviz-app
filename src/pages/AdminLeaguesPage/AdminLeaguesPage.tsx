@@ -2,40 +2,47 @@ import { useNavigate } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeaguesPage.module.scss";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { db } from "../../database/db";
-import type { League } from "../../database/services/leagueService";
+
+type Quiz = {
+  id: number;
+  title: string;
+};
+
+type League = {
+  id: number;
+  name: string;
+  quizzes?: Quiz[];
+};
+
+const leagues: League[] = [
+  { id: 1, name: "Premier League" },
+  { id: 2, name: "La Liga" },
+  { id: 3, name: "Bundesliga" },
+  { id: 4, name: "Serie A" },
+  { id: 5, name: "Ligue 1" },
+  { id: 6, name: "Eredivisie" },
+  { id: 7, name: "Primeira Liga" },
+  { id: 8, name: "Scottish Premiership" },
+  { id: 9, name: "MLS" },
+  { id: 10, name: "Brasileirão" },
+  { id: 11, name: "J1 League" },
+  { id: 12, name: "A-League" },
+  { id: 13, name: "MLS Next Pro" },
+  { id: 14, name: "USL Championship" },
+];
 
 const AdminLeaguesPage = () => {
   const navigate = useNavigate();
-
-  const { data: leagues } = useQuery<League[]>({
-    queryKey: ["leagues"],
-    queryFn: db.leagues.getAll,
-  });
-
-  const { mutate: addLeague } = useMutation({
-    mutationFn: db.leagues.add,
-  });
-
-  const { mutate: editLeague } = useMutation({
-    mutationFn: db.leagues.update,
-  });
-
-  const { mutate: deleteLeague } = useMutation({
-    mutationFn: db.leagues.delete,
-  });
 
   const columns: AdminTableColumn<League>[] = [
     {
       id: "id",
       label: "ID",
-      type: "string",
+      type: "number",
       width: 1,
       accessor: (item) => item.id,
-      getSearchValue: (item) => item.id || "",
+      getSearchValue: (item) => item.id.toString(),
       notEditable: true,
-      notAddable: true,
     },
     {
       id: "name",
@@ -43,17 +50,6 @@ const AdminLeaguesPage = () => {
       type: "string",
       accessor: (item) => item.name,
       getSearchValue: (item) => item.name,
-      isDeletionItemLabel: true,
-      width: 200,
-    },
-    {
-      id: "updatedAt",
-      label: "Ažurirano",
-      type: "timestamp",
-      accessor: (item) => item.updatedAt,
-      getSearchValue: (item) => item.updatedAt?.toString() || "",
-      notAddable: true,
-      notEditable: true,
       width: 200,
     },
     {
@@ -69,14 +65,7 @@ const AdminLeaguesPage = () => {
   ];
   return (
     <div className={c.page}>
-      <AdminTable
-        columns={columns}
-        data={leagues || []}
-        title="Sve Lige"
-        addFn={addLeague}
-        editFn={editLeague}
-        deleteFn={deleteLeague}
-      />
+      <AdminTable columns={columns} data={leagues} title="Sve Lige" />
     </div>
   );
 };

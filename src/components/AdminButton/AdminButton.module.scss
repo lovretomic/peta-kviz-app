@@ -46,24 +46,6 @@
     }
   }
 
-  &.danger {
-    background-color: #ff4d4f;
-    color: white;
-
-    &:hover {
-      background-color: color.adjust(#ff4d4f, $lightness: -20%);
-    }
-
-    .icon {
-      fill: white;
-    }
-  }
-
-  &.white {
-    background-color: white;
-    color: $grey-dark;
-  }
-
   &:active {
     box-shadow: none;
   }

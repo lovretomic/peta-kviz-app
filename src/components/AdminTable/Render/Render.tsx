@@ -1,4 +1,3 @@
-import { Timestamp } from "firebase/firestore";
 import { formatDate } from "../../../helpers";
 import AdminTableButton from "../AdminTableButton";
 import type { ColumnType } from "../types";
@@ -15,9 +14,6 @@ type RenderProps = {
 const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
   switch (type) {
     case "string": {
-      if (value === "" || value === null || value === undefined) {
-        return <p className={c.emptyString}>prazan string</p>;
-      }
       if (typeof value !== "string") {
         console.warn("Expected string for string column");
         return null;
@@ -32,14 +28,8 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
       return <p className={c.number}>{value}</p>;
     }
     case "timestamp": {
-      if (
-        !(value instanceof Date) &&
-        typeof value !== "string" &&
-        !(value instanceof Timestamp)
-      ) {
-        console.warn(
-          "Expected Date or string or Timestamp for timestamp column"
-        );
+      if (!(value instanceof Date) && typeof value !== "string") {
+        console.warn("Expected Date or string for timestamp column");
         return null;
       }
       return <p>{formatDate(value)}</p>;

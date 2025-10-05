@@ -37,28 +37,12 @@
   .navigation {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 4px;
+    padding: 8px 0;
 
-    .navigationItems {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding: 8px 0;
-
-      * {
-        white-space: nowrap;
-        overflow: hidden;
-      }
-    }
-
-    .userInfo {
-      display: flex;
-      flex-direction: column;
-      user-select: none;
-
-      button {
-        margin-top: 8px;
-      }
+    * {
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 

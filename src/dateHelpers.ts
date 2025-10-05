@@ -1,9 +1,3 @@
-/**
- * Format date for app UI.
- * @param date The date to format
- * @returns The formatted date string
- */
-
 export function formatDate(date: Date | string): string {
   if (typeof date === "string") {
     return Date.parse(date) ? date : "Neispravan datum";
