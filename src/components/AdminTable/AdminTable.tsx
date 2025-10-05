@@ -10,9 +10,15 @@ import DeleteIcon from "../../assets/icons/delete.svg?react";
 import VisibilityIcon from "../../assets/icons/visibility.svg?react";
 
 import { useEffect, useRef, useState } from "react";
-import type { AdminTableColumn, FilterDesc, SortKey } from "./types";
+import type { AdminTableColumn, CustomizationState } from "./types";
 import { buildComparator } from "./builders/buildComparator";
 import { buildFilter } from "./builders/buildFilter";
+import {
+  loadCustomization,
+  saveCustomization,
+  loadDisplayedColumns,
+  saveDisplayedColumns,
+} from "./helpers";
 
 import * as XLSX from "xlsx";
 import FilterSortModal from "./FilterSortModal";
@@ -20,11 +26,15 @@ import AddEditModal from "./AddEditModal";
 import Render from "./Render/Render";
 import VisibilityModal from "./VisibilityModal";
 import clsx from "clsx";
+import DeleteModal from "./DeleteModal";
 
 type AdminTableProps<T> = {
   columns: AdminTableColumn<T>[];
   data: T[];
   title: string;
+  addFn?: (item: Omit<T, "id">) => void;
+  editFn?: (item: Partial<T>) => void;
+  deleteFn?: (id: string) => void;
 };
 
 function getWidthStyle(column: AdminTableColumn<any>) {
@@ -41,32 +51,57 @@ type ModalsState = {
   filterSort: "filter" | "sort" | null;
   addEdit: "add" | "edit" | null;
   visibility: boolean;
+  delete: boolean;
 };
 
-type CustomizationState = {
-  sortKeys: SortKey<any>[];
-  filterDescs: FilterDesc<any>[];
-  searchTerm: string;
-};
-
-const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
+const AdminTable = <T,>({
+  columns,
+  data,
+  title,
+  addFn,
+  editFn,
+  deleteFn,
+}: AdminTableProps<T>) => {
   const [modals, setModals] = useState<ModalsState>({
     filterSort: null,
     addEdit: null,
     visibility: false,
+    delete: false,
   });
 
-  const [customization, setCustomization] = useState<CustomizationState>({
-    sortKeys: [],
-    filterDescs: [],
-    searchTerm: "",
+  const [customization, setCustomization] = useState<CustomizationState>(() => {
+    const saved = loadCustomization(title);
+
+    if (saved) {
+      return {
+        sortKeys: saved.sortKeys || [],
+        filterDescs: saved.filterDescs || [],
+        searchTerm: "",
+      };
+    }
+
+    return {
+      sortKeys: [],
+      filterDescs: [],
+      searchTerm: "",
+    };
   });
 
-  const [displayedColumns, setDisplayedColumns] = useState(
-    columns.filter((c) => !c.hiddenByDefault)
-  );
+  const [displayedColumns, setDisplayedColumns] = useState(() => {
+    const saved = loadDisplayedColumns(title);
+    return saved
+      ? columns.filter((c) => saved.includes(c.id as string))
+      : columns.filter((c) => !c.hiddenByDefault);
+  });
+
   const [displayedData, setDisplayedData] = useState<T[]>(data);
   const [dataToEdit, setDataToEdit] = useState<T | null>(null);
+  const [dataToDelete, setDataToDelete] = useState<T | null>(null);
+
+  useEffect(() => {
+    if (modals.addEdit === null) setDataToEdit(null);
+    if (modals.delete === false) setDataToDelete(null);
+  }, [modals.addEdit, modals.delete]);
 
   const tableRef = useRef<HTMLTableElement>(null);
 
@@ -119,13 +154,38 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
 
   useEffect(() => {
     filterAndSort();
+    saveCustomization(title, customization);
+    saveDisplayedColumns(
+      title,
+      displayedColumns.map((c) => c.id as string)
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     customization.searchTerm,
     customization.sortKeys,
     customization.filterDescs,
+    displayedColumns,
     data,
   ]);
+
+  const handleDelete = () => {
+    if (!dataToDelete) {
+      console.warn("No data to delete");
+      return;
+    }
+
+    if (!deleteFn) {
+      console.warn("No delete function provided");
+      return;
+    }
+
+    if (!(dataToDelete as any).id) {
+      console.warn("No valid id found for deletion");
+      return;
+    }
+
+    deleteFn((dataToDelete as any).id as string);
+  };
 
   return (
     <div className={c.adminTable}>
@@ -164,6 +224,8 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         }}
         columns={columns}
         dataToEdit={dataToEdit}
+        addFn={addFn}
+        editFn={editFn}
       />
       <VisibilityModal
         isOpen={modals.visibility}
@@ -177,6 +239,24 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
         displayedColumns={displayedColumns}
         setDisplayedColumns={setDisplayedColumns}
       />
+      <DeleteModal
+        isOpen={modals.delete}
+        setIsOpen={(isOpen) => {
+          setModals((prev) => ({
+            ...prev,
+            delete: isOpen,
+          }));
+        }}
+        onDelete={handleDelete}
+        itemLabel={
+          dataToDelete && columns.find((c) => c.isDeletionItemLabel)
+            ? columns
+                .find((c) => c.isDeletionItemLabel)
+                ?.accessor?.(dataToDelete) ?? ""
+            : undefined
+        }
+      />
+
       <div className={c.options}>
         {displayedData.length !== data.length && (
           <p className={c.rowCount}>
@@ -252,18 +332,20 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
           >
             Izvezi (.xlsx)
           </AdminButton>
-          <AdminButton
-            Icon={AddIcon}
-            onClick={() => {
-              setDataToEdit(null);
-              setModals((prev) => ({
-                ...prev,
-                addEdit: "add",
-              }));
-            }}
-          >
-            Dodaj
-          </AdminButton>
+          {addFn && (
+            <AdminButton
+              Icon={AddIcon}
+              onClick={() => {
+                setDataToEdit(null);
+                setModals((prev) => ({
+                  ...prev,
+                  addEdit: "add",
+                }));
+              }}
+            >
+              Dodaj
+            </AdminButton>
+          )}
         </div>
       </div>
       <div className={c.tableWrapper}>
@@ -276,7 +358,7 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                     {column.labelHidden ? "" : column.label}
                   </th>
                 ))}
-                <th className={c.actions}>Radnje</th>
+                {(editFn || deleteFn) && <th className={c.actions}>Radnje</th>}
               </tr>
             </thead>
             <tbody>
@@ -299,20 +381,33 @@ const AdminTable = <T,>({ columns, data, title }: AdminTableProps<T>) => {
                       )}
                     </td>
                   ))}
-                  <td className={c.actions}>
-                    <DeleteIcon className={c.actionIcon} title="Obriši" />
-                    <EditIcon
-                      className={c.actionIcon}
-                      title="Uredi"
-                      onClick={() => {
-                        setDataToEdit(item);
-                        setModals((prev) => ({
-                          ...prev,
-                          addEdit: "edit",
-                        }));
-                      }}
-                    />
-                  </td>
+                  {(editFn || deleteFn) && (
+                    <td className={c.actions}>
+                      {deleteFn && (
+                        <DeleteIcon
+                          className={c.actionIcon}
+                          title="Obriši"
+                          onClick={() => {
+                            setDataToDelete(item);
+                            setModals((prev) => ({ ...prev, delete: true }));
+                          }}
+                        />
+                      )}
+                      {editFn && (
+                        <EditIcon
+                          className={c.actionIcon}
+                          title="Uredi"
+                          onClick={() => {
+                            setDataToEdit(item);
+                            setModals((prev) => ({
+                              ...prev,
+                              addEdit: "edit",
+                            }));
+                          }}
+                        />
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
