@@ -35,7 +35,7 @@ export const getDefaultFilterDesc = (column: AdminTableColumn<any>) => {
   }
 };
 
-export const loadFromLocalStorage = <T>(key: string): T | undefined => {
+const loadFromLocalStorage = <T>(key: string): T | undefined => {
   const saved = localStorage.getItem(key);
   if (!saved) return undefined;
   try {
