@@ -7,6 +7,7 @@ import {
   updateLeague,
   type League,
 } from "./services/leagueService";
+import { getQuizzes, type Quiz } from "./services/quizService";
 
 export const db = {
   leagues: {
@@ -29,6 +30,17 @@ export const db = {
     delete: async (id: string) => {
       await deleteLeague(id);
       queryClient.invalidateQueries({ queryKey: ["leagues"] });
+    },
+  },
+  quizzes: {
+    getAll: () => getQuizzes(),
+    add: async (quiz: Omit<Quiz, "id">) => {
+      const result = await createQuiz({
+        ...quiz,
+        updatedAt: serverTimestamp(),
+      });
+      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      return result;
     },
   },
 };
