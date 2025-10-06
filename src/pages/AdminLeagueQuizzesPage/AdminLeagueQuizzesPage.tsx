@@ -23,7 +23,7 @@ const AdminLeagueQuizzesPage = () => {
   });
 
   const { mutate: editQuiz } = useMutation({
-    mutationFn: db.quizzes.add,
+    mutationFn: db.quizzes.update,
   });
 
   const { mutate: deleteQuiz } = useMutation({
@@ -82,6 +82,9 @@ const AdminLeagueQuizzesPage = () => {
         title={`Kvizovi - Liga ${leagueId}`}
         columns={columns}
         data={quizzes || []}
+        addFn={addQuiz}
+        editFn={editQuiz}
+        deleteFn={deleteQuiz}
       />
     </div>
   );
