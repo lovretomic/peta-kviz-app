@@ -21,6 +21,7 @@ import AdminQuizApplicationsPage from "../pages/AdminQuizApplicationsPage";
 import AdminQuizSettingsPage from "../pages/AdminQuizSettingsPage";
 import ApplicationForm from "../pages/ApplicationForm";
 import UmraPage from "../pages/UmraPage";
+import AdminPointsPage from "../pages/AdminPointsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
                   path="applications"
                   element={<AdminQuizApplicationsPage />}
                 />
+                <Route path="points" element={<AdminPointsPage />} />
               </Route>
             </Route>
           </Route>
