@@ -56,7 +56,7 @@ export const db = {
       queryClient.invalidateQueries({ queryKey: ["quizzes"] });
     },
     delete: async (id: string) => {
-      await deleteLeague(id);
+      await deleteQuiz(id);
       queryClient.invalidateQueries({ queryKey: ["quizzes"] });
     },
   },
