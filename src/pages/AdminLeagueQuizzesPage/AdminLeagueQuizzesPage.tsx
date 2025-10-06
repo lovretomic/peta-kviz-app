@@ -59,10 +59,12 @@ const AdminLeagueQuizzesPage = () => {
     {
       id: "updatedAt",
       label: "Ažurirano",
-      accessor: (quiz) => new Date(quiz.updatedAt as Date),
       type: "timestamp",
-      width: 250,
-      getSearchValue: (quiz) => formatDate(quiz.updatedAt as Date),
+      accessor: (quiz) => quiz.updatedAt,
+      getSearchValue: (quiz) => quiz.updatedAt?.toString() || "",
+      notAddable: true,
+      notEditable: true,
+      width: 200,
     },
     {
       id: "teams",
