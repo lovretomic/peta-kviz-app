@@ -7,7 +7,13 @@ import {
   updateLeague,
   type League,
 } from "./services/leagueService";
-import { getQuizzes, type Quiz } from "./services/quizService";
+import {
+  createQuiz,
+  getQuizzes,
+  updateQuiz,
+  deleteQuiz,
+  type Quiz,
+} from "./services/quizService";
 
 export const db = {
   leagues: {
@@ -41,6 +47,17 @@ export const db = {
       });
       queryClient.invalidateQueries({ queryKey: ["quizzes"] });
       return result;
+    },
+    update: async (quiz: Partial<Quiz>) => {
+      const { id, ...data } = quiz;
+      if (!id) throw new Error("ID is required for updating a quiz");
+
+      await updateQuiz(id, { ...data, updatedAt: serverTimestamp() });
+      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+    },
+    delete: async (id: string) => {
+      await deleteLeague(id);
+      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
     },
   },
 };
