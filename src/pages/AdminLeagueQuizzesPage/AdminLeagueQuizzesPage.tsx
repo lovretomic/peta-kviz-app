@@ -5,23 +5,38 @@ import type { AdminTableColumn } from "../../components/AdminTable/types";
 import c from "./AdminLeagueQuizzesPage.module.scss";
 import { formatDate } from "../../helpers";
 
-type Quiz = {
-  id: number;
-  title: string;
-  timestamp: string;
-};
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { db } from "../../database/db";
+import type { Quiz } from "../../database/services/quizService";
 
 const AdminLeagueQuizzesPage = () => {
   const { leagueId } = useParams();
   const navigate = useNavigate();
+
+  const { data: quizzes } = useQuery<Quiz[]>({
+    queryKey: ["quizzes"],
+    queryFn: db.quizzes.getAll,
+  });
+
+  const { mutate: addQuiz } = useMutation({
+    mutationFn: db.quizzes.add,
+  });
+
+  const { mutate: editQuiz } = useMutation({
+    mutationFn: db.quizzes.add,
+  });
+
+  const { mutate: deleteQuiz } = useMutation({
+    mutationFn: db.quizzes.delete,
+  });
 
   const columns: AdminTableColumn<Quiz>[] = [
     {
       id: "id",
       label: "ID",
       accessor: (quiz) => quiz.id,
-      getSearchValue: (quiz) => quiz.id.toString(),
-      type: "number",
+      getSearchValue: (quiz) => quiz.id?.toString() ?? "",
+      type: "string",
       width: 1,
       notEditable: true,
     },
@@ -34,12 +49,20 @@ const AdminLeagueQuizzesPage = () => {
       width: 200,
     },
     {
-      id: "timestamp",
+      id: "time",
       label: "Vrijeme",
-      accessor: (quiz) => new Date(quiz.timestamp),
+      accessor: (quiz) => new Date(quiz.time as Date),
       type: "timestamp",
       width: 250,
-      getSearchValue: (quiz) => formatDate(quiz.timestamp),
+      getSearchValue: (quiz) => formatDate(quiz.time as Date),
+    },
+    {
+      id: "updatedAt",
+      label: "Ažurirano",
+      accessor: (quiz) => new Date(quiz.updatedAt as Date),
+      type: "timestamp",
+      width: 250,
+      getSearchValue: (quiz) => formatDate(quiz.updatedAt as Date),
     },
     {
       id: "teams",
@@ -53,17 +76,12 @@ const AdminLeagueQuizzesPage = () => {
     },
   ];
 
-  const data: Quiz[] = [
-    { id: 1, title: "Kviz 1", timestamp: "2023-10-01 10:00" },
-    { id: 2, title: "Kviz 2", timestamp: "2023-10-02 11:00" },
-  ];
-
   return (
     <div className={c.page}>
       <AdminTable
         title={`Kvizovi - Liga ${leagueId}`}
         columns={columns}
-        data={data}
+        data={quizzes || []}
       />
     </div>
   );
