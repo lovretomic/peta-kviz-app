@@ -8,11 +8,13 @@ import {
   query,
   Timestamp,
   updateDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 
 export type Quiz = {
   id?: string;
+  leagueId: string;
   title: string;
   time: FieldValue | Date | Timestamp;
   updatedAt: FieldValue | Date | Timestamp;
@@ -25,8 +27,8 @@ export const createQuiz = async (quiz: Quiz) => {
   return { id: docRef.id, ...quiz };
 };
 
-export const getQuizzes = async () => {
-  const q = query(quizzesRef);
+export const getQuizzes = async (leagueId: string) => {
+  const q = query(quizzesRef, where("leagueId", "==", leagueId));
   const snapshot = await getDocs(q);
   return snapshot.docs.map((doc) => ({
     id: doc.id,

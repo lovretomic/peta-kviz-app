@@ -39,25 +39,26 @@ export const db = {
     },
   },
   quizzes: {
-    getAll: () => getQuizzes(),
-    add: async (quiz: Omit<Quiz, "id">) => {
+    getAll: (leagueId: string) => getQuizzes(leagueId),
+    add: async (quiz: Omit<Quiz, "id">, leagueId: string) => {
       const result = await createQuiz({
         ...quiz,
+        leagueId,
         updatedAt: serverTimestamp(),
       });
-      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
       return result;
     },
-    update: async (quiz: Partial<Quiz>) => {
+    update: async (quiz: Partial<Quiz>, leagueId: string) => {
       const { id, ...data } = quiz;
       if (!id) throw new Error("ID is required for updating a quiz");
 
       await updateQuiz(id, { ...data, updatedAt: serverTimestamp() });
-      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
     },
-    delete: async (id: string) => {
+    delete: async (id: string, leagueId: string) => {
       await deleteQuiz(id);
-      queryClient.invalidateQueries({ queryKey: ["quizzes"] });
+      queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
     },
   },
 };

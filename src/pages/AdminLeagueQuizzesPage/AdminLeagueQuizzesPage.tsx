@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
-
 import c from "./AdminLeagueQuizzesPage.module.scss";
 import { formatDate } from "../../helpers";
 
@@ -14,20 +13,22 @@ const AdminLeagueQuizzesPage = () => {
   const navigate = useNavigate();
 
   const { data: quizzes } = useQuery<Quiz[]>({
-    queryKey: ["quizzes"],
-    queryFn: db.quizzes.getAll,
+    queryKey: ["quizzes", leagueId],
+    queryFn: () => db.quizzes.getAll(leagueId as string),
   });
 
   const { mutate: addQuiz } = useMutation({
-    mutationFn: db.quizzes.add,
+    mutationFn: (quiz: Omit<Quiz, "id">) =>
+      db.quizzes.add(quiz, leagueId as string),
   });
 
   const { mutate: editQuiz } = useMutation({
-    mutationFn: db.quizzes.update,
+    mutationFn: (quiz: Partial<Quiz>) =>
+      db.quizzes.update(quiz, leagueId as string),
   });
 
   const { mutate: deleteQuiz } = useMutation({
-    mutationFn: db.quizzes.delete,
+    mutationFn: (id: string) => db.quizzes.delete(id, leagueId as string),
   });
 
   const columns: AdminTableColumn<Quiz>[] = [
