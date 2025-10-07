@@ -5,10 +5,8 @@ import {
   doc,
   FieldValue,
   getDocs,
-  query,
   Timestamp,
   updateDoc,
-  where,
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 
@@ -20,28 +18,31 @@ export type Quiz = {
   updatedAt: FieldValue | Date | Timestamp;
 };
 
-const quizzesRef = collection(db, "quizzes");
-
-export const createQuiz = async (quiz: Quiz) => {
+export const createQuiz = async (quiz: Quiz, leagueId: string) => {
+  const quizzesRef = collection(db, "leagues", leagueId, "quizzes");
   const docRef = await addDoc(quizzesRef, quiz);
   return { id: docRef.id, ...quiz };
 };
 
 export const getQuizzes = async (leagueId: string) => {
-  const q = query(quizzesRef, where("leagueId", "==", leagueId));
-  const snapshot = await getDocs(q);
+  const quizzesRef = collection(db, "leagues", leagueId, "quizzes");
+  const snapshot = await getDocs(quizzesRef);
   return snapshot.docs.map((doc) => ({
     id: doc.id,
     ...doc.data(),
   })) as Quiz[];
 };
 
-export const updateQuiz = async (id: string, quiz: Partial<Quiz>) => {
-  const docRef = doc(db, "quizzes", id);
+export const updateQuiz = async (
+  id: string,
+  quiz: Partial<Quiz>,
+  leagueId: string
+) => {
+  const docRef = doc(db, "leagues", leagueId, "quizzes", id);
   await updateDoc(docRef, quiz);
 };
 
-export const deleteQuiz = async (id: string) => {
-  const docRef = doc(db, "quizzes", id);
+export const deleteQuiz = async (id: string, leagueId: string) => {
+  const docRef = doc(db, "leagues", leagueId, "quizzes", id);
   await deleteDoc(docRef);
 };

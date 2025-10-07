@@ -41,11 +41,14 @@ export const db = {
   quizzes: {
     getAll: (leagueId: string) => getQuizzes(leagueId),
     add: async (quiz: Omit<Quiz, "id">, leagueId: string) => {
-      const result = await createQuiz({
-        ...quiz,
-        leagueId,
-        updatedAt: serverTimestamp(),
-      });
+      const result = await createQuiz(
+        {
+          ...quiz,
+          leagueId,
+          updatedAt: serverTimestamp(),
+        },
+        leagueId
+      );
       queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
       return result;
     },
@@ -53,11 +56,11 @@ export const db = {
       const { id, ...data } = quiz;
       if (!id) throw new Error("ID is required for updating a quiz");
 
-      await updateQuiz(id, { ...data, updatedAt: serverTimestamp() });
+      await updateQuiz(id, { ...data, updatedAt: serverTimestamp() }, leagueId);
       queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
     },
     delete: async (id: string, leagueId: string) => {
-      await deleteQuiz(id);
+      await deleteQuiz(id, leagueId);
       queryClient.invalidateQueries({ queryKey: ["quizzes", leagueId] });
     },
   },
