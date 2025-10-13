@@ -9,6 +9,10 @@
     margin-bottom: 24px;
     font-size: 20px;
   }
+
+  .buttons {
+    margin-bottom: 16px;
+  }
 }
 
 .container {
@@ -31,7 +35,7 @@
     }
   }
 
-  input {
+  .input {
     outline: none;
     border: 1px solid transparent;
 
@@ -57,10 +61,18 @@
     &:focus {
       border: 1px solid black;
     }
+
+    transition: 100ms ease-in-out;
+
+    &.isChanged {
+      background-color: rgba(255, 235, 59, 0.3);
+      color: rgb(131, 52, 0);
+      font-weight: bold;
+    }
   }
 
   div,
-  input {
+  .input {
     padding: 8px;
 
     border-right: $border-style;

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import c from "./AdminPointsTable.module.scss";
+import AdminButton from "../AdminButton";
+import clsx from "clsx";
 
 export type TeamPointsRow = {
   id: string;
@@ -13,13 +15,17 @@ type AdminPointsTableProps = {
 
 const AdminPointsTable = ({ data }: AdminPointsTableProps) => {
   const [rows, setRows] = useState<TeamPointsRow[]>(data);
+  const [displayedRows, setDisplayedRows] = useState<TeamPointsRow[]>(data);
 
   return (
     <div className={c.page}>
       <h1 className={c.title}>Kviz općeg znanja — bodovi</h1>
       <p className={c.subtitle}>1. 1. 2025. u 19:00 sati.</p>
+      <div className={c.buttons}>
+        <AdminButton onClick={() => setRows(displayedRows)}>Spremi</AdminButton>
+      </div>
       <div className={c.container}>
-        {rows.map((row) => (
+        {displayedRows.map((row) => (
           <>
             <div>{row.name}</div>
             <input
@@ -32,12 +38,17 @@ const AdminPointsTable = ({ data }: AdminPointsTableProps) => {
 
                 const newPoints = Number(val);
 
-                setRows((prev) =>
+                setDisplayedRows((prev) =>
                   prev.map((r) =>
                     r.id === row.id ? { ...r, points: newPoints } : r
                   )
                 );
               }}
+              className={clsx({
+                [c.input]: true,
+                [c.isChanged]:
+                  rows.find((r) => r.id === row.id)?.points !== row.points,
+              })}
             />
           </>
         ))}
