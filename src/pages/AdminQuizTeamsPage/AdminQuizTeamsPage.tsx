@@ -2,7 +2,7 @@ import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import { formatDate } from "../../helpers";
 import type { Team } from "../../types";
-import c from "./AdminQuizApplicationsPage.module.scss";
+import c from "./AdminQuizTeamsPage.module.scss";
 
 const data: Team[] = [
   {
@@ -31,7 +31,7 @@ const data: Team[] = [
   },
 ];
 
-const AdminQuizApplicationsPage = () => {
+const AdminQuizTeamsPage = () => {
   const columns: AdminTableColumn<Team>[] = [
     {
       id: "id",
@@ -91,4 +91,4 @@ const AdminQuizApplicationsPage = () => {
   );
 };
 
-export default AdminQuizApplicationsPage;
+export default AdminQuizTeamsPage;
