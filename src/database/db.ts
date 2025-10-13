@@ -44,7 +44,6 @@ export const db = {
       const result = await createQuiz(
         {
           ...quiz,
-          leagueId,
           updatedAt: serverTimestamp(),
         },
         leagueId

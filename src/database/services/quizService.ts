@@ -12,7 +12,6 @@ import { db } from "../../../firebase";
 
 export type Quiz = {
   id?: string;
-  leagueId: string;
   title: string;
   time: FieldValue | Date | Timestamp;
   updatedAt: FieldValue | Date | Timestamp;
