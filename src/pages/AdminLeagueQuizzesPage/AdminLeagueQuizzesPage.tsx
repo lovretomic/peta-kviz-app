@@ -40,6 +40,7 @@ const AdminLeagueQuizzesPage = () => {
       type: "string",
       width: 1,
       notEditable: true,
+      notAddable: true,
     },
     {
       id: "title",

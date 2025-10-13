@@ -13,6 +13,7 @@ type RenderProps = {
 };
 
 const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
+  if (value === undefined) return null;
   switch (type) {
     case "string": {
       if (value === "" || value === null || value === undefined) {
