@@ -9,20 +9,24 @@ export type TeamPointsRow = {
   points: number;
 };
 
-type AdminPointsTableProps = {
-  data: TeamPointsRow[];
-};
+const data: TeamPointsRow[] = [
+  { id: "1", name: "Team A", points: 100 },
+  { id: "2", name: "Team B", points: 200 },
+  { id: "3", name: "Team C", points: 300 },
+];
 
-const AdminPointsTable = ({ data }: AdminPointsTableProps) => {
+const AdminPointsTable = () => {
   const [rows, setRows] = useState<TeamPointsRow[]>(data);
   const [displayedRows, setDisplayedRows] = useState<TeamPointsRow[]>(data);
 
+  const [rounds, setRounds] = useState(2);
+
   return (
-    <div className={c.page}>
-      <h1 className={c.title}>Kviz općeg znanja — bodovi</h1>
-      <p className={c.subtitle}>1. 1. 2025. u 19:00 sati.</p>
+    <div className={c.adminPointsTable}>
       <div className={c.buttons}>
         <AdminButton onClick={() => setRows(displayedRows)}>Spremi</AdminButton>
+        <AdminButton variant="secondary">Preuzmi tablicu</AdminButton>
+        <AdminButton variant="secondary">Učitaj podatke</AdminButton>
       </div>
       <div className={c.container}>
         {displayedRows.map((row) => (

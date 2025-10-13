@@ -1,17 +1,8 @@
-.page {
-  .title {
-    color: black;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    color: rgba(black, 0.6);
-    margin-bottom: 24px;
-    font-size: 20px;
-  }
-
+.adminPointsTable {
   .buttons {
     margin-bottom: 16px;
+    display: flex;
+    gap: 8px;
   }
 }
 
