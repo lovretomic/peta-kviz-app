@@ -1,44 +1,43 @@
 import AdminTable from "../../components/AdminTable";
 import type { AdminTableColumn } from "../../components/AdminTable/types";
 import { formatDate } from "../../helpers";
-import type { Team } from "../../types";
 import c from "./AdminQuizTeamsPage.module.scss";
 
-const data: Team[] = [
-  {
-    id: 1,
-    name: "Ekipe 1",
-    captainName: "Ivan Horvat",
-    captainEmail: "ivan.horvat@example.com",
-    members: ["Ana Kovač", "Marko Marić", "Luka Babić", "Petra Novak"],
-    applicationDate: new Date("2024-06-15T10:30:00Z"),
-  },
-  {
-    id: 2,
-    name: "Ekipe 2",
-    captainName: "Petra Novak",
-    captainEmail: "petra.novak@example.com",
-    members: ["Luka Babić", "Ana Kovač", "Marko Marić"],
-    applicationDate: new Date("2024-06-16T14:45:00Z"),
-  },
-  {
-    id: 3,
-    name: "Ekipe 3",
-    captainName: "Marko Marić",
-    captainEmail: "marko.maric@example.com",
-    members: ["Ana Kovač", "Petra Novak", "Luka Babić"],
-    applicationDate: new Date("2024-06-17T09:15:00Z"),
-  },
-];
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { db } from "../../database/db";
+import type { Team } from "../../database/services/teamServices";
+import { useParams } from "react-router-dom";
 
 const AdminQuizTeamsPage = () => {
+  const { leagueId, quizId } = useParams();
+
+  const { data: teams } = useQuery<Team[]>({
+    queryKey: ["teams", quizId, leagueId],
+    queryFn: () => db.teams.getAll(quizId as string, leagueId as string),
+  });
+
+  const { mutate: addTeam } = useMutation({
+    mutationFn: (team: Omit<Team, "id">) =>
+      db.teams.add(team, quizId as string, leagueId as string),
+  });
+
+  const { mutate: editTeam } = useMutation({
+    mutationFn: (team: Partial<Team>) =>
+      db.teams.update(team, quizId as string, leagueId as string),
+  });
+
+  const { mutate: deleteTeam } = useMutation({
+    mutationFn: (id: string) =>
+      db.teams.delete(id, quizId as string, leagueId as string),
+  });
+
   const columns: AdminTableColumn<Team>[] = [
     {
       id: "id",
       label: "ID",
       type: "number",
       accessor: (team) => team.id,
-      getSearchValue: (team) => team.id.toString(),
+      getSearchValue: (team) => team.id?.toString() ?? "",
       width: 1,
       notEditable: true,
     },
@@ -46,8 +45,8 @@ const AdminQuizTeamsPage = () => {
       id: "name",
       label: "Naziv ekipe",
       type: "string",
-      accessor: (team) => team.name,
-      getSearchValue: (team) => team.name,
+      accessor: (team) => team.teamName,
+      getSearchValue: (team) => team.teamName,
       width: 150,
     },
     {
@@ -80,13 +79,16 @@ const AdminQuizTeamsPage = () => {
       label: "Datum prijave",
       type: "timestamp",
       accessor: (team) => team.applicationDate,
-      getSearchValue: (team) =>
-        formatDate(team.applicationDate?.toISOString() || ""),
+      getSearchValue: (team) => formatDate(team.applicationDate as Date) || "",
     },
   ];
   return (
     <div className={c.page}>
-      <AdminTable columns={columns} title="Prijave na kviz" data={data} />
+      <AdminTable
+        columns={columns}
+        title={`Timovi - Kviz ${quizId}`}
+        data={teams || []}
+      />
     </div>
   );
 };
