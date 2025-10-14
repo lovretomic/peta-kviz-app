@@ -81,6 +81,16 @@ const AdminQuizTeamsPage = () => {
       accessor: (team) => team.applicationDate,
       getSearchValue: (team) => formatDate(team.applicationDate as Date) || "",
     },
+    {
+      id: "updatedAt",
+      label: "Ažurirano",
+      type: "timestamp",
+      accessor: (team) => team.updatedAt,
+      getSearchValue: (team) => formatDate(team.updatedAt as Date) || "",
+      notAddable: true,
+      notEditable: true,
+      width: 200,
+    },
   ];
   return (
     <div className={c.page}>
