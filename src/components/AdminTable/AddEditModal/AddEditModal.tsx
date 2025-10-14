@@ -134,21 +134,28 @@ const AddEditModal = <T extends { id?: string }>({
                     dataToEdit[column.id as keyof typeof dataToEdit].map(
                       (value: string, index: number) => (
                         <div key={index}>
-                          <input
+                          <AdminInput
                             key={index}
                             type="text"
                             defaultValue={value}
                             disabled={dataToEdit && column.notEditable}
                           />
-                          <button disabled={dataToEdit && column.notEditable}>
+                          <AdminButton
+                            disabled={dataToEdit && column.notEditable}
+                          >
                             Ukloni
-                          </button>
+                          </AdminButton>
                         </div>
                       )
                     )}
-                  <button disabled={dataToEdit && column.notEditable}>
+                  <AdminButton
+                    disabled={dataToEdit && column.notEditable}
+                    onClick={() => {
+                      console.log("Add new string to array");
+                    }}
+                  >
                     Dodaj
-                  </button>
+                  </AdminButton>
                 </div>
               );
             default:
