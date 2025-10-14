@@ -35,7 +35,7 @@ const AdminQuizTeamsPage = () => {
     {
       id: "id",
       label: "ID",
-      type: "number",
+      type: "string",
       accessor: (team) => team.id,
       getSearchValue: (team) => team.id?.toString() ?? "",
       width: 1,
