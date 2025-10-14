@@ -88,6 +88,9 @@ const AdminQuizTeamsPage = () => {
         columns={columns}
         title={`Timovi - Kviz ${quizId}`}
         data={teams || []}
+        addFn={addTeam}
+        editFn={editTeam}
+        deleteFn={deleteTeam}
       />
     </div>
   );
