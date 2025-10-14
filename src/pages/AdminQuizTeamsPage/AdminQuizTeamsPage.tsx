@@ -43,7 +43,7 @@ const AdminQuizTeamsPage = () => {
       notAddable: true,
     },
     {
-      id: "name",
+      id: "teamName",
       label: "Naziv ekipe",
       type: "string",
       accessor: (team) => team.teamName,
