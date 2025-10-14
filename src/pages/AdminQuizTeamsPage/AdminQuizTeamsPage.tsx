@@ -40,6 +40,7 @@ const AdminQuizTeamsPage = () => {
       getSearchValue: (team) => team.id?.toString() ?? "",
       width: 1,
       notEditable: true,
+      notAddable: true,
     },
     {
       id: "name",
