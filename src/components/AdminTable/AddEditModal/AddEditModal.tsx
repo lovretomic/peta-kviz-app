@@ -140,9 +140,12 @@ const AddEditModal = <T extends { id?: string }>({
                             type="text"
                             name={column.id as string}
                             id={column.id as string}
-                            defaultValue={value}
+                            value={value}
                             disabled={dataToEdit && column.notEditable}
-                            removeMember={(name: string) => {}}
+                            removeMember={(name: string) => {
+                              console.log(name);
+                            }}
+                            onChange={handleInputChange}
                           />
                         </div>
                       )

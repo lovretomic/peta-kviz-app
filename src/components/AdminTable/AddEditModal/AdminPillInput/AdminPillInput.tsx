@@ -18,7 +18,8 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
             if (props.value && typeof props.value === "string") {
               removeMember(props.value);
             } else {
-              console.error("Member name is not a string");
+              console.log(typeof props.value);
+              console.error("nije string");
             }
           }}
         />
