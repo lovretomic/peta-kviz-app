@@ -129,6 +129,7 @@ const AddEditModal = <T extends { id?: string }>({
             case "stringArray":
               return (
                 <div key={column.id as string} className={c.stringArray}>
+                  <label>{column.label}</label>
                   {formState[column.id as keyof typeof formState] &&
                     (
                       formState[column.id as keyof typeof formState] as string[]
