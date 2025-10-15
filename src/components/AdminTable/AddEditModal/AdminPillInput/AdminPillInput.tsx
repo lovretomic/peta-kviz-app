@@ -1,5 +1,5 @@
 import c from "./AdminPillInput.module.scss";
-import CloseIcon from "../../../../assets/icons/close.svg?react";
+import CloseIconBlack from "../../../../assets/icons/close-black.svg?react";
 
 type AdminPillInputProps = {
   removeMember?: (name: string) => void;
@@ -13,7 +13,7 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
     <div className={c.pillInputContainer}>
       <input className={c.pillInput} {...props} disabled={props.disabled} />
       {removeMember && (
-        <CloseIcon
+        <CloseIconBlack
           onClick={() => {
             if (props.value && typeof props.value === "string") {
               removeMember(props.value);
