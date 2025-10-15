@@ -2,10 +2,12 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border-radius: 16px;
+  border: 1px solid rgba($grey-dark, 0.2);
 }
 
 .pillInput {
-  border: 1px solid rgba($grey-dark, 0.2);
+  border: none;
   padding: 8px;
   border-radius: 16px;
   transition: 100ms ease;
