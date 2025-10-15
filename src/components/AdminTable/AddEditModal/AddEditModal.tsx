@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
+import AdminPillInput from "./AdminPillInput/AdminPillInput";
 import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
@@ -151,6 +152,7 @@ const AddEditModal = <T extends { id?: string }>({
                         </div>
                       )
                     )}
+                  <AdminPillInput placeholder="Unesi vrijednost" />
                   <AdminButton
                     disabled={dataToEdit && column.notEditable}
                     onClick={() => {
