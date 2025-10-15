@@ -133,10 +133,13 @@ const AddEditModal = <T extends { id?: string }>({
                   {dataToEdit &&
                     dataToEdit[column.id as keyof typeof dataToEdit].map(
                       (value: string, index: number) => (
-                        <div key={index}>
+                        <div key={index} className={c.stringArrayItem}>
                           <AdminInput
+                            variant="small"
                             key={index}
                             type="text"
+                            name={column.id as string}
+                            id={column.id as string}
                             defaultValue={value}
                             disabled={dataToEdit && column.notEditable}
                           />
