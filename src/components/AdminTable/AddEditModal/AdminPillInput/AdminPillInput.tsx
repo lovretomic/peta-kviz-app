@@ -7,15 +7,21 @@ type AdminPillInputProps = {
 
 const AdminPillInput: React.FC<AdminPillInputProps> = ({
   removeMember,
+  onChange,
   ...props
 }) => {
   return (
     <div className={c.pillInputContainer}>
-      <input className={c.pillInput} {...props} disabled={props.disabled} />
+      <input
+        className={c.pillInput}
+        {...props}
+        disabled={props.disabled}
+        onChange={onChange}
+      />
       {removeMember && (
         <CloseIconBlack
           onClick={() => {
-            if (props.value && typeof props.value === "string") {
+            if (typeof props.value === "string") {
               removeMember(props.value);
             } else {
               console.log(typeof props.value);
