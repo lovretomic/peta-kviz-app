@@ -4,6 +4,8 @@
   justify-content: flex-start;
   border-radius: 16px;
   border: 1px solid rgba($grey-dark, 0.2);
+  padding: 4px 8px;
+  min-width: fit-content;
 }
 
 .pillInput {
@@ -11,9 +13,18 @@
   padding: 8px;
   border-radius: 16px;
   transition: 100ms ease;
+  min-width: 60px;
+  box-sizing: content-box;
 
   &:focus {
     border-color: $grey-dark;
     outline: none;
   }
+}
+
+.hiddenSpan {
+  position: absolute;
+  visibility: hidden;
+  font: inherit;
+  padding: 8px;
 }
