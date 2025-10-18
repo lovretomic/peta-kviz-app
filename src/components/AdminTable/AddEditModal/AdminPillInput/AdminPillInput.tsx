@@ -61,6 +61,7 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
           />
           {removeMember && (
             <CloseIconBlack
+              className={c.closeIcon}
               onClick={() => {
                 if (typeof value === "string") {
                   removeMember(value);
