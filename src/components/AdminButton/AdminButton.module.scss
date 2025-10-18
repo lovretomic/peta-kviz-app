@@ -28,6 +28,11 @@
       background-color: color.adjust($grey-dark, $lightness: 10%);
     }
 
+    &:disabled {
+      background-color: rgba($grey-dark, 0.5);
+      cursor: not-allowed;
+    }
+
     .icon {
       fill: white;
     }
@@ -39,6 +44,11 @@
 
     &:hover {
       background-color: rgba($grey-dark, 0.2);
+    }
+
+    &:disabled {
+      background-color: rgba($grey-dark, 0.05);
+      cursor: not-allowed;
     }
 
     .icon {

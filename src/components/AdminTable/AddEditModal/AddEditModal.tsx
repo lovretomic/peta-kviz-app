@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
+import AdminPillInput from "./AdminPillInput/AdminPillInput";
 import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
@@ -125,30 +126,63 @@ const AddEditModal = <T extends { id?: string }>({
                   />
                 </div>
               );
-
             case "stringArray":
               return (
                 <div key={column.id as string} className={c.stringArray}>
                   <label>{column.label}</label>
-                  {dataToEdit &&
-                    dataToEdit[column.id as keyof typeof dataToEdit].map(
-                      (value: string, index: number) => (
-                        <div key={index}>
-                          <input
-                            key={index}
-                            type="text"
-                            defaultValue={value}
-                            disabled={dataToEdit && column.notEditable}
-                          />
-                          <button disabled={dataToEdit && column.notEditable}>
-                            Ukloni
-                          </button>
-                        </div>
-                      )
-                    )}
-                  <button disabled={dataToEdit && column.notEditable}>
+                  {formState[column.id as keyof typeof formState] &&
+                    (
+                      formState[column.id as keyof typeof formState] as string[]
+                    ).map((value: string, index: number) => (
+                      <div
+                        key={`${String(column.id)}-${index}`}
+                        className={c.stringArrayItem}
+                      >
+                        <AdminPillInput
+                          type="text"
+                          name={column.id as string}
+                          id={column.id as string}
+                          value={value}
+                          disabled={dataToEdit && column.notEditable}
+                          placeholder="Unesi novog člana"
+                          removeMember={() => {
+                            setFormState((prev) => ({
+                              ...prev,
+                              [column.id]: (
+                                prev[column.id as keyof typeof prev] as string[]
+                              ).filter((_, i) => i !== index),
+                            }));
+                          }}
+                          onChange={(e) => {
+                            const newValue = e.target.value;
+                            setFormState((prev) => ({
+                              ...prev,
+                              [column.id]: (
+                                prev[column.id as keyof typeof prev] as string[]
+                              ).map((item, i) =>
+                                i === index ? newValue : item
+                              ),
+                            }));
+                          }}
+                        />
+                      </div>
+                    ))}
+                  <AdminButton
+                    disabled={dataToEdit && column.notEditable}
+                    onClick={() => {
+                      setFormState((prev) => ({
+                        ...prev,
+                        [column.id]: [
+                          ...((prev[
+                            column.id as keyof typeof prev
+                          ] as string[]) || []),
+                          "",
+                        ],
+                      }));
+                    }}
+                  >
                     Dodaj
-                  </button>
+                  </AdminButton>
                 </div>
               );
             default:

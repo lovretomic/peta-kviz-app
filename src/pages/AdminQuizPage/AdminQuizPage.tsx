@@ -25,7 +25,7 @@ const AdminQuizPage = () => {
       title: "Prijave",
       Icon: <HandWithCheckIcon />,
       message: "Pregled i upravljanje prijavama.",
-      href: `applications`,
+      href: `teams`,
     },
   ];
 

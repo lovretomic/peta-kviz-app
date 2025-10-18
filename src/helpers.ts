@@ -24,10 +24,19 @@ export function formatDate(
   return `${day}. ${month}. ${year}. u ${hours}:${minutes}:${seconds}`;
 }
 
-export function toLocalInputValue(date: Date): string {
-  if (date == undefined) return "";
-  const off = date.getTimezoneOffset() * 60000;
-  return new Date(date.getTime() - off).toISOString().slice(0, 16);
+export function toLocalInputValue(date: Date | string | Timestamp): string {
+  if (date == undefined || date == null) return "";
+
+  if (date instanceof Timestamp) {
+    date = date.toDate();
+  }
+
+  const parsedDate = new Date(date);
+
+  let off = 0;
+  if (parsedDate.getTimezoneOffset())
+    off = parsedDate.getTimezoneOffset() * 60000;
+  return new Date(parsedDate.getTime() - off).toISOString().slice(0, 16);
 }
 
 export function normalizeEpochMs(n: number) {
