@@ -1,20 +1,37 @@
-.pillInputContainer {
+.inputsContainer {
   display: flex;
-  align-items: center;
   justify-content: flex-start;
-  border-radius: 16px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pillInputContainer {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+
+  border-radius: 12px;
   border: 1px solid rgba($grey-dark, 0.2);
-  padding: 4px 8px;
+  padding: 2px 2px;
+
+  width: clamp(60px, 12vw, 200px);
   min-width: fit-content;
+
+  box-sizing: border-box;
+  white-space: nowrap;
+  transition: width 140ms ease;
 }
 
 .pillInput {
   border: none;
-  padding: 8px;
-  border-radius: 16px;
+  outline: none;
+  padding: 6px 4px;
+  border-radius: 8px;
   transition: 100ms ease;
   min-width: 60px;
   box-sizing: content-box;
+  width: auto;
 
   &:focus {
     border-color: $grey-dark;
@@ -22,9 +39,18 @@
   }
 }
 
+.closeIcon,
+svg {
+  width: 0.95em;
+  height: 0.95em;
+  flex: 0 0 auto;
+  cursor: pointer;
+  padding-right: 6px;
+}
+
 .hiddenSpan {
   position: absolute;
   visibility: hidden;
   font: inherit;
-  padding: 8px;
+  padding: 6px 4px;
 }
