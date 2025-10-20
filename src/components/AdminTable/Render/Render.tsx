@@ -61,7 +61,7 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
       return (
         <div className={c.stringArray}>
           {value.map((v, index) => (
-            <p key={`${index}-${v}`}>{v}</p> //ovo sam promijenio jer inače ne mogu biti duplikati imena (ak se to nekad desi)
+            <p key={`${index}-${v}`}>{v}</p>
           ))}
         </div>
       );

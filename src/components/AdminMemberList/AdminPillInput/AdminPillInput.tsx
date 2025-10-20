@@ -49,20 +49,18 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
   return (
     <>
       <span ref={hiddenSpanRef} className={c.hiddenSpan} />
-      <div className={c.inputsContainer}>
-        <div ref={containerRef} className={c.pillInputContainer}>
-          <input
-            ref={inputRef}
-            className={c.pillInput}
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            {...props}
-          />
-          {removeMember && (
-            <CloseIconBlack className={c.closeIcon} onClick={removeMember} />
-          )}
-        </div>
+      <div ref={containerRef} className={c.pillInputContainer}>
+        <input
+          ref={inputRef}
+          className={c.pillInput}
+          placeholder={placeholder}
+          value={value}
+          onChange={handleChange}
+          {...props}
+        />
+        {removeMember && (
+          <CloseIconBlack className={c.closeIcon} onClick={removeMember} />
+        )}
       </div>
     </>
   );
