@@ -1,9 +1,9 @@
 import { useRef, useEffect, useCallback } from "react";
 import c from "./AdminPillInput.module.scss";
-import CloseIconBlack from "../../../../assets/icons/close-black.svg?react";
+import CloseIconBlack from "../../../assets/icons/close-black.svg?react";
 
 type AdminPillInputProps = {
-  removeMember?: (name: string) => void;
+  removeMember?: () => void;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 const AdminPillInput: React.FC<AdminPillInputProps> = ({
@@ -60,16 +60,7 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
             {...props}
           />
           {removeMember && (
-            <CloseIconBlack
-              className={c.closeIcon}
-              onClick={() => {
-                if (typeof value === "string") {
-                  removeMember(value);
-                } else {
-                  console.error("Value is not a string");
-                }
-              }}
-            />
+            <CloseIconBlack className={c.closeIcon} onClick={removeMember} />
           )}
         </div>
       </div>

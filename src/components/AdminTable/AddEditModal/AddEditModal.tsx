@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { toLocalInputValue } from "../../../helpers";
 import AdminButton from "../../AdminButton";
 import AdminModal from "../../AdminModal";
-import AdminPillInput from "./AdminPillInput/AdminPillInput";
 import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
 import AdminInput from "../../AdminInput";
+import AdminMemberList from "../../AdminMemberList";
 
 type AddEditModalProps<T> = {
   isOpen: boolean;
@@ -46,6 +46,38 @@ const AddEditModal = <T extends { id?: string }>({
     setFormState((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleStringArrayChange = (
+    columnId: string,
+    index: number,
+    value: string
+  ) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: ((prev[columnId as keyof typeof prev] as string[]) || []).map(
+        (item, i) => (i === index ? value : item)
+      ),
+    }));
+  };
+
+  const handleStringArrayRemove = (columnId: string, index: number) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: (
+        (prev[columnId as keyof typeof prev] as string[]) || []
+      ).filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleStringArrayAdd = (columnId: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: [
+        ...((prev[columnId as keyof typeof prev] as string[]) || []),
+        "",
+      ],
     }));
   };
 
@@ -130,59 +162,22 @@ const AddEditModal = <T extends { id?: string }>({
               return (
                 <div key={column.id as string} className={c.stringArray}>
                   <label>{column.label}</label>
-                  {formState[column.id as keyof typeof formState] &&
-                    (
-                      formState[column.id as keyof typeof formState] as string[]
-                    ).map((value: string, index: number) => (
-                      <div
-                        key={`${String(column.id)}-${index}`}
-                        className={c.stringArrayItem}
-                      >
-                        <AdminPillInput
-                          type="text"
-                          name={column.id as string}
-                          id={column.id as string}
-                          value={value}
-                          disabled={dataToEdit && column.notEditable}
-                          placeholder="Unesi novog člana"
-                          removeMember={() => {
-                            setFormState((prev) => ({
-                              ...prev,
-                              [column.id]: (
-                                prev[column.id as keyof typeof prev] as string[]
-                              ).filter((_, i) => i !== index),
-                            }));
-                          }}
-                          onChange={(e) => {
-                            const newValue = e.target.value;
-                            setFormState((prev) => ({
-                              ...prev,
-                              [column.id]: (
-                                prev[column.id as keyof typeof prev] as string[]
-                              ).map((item, i) =>
-                                i === index ? newValue : item
-                              ),
-                            }));
-                          }}
-                        />
-                      </div>
-                    ))}
-                  <AdminButton
+                  <AdminMemberList
+                    column={column}
+                    items={
+                      (formState[
+                        column.id as keyof typeof formState
+                      ] as string[]) || []
+                    }
                     disabled={dataToEdit && column.notEditable}
-                    onClick={() => {
-                      setFormState((prev) => ({
-                        ...prev,
-                        [column.id]: [
-                          ...((prev[
-                            column.id as keyof typeof prev
-                          ] as string[]) || []),
-                          "",
-                        ],
-                      }));
-                    }}
-                  >
-                    Dodaj
-                  </AdminButton>
+                    onAdd={() => handleStringArrayAdd(column.id as string)}
+                    onRemove={(index) =>
+                      handleStringArrayRemove(column.id as string, index)
+                    }
+                    onChange={(index, value) =>
+                      handleStringArrayChange(column.id as string, index, value)
+                    }
+                  />
                 </div>
               );
             default:
