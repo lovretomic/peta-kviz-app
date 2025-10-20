@@ -130,15 +130,15 @@ const AddEditModal = <T extends { id?: string }>({
               return (
                 <div key={column.id as string} className={c.stringArray}>
                   <label>{column.label}</label>
-                  {formState[column.id as keyof typeof formState] &&
-                    (
-                      formState[column.id as keyof typeof formState] as string[]
-                    ).map((value: string, index: number) => (
-                      <div
-                        key={`${String(column.id)}-${index}`}
-                        className={c.stringArrayItem}
-                      >
+                  <div className={c.pillsContainer}>
+                    {formState[column.id as keyof typeof formState] &&
+                      (
+                        formState[
+                          column.id as keyof typeof formState
+                        ] as string[]
+                      ).map((value: string, index: number) => (
                         <AdminPillInput
+                          key={`${String(column.id)}-${index}`}
                           type="text"
                           name={column.id as string}
                           id={column.id as string}
@@ -165,8 +165,8 @@ const AddEditModal = <T extends { id?: string }>({
                             }));
                           }}
                         />
-                      </div>
-                    ))}
+                      ))}
+                  </div>
                   <AdminButton
                     disabled={dataToEdit && column.notEditable}
                     onClick={() => {

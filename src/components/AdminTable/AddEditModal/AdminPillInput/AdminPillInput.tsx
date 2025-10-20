@@ -49,29 +49,28 @@ const AdminPillInput: React.FC<AdminPillInputProps> = ({
   return (
     <>
       <span ref={hiddenSpanRef} className={c.hiddenSpan} />
-      <div className={c.inputsContainer}>
-        <div ref={containerRef} className={c.pillInputContainer}>
-          <input
-            ref={inputRef}
-            className={c.pillInput}
-            placeholder={placeholder}
-            value={value}
-            onChange={handleChange}
-            {...props}
+
+      <div ref={containerRef} className={c.pillInputContainer}>
+        <input
+          ref={inputRef}
+          className={c.pillInput}
+          placeholder={placeholder}
+          value={value}
+          onChange={handleChange}
+          {...props}
+        />
+        {removeMember && (
+          <CloseIconBlack
+            className={c.closeIcon}
+            onClick={() => {
+              if (typeof value === "string") {
+                removeMember(value);
+              } else {
+                console.error("Value is not a string");
+              }
+            }}
           />
-          {removeMember && (
-            <CloseIconBlack
-              className={c.closeIcon}
-              onClick={() => {
-                if (typeof value === "string") {
-                  removeMember(value);
-                } else {
-                  console.error("Value is not a string");
-                }
-              }}
-            />
-          )}
-        </div>
+        )}
       </div>
     </>
   );
