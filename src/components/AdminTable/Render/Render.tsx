@@ -13,6 +13,7 @@ type RenderProps = {
 };
 
 const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
+  if (value === undefined && type !== "action") return null;
   switch (type) {
     case "string": {
       if (value === "" || value === null || value === undefined) {
@@ -59,8 +60,8 @@ const Render = ({ type, value, onAction, actionName, item }: RenderProps) => {
       }
       return (
         <div className={c.stringArray}>
-          {value.map((v) => (
-            <p key={v}>{v}</p>
+          {value.map((v, index) => (
+            <p key={`${index}-${v}`}>{v}</p>
           ))}
         </div>
       );
