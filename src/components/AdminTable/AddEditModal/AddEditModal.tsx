@@ -6,6 +6,7 @@ import type { AdminTableColumn } from "../types";
 
 import c from "./AddEditModal.module.scss";
 import AdminInput from "../../AdminInput";
+import AdminMemberList from "../../AdminMemberList";
 
 type AddEditModalProps<T> = {
   isOpen: boolean;
@@ -45,6 +46,38 @@ const AddEditModal = <T extends { id?: string }>({
     setFormState((prev) => ({
       ...prev,
       [name]: value,
+    }));
+  };
+
+  const handleStringArrayChange = (
+    columnId: string,
+    index: number,
+    value: string
+  ) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: ((prev[columnId as keyof typeof prev] as string[]) || []).map(
+        (item, i) => (i === index ? value : item)
+      ),
+    }));
+  };
+
+  const handleStringArrayRemove = (columnId: string, index: number) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: (
+        (prev[columnId as keyof typeof prev] as string[]) || []
+      ).filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleStringArrayAdd = (columnId: string) => {
+    setFormState((prev) => ({
+      ...prev,
+      [columnId]: [
+        ...((prev[columnId as keyof typeof prev] as string[]) || []),
+        "",
+      ],
     }));
   };
 
@@ -125,30 +158,26 @@ const AddEditModal = <T extends { id?: string }>({
                   />
                 </div>
               );
-
             case "stringArray":
               return (
                 <div key={column.id as string} className={c.stringArray}>
                   <label>{column.label}</label>
-                  {dataToEdit &&
-                    dataToEdit[column.id as keyof typeof dataToEdit].map(
-                      (value: string, index: number) => (
-                        <div key={index}>
-                          <input
-                            key={index}
-                            type="text"
-                            defaultValue={value}
-                            disabled={dataToEdit && column.notEditable}
-                          />
-                          <button disabled={dataToEdit && column.notEditable}>
-                            Ukloni
-                          </button>
-                        </div>
-                      )
-                    )}
-                  <button disabled={dataToEdit && column.notEditable}>
-                    Dodaj
-                  </button>
+                  <AdminMemberList
+                    column={column}
+                    items={
+                      (formState[
+                        column.id as keyof typeof formState
+                      ] as string[]) || []
+                    }
+                    disabled={dataToEdit && column.notEditable}
+                    onAdd={() => handleStringArrayAdd(column.id as string)}
+                    onRemove={(index) =>
+                      handleStringArrayRemove(column.id as string, index)
+                    }
+                    onChange={(index, value) =>
+                      handleStringArrayChange(column.id as string, index, value)
+                    }
+                  />
                 </div>
               );
             default:
