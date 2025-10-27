@@ -6,20 +6,38 @@ import clsx from "clsx";
 export type TeamPointsRow = {
   id: string;
   name: string;
-  points: number;
+  rounds: {
+    order: number;
+    points: number;
+  }[];
 };
 
 const data: TeamPointsRow[] = [
-  { id: "1", name: "Team A", points: 100 },
-  { id: "2", name: "Team B", points: 200 },
-  { id: "3", name: "Team C", points: 300 },
+  {
+    id: "1",
+    name: "Team A",
+    rounds: [
+      {
+        order: 1,
+        points: 52,
+      },
+    ],
+  },
+  {
+    id: "2",
+    name: "Team B",
+    rounds: [
+      {
+        order: 1,
+        points: 53,
+      },
+    ],
+  },
 ];
 
 const AdminPointsTable = () => {
   const [rows, setRows] = useState<TeamPointsRow[]>(data);
   const [displayedRows, setDisplayedRows] = useState<TeamPointsRow[]>(data);
-
-  const [rounds, setRounds] = useState(2);
 
   return (
     <div className={c.adminPointsTable}>
@@ -29,31 +47,41 @@ const AdminPointsTable = () => {
         <AdminButton variant="secondary">Učitaj podatke</AdminButton>
       </div>
       <div className={c.container}>
-        {displayedRows.map((row) => (
+        {displayedRows.map((displayedRow) => (
           <>
-            <div>{row.name}</div>
-            <input
-              type="number"
-              value={row.points.toString()}
-              onChange={(e) => {
-                let val = e.target.value;
+            <div>{displayedRow.name}</div>
+            {displayedRow.rounds.map((round, i) => (
+              <input
+                type="number"
+                value={round.points.toString()}
+                onChange={(e) => {
+                  let val = e.target.value;
+                  val = val.replace(/^0+(?=\d)/, "");
+                  const newPoints = Number(val);
 
-                val = val.replace(/^0+(?=\d)/, "");
-
-                const newPoints = Number(val);
-
-                setDisplayedRows((prev) =>
-                  prev.map((r) =>
-                    r.id === row.id ? { ...r, points: newPoints } : r
-                  )
-                );
-              }}
-              className={clsx({
-                [c.input]: true,
-                [c.isChanged]:
-                  rows.find((r) => r.id === row.id)?.points !== row.points,
-              })}
-            />
+                  setDisplayedRows((prevRows) =>
+                    prevRows.map((row) =>
+                      row.id === displayedRow.id
+                        ? ({
+                            ...row,
+                            rounds: row.rounds.map((r) =>
+                              r.order === round.order
+                                ? { ...round, points: newPoints }
+                                : round
+                            ),
+                          } as TeamPointsRow)
+                        : row
+                    )
+                  );
+                }}
+                className={clsx({
+                  [c.input]: true,
+                  [c.isChanged]:
+                    rows.find((r) => r.id === displayedRow.id)?.rounds.at(i) !==
+                    displayedRow.rounds.at(i),
+                })}
+              />
+            ))}
           </>
         ))}
       </div>
