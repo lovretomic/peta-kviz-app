@@ -4,81 +4,72 @@
     display: flex;
     gap: 8px;
   }
-}
 
-.container {
-  display: grid;
-  grid-template-columns: min-content 100px;
+  .table {
+    border-collapse: collapse;
 
-  $border-style: 1px solid rgba(black, 0.2);
-  $border-radius: 8px;
-
-  div {
-    user-select: none;
-    border-left: $border-style;
-
-    &:first-of-type {
-      border-top-left-radius: $border-radius;
+    th,
+    td {
+      user-select: none;
+      text-align: left;
+      padding: 8px;
     }
 
-    &:last-of-type {
-      border-bottom-left-radius: $border-radius;
+    tbody {
+      tr {
+        &:hover {
+          background-color: #f1f1f1;
+        }
+
+        &:first-child {
+          padding: 16px;
+        }
+
+        td {
+          &:not(:first-child) {
+            &:hover {
+              background-color: #e2e2e2;
+            }
+
+            &:active {
+              background-color: #d4d4d4;
+            }
+          }
+        }
+      }
     }
-  }
 
-  .input {
-    outline: none;
-    border: 1px solid transparent;
-
-    &:first-of-type {
-      border-top-right-radius: $border-radius;
-    }
-
-    &:last-of-type {
-      border-bottom-right-radius: $border-radius;
-    }
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
 
-    &[type="number"] {
+    input[type="number"] {
       -moz-appearance: textfield;
       appearance: textfield;
     }
 
-    &:focus {
-      border: 1px solid black;
-    }
+    .input {
+      width: 80px;
+      font-size: 16px;
+      cursor: default;
 
-    transition: 100ms ease-in-out;
+      & .isChanged {
+        background-color: #fff3cd;
+      }
 
-    &.isChanged {
-      background-color: rgba(255, 235, 59, 0.3);
-      color: rgb(131, 52, 0);
-      font-weight: bold;
-    }
-  }
+      background-color: transparent;
+      border: none;
+      margin: 0;
 
-  div,
-  .input {
-    padding: 8px;
-
-    border-right: $border-style;
-    border-top: $border-style;
-
-    &:last-of-type {
-      &:not(:focus) {
-        border-bottom: $border-style;
+      &:focus {
+        outline: none;
       }
     }
-  }
 
-  * {
-    color: black;
-    white-space: nowrap;
-    font-size: 16px;
+    * {
+      color: black;
+    }
   }
 }
