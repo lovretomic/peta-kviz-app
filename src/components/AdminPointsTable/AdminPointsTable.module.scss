@@ -5,8 +5,30 @@
     gap: 8px;
   }
 
+  .tableButtonWrapper {
+    display: flex;
+    width: fit-content;
+    justify-content: flex-start;
+    gap: 8px;
+
+    button {
+      height: fit-content;
+      padding: 2px 8px;
+      margin-top: 4px;
+      &:not(:hover) {
+        opacity: 0.2;
+      }
+    }
+
+    * {
+      flex: 0;
+      text-wrap: nowrap;
+    }
+  }
+
   .table {
     border-collapse: collapse;
+    display: table;
 
     th,
     td {
@@ -16,6 +38,7 @@
     }
 
     tbody {
+      outline: 1px solid rgba(black, 0.1);
       tr {
         &:hover {
           background-color: #f1f1f1;
@@ -26,6 +49,8 @@
         }
 
         td {
+          outline: 1px solid rgba(black, 0.1);
+          outline-offset: -1px;
           &:not(:first-child) {
             &:hover {
               background-color: #e2e2e2;
@@ -64,7 +89,8 @@
       margin: 0;
 
       &:focus {
-        outline: none;
+        outline: 2px solid rgba(black, 0.5);
+        outline-offset: 7px;
       }
     }
 

@@ -10,6 +10,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 
+export type Round = {
+  order: number;
+  points: number;
+};
+
 export type Team = {
   id?: string;
   teamName: string;
@@ -18,6 +23,13 @@ export type Team = {
   members: string[];
   applicationDate: FieldValue | Date | Timestamp;
   updatedAt: FieldValue | Date | Timestamp;
+  rounds?: Round[];
+};
+
+export type TeamWithRounds = {
+  id: string;
+  teamName: string;
+  rounds: Round[];
 };
 
 export const createTeam = async (
@@ -51,6 +63,23 @@ export const getTeams = async (quizId: string, leagueId: string) => {
     id: doc.id,
     ...doc.data(),
   })) as Team[];
+};
+
+export const getTeamsWithRounds = async (quizId: string, leagueId: string) => {
+  const teamsRef = collection(
+    db,
+    "leagues",
+    leagueId,
+    "quizzes",
+    quizId,
+    "teams"
+  );
+  const snapshot = await getDocs(teamsRef);
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    teamName: doc.data().teamName,
+    rounds: doc.data().rounds || [],
+  })) as TeamWithRounds[];
 };
 
 export const updateTeam = async (
