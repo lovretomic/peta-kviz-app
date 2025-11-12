@@ -92,6 +92,60 @@ export const updateTeam = async (
   await updateDoc(docRef, team);
 };
 
+const normalizeRounds = (data: TeamWithRounds[]): TeamWithRounds[] => {
+  if (data.length === 0) return [];
+
+  const normalized: TeamWithRounds[] = [];
+
+  const maxRoundOrder = Math.max(
+    ...data.flatMap((team) => team.rounds.map((round) => round.order))
+  );
+
+  for (const team of data) {
+    const normalizedTeam: TeamWithRounds = {
+      id: team.id,
+      teamName: team.teamName,
+      rounds: [],
+    };
+
+    for (let order = 1; order <= maxRoundOrder; order++) {
+      const round = team.rounds.find((r) => r.order === order);
+      if (round) {
+        normalizedTeam.rounds.push(round);
+      } else {
+        normalizedTeam.rounds.push({ order, points: 0 });
+      }
+    }
+
+    normalized.push(normalizedTeam);
+  }
+
+  return normalized;
+};
+
+export const updateTeamsRounds = async (
+  data: TeamWithRounds[],
+  quizId: string,
+  leagueId: string
+) => {
+  const normalizedData = normalizeRounds(data);
+
+  const updatePromises = normalizedData.map((team) => {
+    const docRef = doc(
+      db,
+      "leagues",
+      leagueId,
+      "quizzes",
+      quizId,
+      "teams",
+      team.id
+    );
+    return updateDoc(docRef, { rounds: team.rounds });
+  });
+
+  await Promise.all(updatePromises);
+};
+
 export const deleteTeam = async (
   id: string,
   quizId: string,
